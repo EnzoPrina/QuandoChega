@@ -1,39 +1,29 @@
-import { DarkTheme, DefaultTheme, ThemeProvider } from '@react-navigation/native';
-import { useFonts } from 'expo-font';
-import { Stack } from 'expo-router';
-import * as SplashScreen from 'expo-splash-screen';
-import { StatusBar } from 'expo-status-bar';
-import { useEffect } from 'react';
-import 'react-native-reanimated';
+import React from 'react';
+import { Tabs } from 'expo-router';
+import { useColorScheme } from 'react-native';
+import { DefaultTheme, DarkTheme } from '@react-navigation/native';
 
-import { useColorScheme } from '@/hooks/useColorScheme';
-
-// Prevent the splash screen from auto-hiding before asset loading is complete.
-SplashScreen.preventAutoHideAsync();
-
-export default function RootLayout() {
+export default function Layout() {
+  // Detecta el esquema de color del dispositivo
   const colorScheme = useColorScheme();
-  const [loaded] = useFonts({
-    SpaceMono: require('../assets/fonts/SpaceMono-Regular.ttf'),
-  });
-
-  useEffect(() => {
-    if (loaded) {
-      SplashScreen.hideAsync();
-    }
-  }, [loaded]);
-
-  if (!loaded) {
-    return null;
-  }
 
   return (
-    <ThemeProvider value={colorScheme === 'dark' ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-      <StatusBar style="auto" />
-    </ThemeProvider>
+    <Tabs
+      screenOptions={{
+        headerStyle: {
+          backgroundColor: colorScheme === 'dark' ? DarkTheme.colors.background : DefaultTheme.colors.background,
+        },
+        headerTintColor: colorScheme === 'dark' ? DarkTheme.colors.text : DefaultTheme.colors.text,
+        tabBarStyle: {
+          backgroundColor: colorScheme === 'dark' ? DarkTheme.colors.card : DefaultTheme.colors.card,
+        },
+        tabBarActiveTintColor: colorScheme === 'dark' ? DarkTheme.colors.primary : DefaultTheme.colors.primary,
+        tabBarInactiveTintColor: colorScheme === 'dark' ? '#888' : '#555',
+      }}
+    >
+      <Tabs.Screen name="index" options={{ title: "Inicio" }} />
+      <Tabs.Screen name="Lineas" options={{ title: "Líneas" }} />
+      <Tabs.Screen name="Mapa" options={{ title: "Mapa" }} />
+    </Tabs>
   );
 }
