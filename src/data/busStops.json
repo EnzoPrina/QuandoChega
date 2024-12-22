@@ -1,0 +1,18 @@
+[
+    {
+      "id": 1,
+      "line": "U1",
+      "coordinates": {
+        "latitude": 41.805699,
+        "longitude": -6.757322
+      }
+    },
+    {
+      "id": 2,
+      "line": "U1",
+      "coordinates": {
+        "latitude": 41.806576,
+        "longitude": -6.754567
+      }
+    }
+  ]

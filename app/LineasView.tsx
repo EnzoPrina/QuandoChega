@@ -53,7 +53,7 @@ const getStyles = (scheme: 'light' | 'dark') =>
     container: {
       flex: 1,
       padding: 16,
-      backgroundColor: scheme === 'dark' ? '#333' : '#fff',
+      backgroundColor: scheme === 'dark' ? '#333' : '#f5f5f5',
     },
     title: {
       fontSize: 24,
