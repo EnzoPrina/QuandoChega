@@ -55,7 +55,7 @@ const getStyles = (scheme: 'light' | 'dark') =>
       flex: 1,
       backgroundColor: scheme === 'dark' ? '#333' : '#f5f5f5',
       padding: 16,
-      paddingTop: 40,
+      paddingTop: 120,
     },
     button: {
       width: '100%',

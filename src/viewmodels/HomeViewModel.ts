@@ -7,8 +7,8 @@ const HomeViewModel = {
     return [
       {
         id: 1,
-        name: 'Línea Verde',
-        color: '#00FF00',
+        name: 'U1',
+        color: '#118a37',
         paradas: [
           { id: 1, name: 'Estação Rodoviária', order: 1 },
           { id: 2, name: 'Praça Camões', order: 2 },
@@ -17,8 +17,18 @@ const HomeViewModel = {
       },
       {
         id: 2,
-        name: 'Línea Amarilla',
-        color: '#FFD700',
+        name: 'U2',
+        color: '#ffbf40',
+        paradas: [
+          { id: 1, name: 'Avenida Central', order: 1 },
+          { id: 2, name: 'Mercado Municipal', order: 2 },
+          { id: 3, name: 'Universidad', order: 3 },
+        ],
+      },
+      {
+        id: 3,
+        name: 'U3',
+        color: '#d6130c',
         paradas: [
           { id: 1, name: 'Avenida Central', order: 1 },
           { id: 2, name: 'Mercado Municipal', order: 2 },

@@ -1,9 +1,10 @@
+// src/models/BusStopModel.ts
 export interface BusStop {
-    id: number;
-    line: string;
-    coordinates: {
-      latitude: number;
-      longitude: number;
-    };
-  }
-  
+  number: number; 
+  line: string; 
+  nome: string;
+  coordinates: {
+    latitude: number;
+    longitude: number;
+  };
+}

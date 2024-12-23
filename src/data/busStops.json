@@ -1,18 +1,165 @@
 [
-    {
-      "id": 1,
-      "line": "U1",
-      "coordinates": {
-        "latitude": 41.805699,
-        "longitude": -6.757322
-      }
-    },
-    {
-      "id": 2,
-      "line": "U1",
-      "coordinates": {
-        "latitude": 41.806576,
-        "longitude": -6.754567
-      }
+  {
+    "number": 1,
+    "line": "U1",
+    "nome": "Estaçao Rodoviária de Bragança",
+    "coordinates": { 
+      "latitude": 41.80949668039707, 
+      "longitude": -6.760734587480952
     }
-  ]
+  },
+  {
+    "number": 2,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808115045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 3,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808115045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 4,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808115045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 5,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808115045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 5,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808115045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 6,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808115045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 7,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808115045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 8,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808115045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 9,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808115045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 10,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808115045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 11,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808115045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 12,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.8081154045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+  {
+    "number": 13,
+    "line": "U1",
+    "nome": "Esc. Sec. Abade Baçal",
+    "coordinates": {
+      "latitude": 41.808112045249195,
+      "longitude":  -6.761600983699297
+    }
+  },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  {
+    "number": 1,
+    "line": "U2",
+    "nome": "Esc. Augusto Moreno",
+    "coordinates": {
+      "latitude": 41.80871360511745, 
+      "longitude":  -6.764022709742262
+    }
+  },
+  {
+    "number": 1,
+    "line": "U3",
+    "nome": "CMB - Balcão Único",
+    "coordinates": {
+      "latitude": 41.806120636643996, 
+      "longitude":  -6.765120124427577
+    }
+  }
+  
+]

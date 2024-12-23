@@ -19,17 +19,16 @@ const MapScreen = () => {
           longitudeDelta: 0.01,
         }}
       >
-        {busStopsData.map((stop: BusStop) => (
+        {busStopsData.map((stop: BusStop, index: number) => (
           <Marker
-            key={stop.id}
+            key={`${stop.line}-${stop.number}`}
             coordinate={stop.coordinates}
-            title={`Parada ${stop.id}`}
+            title={`Parada ${stop.number}`}
             description={`Línea ${stop.line}`}
           >
-            {/* Número de parada */}
-            <View style={styles.markerContainer(stop.line)}>
+            <View style={styles.markerContainer}>
               <View style={styles.markerCircle(stop.line)}>
-                <Text style={styles.markerText}>{stop.id}</Text>
+                <Text style={styles.markerText}>{stop.number}</Text>
               </View>
             </View>
           </Marker>
@@ -46,15 +45,15 @@ const styles = StyleSheet.create({
   map: {
     flex: 1,
   },
-  markerContainer: (line: string) => ({
+  markerContainer: {
     alignItems: 'center',
     justifyContent: 'center',
-  }),
+  },
   markerCircle: (line: string) => ({
     width: 30,
     height: 30,
     borderRadius: 15,
-    backgroundColor: line === 'U1' ? 'red' : 'blue', // Color de fondo según la línea
+    backgroundColor: getColorByLine(line), // Color dinámico según la línea
     alignItems: 'center',
     justifyContent: 'center',
   }),
@@ -64,5 +63,19 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
 });
+
+// Función para obtener el color según la línea
+const getColorByLine = (line: string): string => {
+  switch (line) {
+    case 'U1':
+      return '#007722'; // Verde para U1
+    case 'U2':
+      return '#ede600'; // Amarillo para U2
+    case 'U3':
+      return '#d6130c'; // Rojo para U3
+    default:
+      return 'gray'; // Color por defecto
+  }
+};
 
 export default MapScreen;
