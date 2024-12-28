@@ -112,7 +112,7 @@
     "line": "U1",
     "nome": "Esc. Sec. Abade Baçal",
     "coordinates": {
-      "latitude": 41.8081154045249195,
+      "latitude": 41.808115045249195,
       "longitude":  -6.761600983699297
     }
   },
@@ -156,6 +156,15 @@
     "number": 1,
     "line": "U3",
     "nome": "CMB - Balcão Único",
+    "coordinates": {
+      "latitude": 41.806120636643996, 
+      "longitude":  -6.765120124427577
+    }
+  },
+  {
+    "number": 1,
+    "line": "R1",
+    "nome": "Sarzeda",
     "coordinates": {
       "latitude": 41.806120636643996, 
       "longitude":  -6.765120124427577

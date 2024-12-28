@@ -1,108 +1,143 @@
-import React from 'react';
-import { View, Text, TouchableOpacity, StyleSheet, useColorScheme, FlatList } from 'react-native';
-import { useNavigation } from '@react-navigation/native';
-import FavoriteStopsModel from '../src/models/FavoriteStopsModel';
+import React, { useEffect, useState } from 'react';
+import { View, TextInput, Button, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { AuthViewModel } from '../src/viewmodels/AuthViewModel';
+import { useRouter } from 'expo-router'; // Para la navegación
+import { onAuthStateChanged } from 'firebase/auth'; // Importamos para verificar el estado de autenticación
+import { auth } from '../src/data/firebaseConfig'; // Configuración de Firebase
+import { Ionicons } from '@expo/vector-icons'; // Para el icono de ojo
 
-export default function Index() {
-  const navigation = useNavigation();
-  const scheme = useColorScheme();
+export default function LoginScreen() {
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
+  const [error, setError] = useState('');
+  const [loading, setLoading] = useState(true); // Estado para manejar la carga al iniciar
+  const [showPassword, setShowPassword] = useState(false); // Estado para mostrar u ocultar la contraseña
+  const router = useRouter(); // Hook de navegación
 
-  const styles = getStyles(scheme);
+  // Verificamos si el usuario ya está autenticado
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        router.push('/main'); // Si el usuario ya está autenticado, lo redirigimos
+      } else {
+        setLoading(false); // Si no está autenticado, mostramos el formulario de login
+      }
+    });
 
-  // Obtener paradas favoritas desde el modelo
-  const favoriteStops = FavoriteStopsModel.getFavorites();
+    return () => unsubscribe(); // Limpiamos el listener cuando se desmonta el componente
+  }, [router]);
+
+  // Función para manejar el login
+  const handleLogin = async () => {
+    const user = await AuthViewModel.login(email, password);
+    if (user) {
+      alert(`Bienvenido ${user.email}`);
+      router.push('/main'); // Redirigir a la página principal después de login exitoso
+    } else {
+      setError('Credenciales inválidas.');
+    }
+  };
+
+  // Función para redirigir a la pantalla de registro
+  const goToRegister = () => {
+    router.push('/register'); // Redirigir a la pantalla de registro
+  };
+
+  // Si la app está verificando la sesión, mostramos un loading
+  if (loading) {
+    return <Text>Cargando...</Text>;
+  }
 
   return (
     <View style={styles.container}>
-      {/* Botón personalizado para "Ver Líneas" */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('LineasView')}
-      >
-        <Text style={styles.buttonText}>Ver Líneas</Text>
-      </TouchableOpacity>
+      {/* Logo de la aplicación */}
+      <Image source={require('../assets/images/LogoCompleto.png')} style={styles.logo} />
 
-      {/* Botón personalizado para "Ver Mapas" */}
-      <TouchableOpacity
-        style={styles.button}
-        onPress={() => navigation.navigate('MapView')}
-      >
-        <Text style={styles.buttonText}>Ver Mapas</Text>
-      </TouchableOpacity>
-
-      {/* Lista de paradas favoritas */}
-      <View style={styles.favoritesContainer}>
-        <Text style={styles.favoritesTitle}>Paradas Favoritas</Text>
-        {favoriteStops.length > 0 ? (
-          <FlatList
-            data={favoriteStops}
-            keyExtractor={(item) => item.id.toString()}
-            renderItem={({ item }) => (
-              <Text style={styles.favoriteItem}>{item.name}</Text>
-            )}
-          />
-        ) : (
-          <Text style={styles.noFavoritesText}>No tienes paradas favoritas aún.</Text>
-        )}
+      <TextInput
+        style={styles.input}
+        placeholder="Email"
+        placeholderTextColor="white"
+        onChangeText={setEmail}
+        value={email}
+      />
+      <View style={styles.passwordContainer}>
+        <TextInput
+          style={styles.input}
+          placeholder="Contraseña"
+          secureTextEntry={!showPassword}
+          placeholderTextColor="white"
+          onChangeText={setPassword}
+          value={password}
+        />
+        <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.icon}>
+          <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={28} color="white" />
+        </TouchableOpacity>
       </View>
+
+      {/* Botón de Iniciar sesión */}
+      <Button title="Iniciar sesión" onPress={handleLogin} color="#fff" />
+
+
+      {/* Botón de Registrarse */}
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Iniciar Sesion</Text>
+      </TouchableOpacity>
+
+
+      {error && <Text style={styles.error}>{error}</Text>}
+
+      {/* Botón de redirección a registro */}
+      <Text style={styles.registerText} onPress={goToRegister}>
+        No tengo cuenta, registrarme
+      </Text>
     </View>
   );
 }
 
-const getStyles = (scheme: 'light' | 'dark') =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: scheme === 'dark' ? '#333' : '#f5f5f5',
-      padding: 16,
-      paddingTop: 120,
-    },
-    button: {
-      width: '100%',
-      backgroundColor: 'red',
-      padding: 15,
-      borderRadius: 10,
-      alignItems: 'center',
-      marginVertical: 10,
-      alignSelf: 'center',
-      shadowColor: scheme === 'dark' ? '#000' : '#000',
-      shadowOpacity: 0.1,
-      shadowRadius: 1,
-      elevation: 5,
-    },
-    buttonText: {
-      color: scheme === 'dark' ? '#fff' : '#fff',
-      fontSize: 18,
-      fontWeight: 'bold',
-    },
-    favoritesContainer: {
-      marginTop: 20,
-      padding: 16,
-      alignSelf: 'center',
-      width: '100%',
-      backgroundColor: scheme === 'dark' ? '#262626' : '#fff',
-      borderRadius: 10,
-      shadowColor: scheme === 'dark' ? '#000' : '#000',
-      shadowOpacity: 0.1,
-      shadowRadius: 2,
-      elevation: 5,
-      alignItems: 'center',
-    },
-    favoritesTitle: {
-      fontSize: 20,
-      fontWeight: 'bold',
-      color: scheme === 'dark' ? '#fff' : '#000',
-      marginBottom: 10,
-      textAlign: 'center',
-    },
-    favoriteItem: {
-      fontSize: 16,
-      color: scheme === 'dark' ? '#fff' : '#000',
-      marginVertical: 5,
-    },
-    noFavoritesText: {
-      fontSize: 16,
-      color: scheme === 'dark' ? '#999' : '#666',
-      textAlign: 'center',
-    },
-  });
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 20,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#D3172E', // Fondo rojo
+  },
+  logo: {
+    width: 350, // Tamaño del logo
+    height: 350, // Tamaño del logo
+    marginBottom: 30, // Espacio debajo del logo
+  },
+  input: {
+    width: '100%', // Hace que el input ocupe todo el ancho disponible
+    borderWidth: 1,
+    borderColor: 'white', // Borde blanco
+    paddingTop: 15,
+    paddingBottom: 15,
+    marginBottom: 15,
+    padding: 10,
+    borderRadius: 10,
+    color: 'white', // Texto blanco dentro del input
+  },
+  passwordContainer: {
+    width: '100%',
+    position: 'relative', // Necesario para posicionar el icono del ojo sobre el input
+  },
+  icon: {
+
+    position: 'absolute',
+    right: 10,
+    top: '35%',
+    marginBottom: 15,
+    transform: [{ translateY: -12 }],
+  },
+  error: {
+    color: 'white',
+    marginTop: 10,
+  },
+  registerText: {
+    color: 'white', // Texto blanco
+    marginTop: 15,
+    textDecorationLine: 'underline', // Subrayado para el texto
+    fontSize: 16,
+  },
+});

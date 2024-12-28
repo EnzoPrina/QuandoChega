@@ -1,12 +1,13 @@
 import React, { useState } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, useColorScheme, Modal } from 'react-native';
-import busStops from '../src/data/busStops.json';
+import busStops from '../../src/data/busStops.json';
 
 const LineasView = () => {
   const lineas = [
     { id: 'U1', name: 'U1', color: '#007722' },
     { id: 'U2', name: 'U2', color: '#e8c100' },
     { id: 'U3', name: 'U3', color: '#d6130c' },
+    { id: 'R1', name: 'R1', color: '#ed8100' },
   ];
 
   const [paradas, setParadas] = useState<any[]>([]);

@@ -2,8 +2,8 @@
 import React from 'react';
 import { View, StyleSheet, Text, useColorScheme } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
-import busStopsData from '../src/data/busStops.json';
-import { BusStop } from '../src/models/BusStopModel';
+import busStopsData from '../../src/data/busStops.json';
+import { BusStop } from '../../src/models/BusStopModel';
 
 const MapScreen = () => {
   const scheme = useColorScheme();
