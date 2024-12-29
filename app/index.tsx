@@ -51,7 +51,7 @@ export default function LoginScreen() {
   return (
     <View style={styles.container}>
       {/* Logo de la aplicación */}
-      <Image source={require('../assets/images/LogoCompleto.png')} style={styles.logo} />
+      <Image source={require('../assets/images/LogoMano.png')} style={styles.logo} />
 
       <TextInput
         style={styles.input}
@@ -78,10 +78,7 @@ export default function LoginScreen() {
       <Button title="Iniciar sesión" onPress={handleLogin} color="#fff" />
 
 
-      {/* Botón de Registrarse */}
-      <TouchableOpacity style={styles.button} onPress={handleLogin}>
-        <Text style={styles.buttonText}>Iniciar Sesion</Text>
-      </TouchableOpacity>
+
 
 
       {error && <Text style={styles.error}>{error}</Text>}
@@ -100,7 +97,7 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#D3172E', // Fondo rojo
+    backgroundColor: '#202020', // Fondo rojo
   },
   logo: {
     width: 350, // Tamaño del logo
@@ -110,7 +107,7 @@ const styles = StyleSheet.create({
   input: {
     width: '100%', // Hace que el input ocupe todo el ancho disponible
     borderWidth: 1,
-    borderColor: 'white', // Borde blanco
+    borderColor: '#5cb32b', // Borde blanco
     paddingTop: 15,
     paddingBottom: 15,
     marginBottom: 15,
