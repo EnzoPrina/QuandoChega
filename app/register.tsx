@@ -36,7 +36,7 @@ export default function RegisterScreen() {
   return (
     <View style={styles.container}>
       {/* Logo de la aplicación */}
-      <Image source={require('../assets/images/LogoCompleto.png')} style={styles.logo} />
+      <Image source={require('../assets/images/LogoMano.png')} style={styles.logo} />
 
       <TextInput
         style={styles.input}
@@ -81,7 +81,7 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#D3172E', // Fondo rojo
+    backgroundColor: '#202020', // Fondo rojo
   },
   logo: {
     width: 350, // Tamaño del logo
@@ -91,7 +91,7 @@ const styles = StyleSheet.create({
   input: {
     width: '100%', // Hace que el input ocupe todo el ancho disponible
     borderWidth: 1,
-    borderColor: 'white', // Borde blanco
+    borderColor: '#5cb32b', // Borde blanco
     paddingTop: 15,
     paddingBottom: 15,
     marginBottom: 15,
@@ -106,19 +106,21 @@ const styles = StyleSheet.create({
   icon: {
     position: 'absolute',
     right: 10,
-    top: '40%',
+    top: '38%',
     transform: [{ translateY: -12 }],
   },
   button: {
-    backgroundColor: 'white',
+    backgroundColor: '#5cb32b',
     width: '100%', // Hace que el botón ocupe el mismo ancho que el input
     padding: 15,
     marginBottom: 15,
     borderRadius: 10,
     alignItems: 'center',
+    boxShadow: '0 2px 10px rgba(92, 179, 43, 0.6)', // Sombra en el color verde/neón
+
   },
   buttonText: {
-    color: '#D3172E', // Texto rojo
+    color: '#202020', // Texto gris
     fontSize: 16,
     fontWeight: 'bold',
   },

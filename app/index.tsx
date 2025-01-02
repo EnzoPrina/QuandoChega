@@ -18,7 +18,7 @@ export default function LoginScreen() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
-        router.push('/main'); // Si el usuario ya está autenticado, lo redirigimos
+        router.push('/dashboard'); // Si el usuario ya está autenticado, lo redirigimos
       } else {
         setLoading(false); // Si no está autenticado, mostramos el formulario de login
       }
@@ -74,10 +74,10 @@ export default function LoginScreen() {
         </TouchableOpacity>
       </View>
 
-      {/* Botón de Iniciar sesión */}
-      <Button title="Iniciar sesión" onPress={handleLogin} color="#fff" />
 
-
+      <TouchableOpacity style={styles.button} onPress={handleLogin}>
+        <Text style={styles.buttonText}>Iniciar Sesión</Text>
+      </TouchableOpacity>
 
 
 
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
-    backgroundColor: '#202020', // Fondo rojo
+    backgroundColor: '#202020', // Fondo gris
   },
   logo: {
     width: 350, // Tamaño del logo
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   input: {
     width: '100%', // Hace que el input ocupe todo el ancho disponible
     borderWidth: 1,
-    borderColor: '#5cb32b', // Borde blanco
+    borderColor: '#5cb32b', // Borde verde
     paddingTop: 15,
     paddingBottom: 15,
     marginBottom: 15,
@@ -120,7 +120,6 @@ const styles = StyleSheet.create({
     position: 'relative', // Necesario para posicionar el icono del ojo sobre el input
   },
   icon: {
-
     position: 'absolute',
     right: 10,
     top: '35%',
@@ -137,4 +136,20 @@ const styles = StyleSheet.create({
     textDecorationLine: 'underline', // Subrayado para el texto
     fontSize: 16,
   },
+
+  button: {
+    backgroundColor: '#5cb32b',
+    width: '100%', // Hace que el botón ocupe el mismo ancho que el input
+    padding: 15,
+    marginBottom: 15,
+    borderRadius: 10,
+    alignItems: 'center',
+    boxShadow: '0 2px 10px rgba(92, 179, 43, 0.6)', // Sombra en el color verde/neón
+  },
+  buttonText: {
+    color: '#202020', // Texto gris
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+
 });

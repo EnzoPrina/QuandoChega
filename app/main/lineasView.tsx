@@ -1,8 +1,16 @@
-import React, { useState } from 'react';
+// LineasView.tsx
+import React, { useState, useEffect } from 'react';
 import { View, Text, FlatList, TouchableOpacity, StyleSheet, useColorScheme, Modal } from 'react-native';
 import busStops from '../../src/data/busStops.json';
+import { useFavoriteStops } from '../../src/context/FavoriteStopsContext';
 
 const LineasView = () => {
+  const { favoritos, addFavorito, removeFavorito } = useFavoriteStops();
+  const [paradas, setParadas] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [lineColor, setLineColor] = useState('');
+  const scheme = useColorScheme();
+
   const lineas = [
     { id: 'U1', name: 'U1', color: '#007722' },
     { id: 'U2', name: 'U2', color: '#e8c100' },
@@ -10,21 +18,28 @@ const LineasView = () => {
     { id: 'R1', name: 'R1', color: '#ed8100' },
   ];
 
-  const [paradas, setParadas] = useState<any[]>([]);
-  const [modalVisible, setModalVisible] = useState(false);
-  const [lineColor, setLineColor] = useState<string>('');
-  const scheme = useColorScheme();
-
-  const styles = getStyles(scheme, lineColor);
-
   const handleLineaClick = (lineId: string, color: string) => {
     const data = busStops
       .filter((stop) => stop.line === lineId)
-      .sort((a, b) => a.number - b.number);
+      .map((stop) => ({
+        ...stop,
+        isFavorite: favoritos.some((fav) => fav.number === stop.number),
+        color,
+      }));
     setParadas(data);
     setLineColor(color);
     setModalVisible(true);
   };
+
+  const toggleFavorito = (paradaNumber: number) => {
+    if (favoritos.includes(paradaNumber)) {
+      removeFavorito(paradaNumber);
+    } else {
+      addFavorito(paradaNumber);
+    }
+  };
+
+  const styles = getStyles(scheme, lineColor);
 
   return (
     <View style={styles.container}>
@@ -51,13 +66,21 @@ const LineasView = () => {
           <Text style={styles.modalTitle}>Paradas</Text>
           <FlatList
             data={paradas}
-            keyExtractor={(item) => item.number.toString()}
+            keyExtractor={(item) => item?.number ? item.number.toString() : Math.random().toString()}
+
+
             renderItem={({ item }) => (
               <View style={styles.paradaContainer}>
                 <View style={styles.circle}>
                   <Text style={styles.circleText}>{item.number}</Text>
                 </View>
                 <Text style={styles.paradaText}>{item.nome}</Text>
+                <TouchableOpacity
+                  style={[styles.heartButton, { backgroundColor: favoritos.includes(item.number) ? '#5cb32b' : '#ccc' }]}
+                  onPress={() => toggleFavorito(item.number)}
+                >
+                  <Text style={styles.heartText}>❤</Text>
+                </TouchableOpacity>
               </View>
             )}
           />
@@ -79,7 +102,7 @@ const getStyles = (scheme: 'light' | 'dark', lineColor: string) =>
       flex: 1,
       padding: 16,
       backgroundColor: scheme === 'dark' ? '#333' : '#f5f5f5',
-      paddingTop: 120,
+      paddingTop: 180,
     },
     title: {
       fontSize: 24,
@@ -147,15 +170,27 @@ const getStyles = (scheme: 'light' | 'dark', lineColor: string) =>
       borderRadius: 5,
       fontSize: 16,
     },
+    heartButton: {
+      width: 30,
+      height: 30,
+      borderRadius: 15,
+      alignItems: 'center',
+      justifyContent: 'center',
+      marginLeft: 10,
+    },
+    heartText: {
+      color: '#fff',
+      fontSize: 18,
+    },
     closeButton: {
-      backgroundColor: 'red',
+      backgroundColor: '#5cb32b',
       padding: 10,
       borderRadius: 50,
       marginTop: 20,
       alignItems: 'center',
     },
     closeButtonText: {
-      color: 'white',
+      color: '#fff',
       fontWeight: 'bold',
       fontSize: 16,
     },
