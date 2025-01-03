@@ -7,7 +7,7 @@ export default function NotFound() {
 
   useEffect(() => {
     // Redirige a login si se encuentra una ruta no válida
-    router.replace('/login');
+    router.replace('/index');
   }, []);
 
   return (

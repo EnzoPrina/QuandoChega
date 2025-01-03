@@ -1,5 +1,5 @@
-import React, { useState } from 'react';
-import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native';
 import { AuthViewModel } from '../src/viewmodels/AuthViewModel'; // Asegúrate de que la ruta sea correcta
 import { useRouter } from 'expo-router'; // Hook de navegación
 import { Ionicons } from '@expo/vector-icons'; // Para el icono de ojo
@@ -34,54 +34,66 @@ export default function RegisterScreen() {
   };
 
   return (
-    <View style={styles.container}>
-      {/* Logo de la aplicación */}
-      <Image source={require('../assets/images/LogoMano.png')} style={styles.logo} />
+    <KeyboardAvoidingView
+      behavior={Platform.OS === 'ios' ? 'padding' : 'height'}
+      style={styles.container}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <View style={styles.inner}>
+          {/* Logo de la aplicación */}
+          <Image source={require('../assets/images/LogoMano.png')} style={styles.logo} />
 
-      <TextInput
-        style={styles.input}
-        placeholder="Email"
-        placeholderTextColor="white"
-        onChangeText={setEmail}
-        value={email}
-      />
-      <View style={styles.passwordContainer}>
-        <TextInput
-          style={styles.input}
-          placeholder="Contraseña"
-          secureTextEntry={!showPassword}
-          placeholderTextColor="white"
-          onChangeText={setPassword}
-          value={password}
-        />
-        <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.icon}>
-          <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="white" />
-        </TouchableOpacity>
-      </View>
+          <TextInput
+            style={styles.input}
+            placeholder="Email"
+            placeholderTextColor="white"
+            onChangeText={setEmail}
+            value={email}
+          />
+          <View style={styles.passwordContainer}>
+            <TextInput
+              style={styles.input}
+              placeholder="Contraseña"
+              secureTextEntry={!showPassword}
+              placeholderTextColor="white"
+              onChangeText={setPassword}
+              value={password}
+            />
+            <TouchableOpacity onPress={() => setShowPassword(!showPassword)} style={styles.icon}>
+              <Ionicons name={showPassword ? 'eye-off' : 'eye'} size={24} color="white" />
+            </TouchableOpacity>
+          </View>
 
-      {/* Botón de Registrarse */}
-      <TouchableOpacity style={styles.button} onPress={handleRegister}>
-        <Text style={styles.buttonText}>Registrarse</Text>
-      </TouchableOpacity>
+          {/* Botón de Registrarse */}
+          <TouchableOpacity style={styles.button} onPress={handleRegister}>
+            <Text style={styles.buttonText}>Registrarse</Text>
+          </TouchableOpacity>
 
-      {success ? <Text style={styles.success}>{success}</Text> : null}
-      {error ? <Text style={styles.error}>{error}</Text> : null}
+          {success ? <Text style={styles.success}>{success}</Text> : null}
+          {error ? <Text style={styles.error}>{error}</Text> : null}
 
-      {/* Botón para redirigir al login si ya tiene cuenta */}
-      <TouchableOpacity onPress={goToLogin}>
-        <Text style={styles.loginText}>Ya tengo una cuenta, iniciar sesión</Text>
-      </TouchableOpacity>
-    </View>
+          {/* Botón para redirigir al login si ya tiene cuenta */}
+          <TouchableOpacity onPress={goToLogin}>
+            <Text style={styles.loginText}>Ya tengo una cuenta, iniciar sesión</Text>
+          </TouchableOpacity>
+        </View>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
     justifyContent: 'center',
     alignItems: 'center',
     backgroundColor: '#202020', // Fondo rojo
+  },
+  inner: {
+    padding: 20,
+    width: '100%',
+    maxWidth: 400,
+    alignItems: 'center',
   },
   logo: {
     width: 350, // Tamaño del logo
@@ -117,7 +129,6 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     alignItems: 'center',
     boxShadow: '0 2px 10px rgba(92, 179, 43, 0.6)', // Sombra en el color verde/neón
-
   },
   buttonText: {
     color: '#202020', // Texto gris

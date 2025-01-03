@@ -32,10 +32,11 @@ const LineasView = () => {
   };
 
   const toggleFavorito = (paradaNumber: number) => {
-    if (favoritos.includes(paradaNumber)) {
+    const parada = busStops.find((stop) => stop.number === paradaNumber);
+    if (favoritos.some((fav) => fav.number === paradaNumber)) {
       removeFavorito(paradaNumber);
     } else {
-      addFavorito(paradaNumber);
+      addFavorito(parada);
     }
   };
 
@@ -67,16 +68,14 @@ const LineasView = () => {
           <FlatList
             data={paradas}
             keyExtractor={(item) => item?.number ? item.number.toString() : Math.random().toString()}
-
-
             renderItem={({ item }) => (
               <View style={styles.paradaContainer}>
                 <View style={styles.circle}>
                   <Text style={styles.circleText}>{item.number}</Text>
                 </View>
-                <Text style={styles.paradaText}>{item.nome}</Text>
+                <Text style={styles.paradaText}>{item.name}</Text>
                 <TouchableOpacity
-                  style={[styles.heartButton, { backgroundColor: favoritos.includes(item.number) ? '#5cb32b' : '#ccc' }]}
+                  style={[styles.heartButton, { backgroundColor: favoritos.some(fav => fav.number === item.number) ? '#5cb32b' : '#ccc' }]}
                   onPress={() => toggleFavorito(item.number)}
                 >
                   <Text style={styles.heartText}>❤</Text>

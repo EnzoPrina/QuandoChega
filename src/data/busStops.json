@@ -1,17 +1,19 @@
 [
   {
-    "number": 1,
+    "number": "1 - U1",
     "line": "U1",
-    "nome": "Estaçao Rodoviária de Bragança",
+    "name": "Estaçao Rodoviária de Bragança",
+    "color": "#007722",
     "coordinates": { 
       "latitude": 41.80949668039707, 
       "longitude": -6.760734587480952
     }
   },
   {
-    "number": 2,
+    "number": "2 - U1",
     "line": "U1",
-    "nome": "Esc. Sec. Abade Baçal",
+    "name": "Esc. Sec. Abade Baçal",
+    "color": "#007722",
     "coordinates": {
       "latitude": 41.808115045249195,
       "longitude":  -6.761600983699297
@@ -19,9 +21,10 @@
   },
 
   {
-    "number": 1,
+    "number": "1 - U2",
     "line": "U2",
-    "nome": "Esc. Augusto Moreno",
+    "name": "Esc. Augusto Moreno",
+    "color": "#e8c100",
     "coordinates": {
       "latitude": 41.80871360511745, 
       "longitude":  -6.764022709742262
@@ -30,7 +33,7 @@
   {
     "number": 1,
     "line": "U3",
-    "nome": "CMB - Balcão Único",
+    "name": "CMB - Balcão Único",
     "coordinates": {
       "latitude": 41.806120636643996, 
       "longitude":  -6.765120124427577
@@ -39,7 +42,7 @@
   {
     "number": 1,
     "line": "R1",
-    "nome": "Sarzeda",
+    "name": "Sarzeda",
     "coordinates": {
       "latitude": 41.806120636643996, 
       "longitude":  -6.765120124427577

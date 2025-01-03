@@ -1,7 +1,7 @@
-// firebaseConfig.ts
+// src/data/firebaseConfig.ts
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";  // Asegúrate de importar 'getAuth' de Firebase
-import { getAnalytics } from "firebase/analytics";  // Si deseas usar Analytics
+import { getAuth } from "firebase/auth";  // Importa 'getAuth' de Firebase
+import { getAnalytics } from "firebase/analytics";  // Importa 'getAnalytics' si usas Analytics
 
 // Configuración de Firebase (asegúrate de que sea la correcta)
 const firebaseConfig = {
@@ -23,4 +23,6 @@ const auth = getAuth(app);
 // Inicializar Analytics si es necesario
 const analytics = getAnalytics(app);
 
-export { auth };  // Exportamos el auth para que se pueda usar en el ViewModel
+
+
+export { auth };  // Exporta 'auth' para usarlo en otros lugares

@@ -1,6 +1,6 @@
 // src/models/BusStopModel.ts
 export interface BusStopModel {
-  number: number; 
+  number: string  ; 
   line: string; 
   nome: string;
   coordinates: {

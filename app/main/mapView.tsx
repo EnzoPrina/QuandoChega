@@ -50,16 +50,16 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   markerCircle: (line: string) => ({
-    width: 30,
+    width:  40,
     height: 30,
-    borderRadius: 15,
+    borderRadius: 20,
     backgroundColor: getColorByLine(line), // Color dinámico según la línea
     alignItems: 'center',
     justifyContent: 'center',
   }),
   markerText: {
     color: 'white',
-    fontSize: 14,
+    fontSize: 10,
     fontWeight: 'bold',
   },
 });

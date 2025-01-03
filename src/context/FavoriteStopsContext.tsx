@@ -44,12 +44,14 @@ export const FavoriteStopsProvider: React.FC = ({ children }) => {
   }, []);
 
   const addFavorito = async (stop: Stop) => {
-    const updatedFavorites = [...favoritos, stop];
-    setFavoritos(updatedFavorites);
-    try {
-      await AsyncStorage.setItem('favoritos', JSON.stringify(updatedFavorites));
-    } catch (error) {
-      console.error('Error saving favorite:', error);
+    if (!favoritos.some((fav) => fav.number === stop.number)) {
+      const updatedFavorites = [...favoritos, stop];
+      setFavoritos(updatedFavorites);
+      try {
+        await AsyncStorage.setItem('favoritos', JSON.stringify(updatedFavorites));
+      } catch (error) {
+        console.error('Error saving favorite:', error);
+      }
     }
   };
 
