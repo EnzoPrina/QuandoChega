@@ -1,5 +1,13 @@
 import { Tabs } from 'expo-router';
-import { useColorScheme, StyleSheet, Image, TouchableOpacity, View, Modal, Text } from 'react-native';
+import {
+  useColorScheme,
+  StyleSheet,
+  Image,
+  TouchableOpacity,
+  View,
+  Modal,
+  Text,
+} from 'react-native';
 import { DefaultTheme, DarkTheme } from '@react-navigation/native';
 import { FontAwesome } from '@expo/vector-icons';
 import { useState } from 'react';
@@ -17,6 +25,8 @@ export default function MainLayout() {
     setModalVisible(false);
     router.push('/');
   };
+
+  const iconColor = colorScheme === 'dark' ? '#fff' : '#202020';
 
   return (
     <>
@@ -66,13 +76,16 @@ export default function MainLayout() {
           headerTitleAlign: 'center',
           headerLeft: () => (
             <TouchableOpacity style={styles.iconButton}>
-              <FontAwesome name="info-circle" size={28} color="white" />
+              <FontAwesome name="info-circle" size={28} color={iconColor} />
               <View style={styles.circle}></View>
             </TouchableOpacity>
           ),
           headerRight: () => (
-            <TouchableOpacity style={styles.iconButton} onPress={() => setModalVisible(true)}>
-              <FontAwesome name="power-off" size={28} color="white" />
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => setModalVisible(true)}
+            >
+              <FontAwesome name="power-off" size={28} color={iconColor} />
               <View style={styles.circle}></View>
             </TouchableOpacity>
           ),
@@ -91,24 +104,23 @@ export default function MainLayout() {
       >
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
-            {/* Imagen de Cerrar Sesión */}
             <Image
               source={require('../../assets/images/CerrarSesion.png')}
               style={styles.modalImage}
               resizeMode="contain"
             />
 
-            {/* Pregunta principal */}
             <Text style={styles.modalText}>¿Seguro que quieres cerrar sesión?</Text>
-
-            {/* Mensaje adicional con párrafo aparte */}
             <Text style={styles.modalSubText}>¡Te extrañaremos!</Text>
             <Text style={styles.modalSubText}>
               Si cierras sesión, perderás tu progreso y tendrás que iniciar sesión nuevamente.
             </Text>
 
             <View style={styles.modalButtons}>
-              <TouchableOpacity style={styles.modalButton} onPress={() => setModalVisible(false)}>
+              <TouchableOpacity
+                style={styles.modalButton}
+                onPress={() => setModalVisible(false)}
+              >
                 <Text style={styles.modalButtonText}>Regresar</Text>
               </TouchableOpacity>
               <TouchableOpacity
@@ -143,7 +155,6 @@ const styles = StyleSheet.create({
     right: 10,
     bottom: 30,
     height: 65,
-    borderColor: '#202020',
   },
   logo: {
     width: 180,

@@ -1,87 +1,134 @@
-// LineasView.tsx
 import React, { useState, useEffect } from 'react';
-import { View, Text, FlatList, TouchableOpacity, StyleSheet, useColorScheme, Modal } from 'react-native';
-import busStops from '../../src/data/busStops.json';
-import { useFavoriteStops } from '../../src/context/FavoriteStopsContext';
+import { View, Text, FlatList, TouchableOpacity, StyleSheet, Modal, Dimensions } from 'react-native';
+import { db } from '../../src/data/firebaseConfig'; // Suponiendo que la configuración de Firebase está aquí
+import { collection, onSnapshot } from 'firebase/firestore';
 
 const LineasView = () => {
-  const { favoritos, addFavorito, removeFavorito } = useFavoriteStops();
-  const [paradas, setParadas] = useState([]);
+  const [cities, setCities] = useState([]);
+  const [selectedCity, setSelectedCity] = useState(null);
+  const [selectedLine, setSelectedLine] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
+  const [expandedStops, setExpandedStops] = useState({});
   const [lineColor, setLineColor] = useState('');
-  const scheme = useColorScheme();
 
-  const lineas = [
-    { id: 'U1', name: 'U1', color: '#007722' },
-    { id: 'U2', name: 'U2', color: '#e8c100' },
-    { id: 'U3', name: 'U3', color: '#d6130c' },
-    { id: 'R1', name: 'R1', color: '#ed8100' },
-  ];
+  useEffect(() => {
+    const unsubscribe = onSnapshot(collection(db, "ciudades"), (snapshot) => {
+      const cityMap = {};
+      snapshot.docs.forEach((doc) => {
+        const cityData = doc.data();
+        if (!cityMap[cityData.city]) {
+          cityMap[cityData.city] = {
+            city: cityData.city,
+            lines: [],
+          };
+        }
+        cityMap[cityData.city].lines.push(cityData.line);
+      });
 
-  const handleLineaClick = (lineId: string, color: string) => {
-    const data = busStops
-      .filter((stop) => stop.line === lineId)
-      .map((stop) => ({
-        ...stop,
-        isFavorite: favoritos.some((fav) => fav.number === stop.number),
-        color,
-      }));
-    setParadas(data);
-    setLineColor(color);
+      const groupedCities = Object.values(cityMap);
+      setCities(groupedCities);
+    });
+
+    return () => unsubscribe();
+  }, []);
+
+  const handleLineaClick = (line) => {
+    setSelectedLine(line);
+    setLineColor(line.color);
     setModalVisible(true);
   };
 
-  const toggleFavorito = (paradaNumber: number) => {
-    const parada = busStops.find((stop) => stop.number === paradaNumber);
-    if (favoritos.some((fav) => fav.number === paradaNumber)) {
-      removeFavorito(paradaNumber);
-    } else {
-      addFavorito(parada);
-    }
+  const toggleDropdown = (stopIndex) => {
+    setExpandedStops((prev) => ({
+      ...prev,
+      [stopIndex]: !prev[stopIndex],
+    }));
   };
 
-  const styles = getStyles(scheme, lineColor);
+  const styles = getStyles(lineColor);
+
+  const screenHeight = Dimensions.get('window').height;
+  const modalHeight = screenHeight * 0.7;
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Líneas Disponibles</Text>
-      <FlatList
-        data={lineas}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity
-            style={[styles.button, { backgroundColor: item.color }]}
-            onPress={() => handleLineaClick(item.id, item.color)}
-          >
-            <Text style={styles.buttonText}>{item.name}</Text>
-          </TouchableOpacity>
-        )}
-      />
+      {!selectedCity ? (
+        <FlatList
+          data={cities}
+          keyExtractor={(item) => item.city}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={styles.button}
+              onPress={() => setSelectedCity(item)}
+            >
+              <Text style={styles.buttonText}>{item.city}</Text>
+            </TouchableOpacity>
+          )}
+        />
+      ) : (
+        <FlatList
+          data={selectedCity.lines}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <TouchableOpacity
+              style={[styles.button, { backgroundColor: item.color }]}
+              onPress={() => handleLineaClick(item)}
+            >
+              <Text style={styles.buttonText}>
+                Línea {item.number} - {item.name}
+              </Text>
+            </TouchableOpacity>
+          )}
+        />
+      )}
+
+      {selectedCity && (
+        <TouchableOpacity
+          style={styles.backButton}
+          onPress={() => setSelectedCity(null)}
+        >
+          <Text style={styles.backText}>Volver a ciudades</Text>
+        </TouchableOpacity>
+      )}
+
       <Modal
         animationType="slide"
         transparent={true}
         visible={modalVisible}
         onRequestClose={() => setModalVisible(false)}
       >
-        <View style={styles.modalContainer}>
-          <Text style={styles.modalTitle}>Paradas</Text>
+        <View style={[styles.modalContainer, { height: modalHeight }]}>
+          <Text style={[styles.modalTitle, { color: lineColor }]}>
+            Paradas de la Línea {selectedLine?.name}
+          </Text>
           <FlatList
-            data={paradas}
-            keyExtractor={(item) => item?.number ? item.number.toString() : Math.random().toString()}
-            renderItem={({ item }) => (
-              <View style={styles.paradaContainer}>
-                <View style={styles.circle}>
-                  <Text style={styles.circleText}>{item.number}</Text>
+            data={selectedLine?.stops || []}
+            keyExtractor={(item) => item.number?.toString() || ''}
+            renderItem={({ item, index }) => {
+              const isExpanded = expandedStops[index];
+
+              return (
+                <View style={styles.paradaContainer}>
+                  <Text style={styles.paradaNumber}>{item.number}</Text>
+                  <View style={styles.paradaDetails}>
+                    <Text style={styles.paradaName}>{item.name}</Text>
+                    <Text style={styles.paradaSchedule}>
+                      {isExpanded ? item.schedules.join(', ') : item.schedules[0]}
+                    </Text>
+                    {item.schedules.length > 1 && (
+                      <TouchableOpacity
+                        style={styles.expandButton}
+                        onPress={() => toggleDropdown(index)}
+                      >
+                        <Text style={styles.expandButtonText}>
+                          {isExpanded ? 'Ver menos' : 'Ver más ↓'}
+                        </Text>
+                      </TouchableOpacity>
+                    )}
+                  </View>
                 </View>
-                <Text style={styles.paradaText}>{item.name}</Text>
-                <TouchableOpacity
-                  style={[styles.heartButton, { backgroundColor: favoritos.some(fav => fav.number === item.number) ? '#5cb32b' : '#ccc' }]}
-                  onPress={() => toggleFavorito(item.number)}
-                >
-                  <Text style={styles.heartText}>❤</Text>
-                </TouchableOpacity>
-              </View>
-            )}
+              );
+            }}
           />
           <TouchableOpacity
             style={styles.closeButton}
@@ -95,104 +142,94 @@ const LineasView = () => {
   );
 };
 
-const getStyles = (scheme: 'light' | 'dark', lineColor: string) =>
-  StyleSheet.create({
-    container: {
-      flex: 1,
-      padding: 16,
-      backgroundColor: scheme === 'dark' ? '#333' : '#f5f5f5',
-      paddingTop: 180,
-    },
-    title: {
-      fontSize: 24,
-      fontWeight: 'bold',
-      marginBottom: 16,
-      color: scheme === 'dark' ? '#fff' : '#000',
-    },
-    button: {
-      padding: 10,
-      borderRadius: 5,
-      marginBottom: 10,
-      alignItems: 'center',
-    },
-    buttonText: {
-      color: 'white',
-      fontWeight: 'bold',
-      fontSize: 16,
-    },
-    modalContainer: {
-      flex: 1,
-      backgroundColor: scheme === 'dark' ? '#333' : '#f5f5f5',
-      marginVertical: 110,
-      marginHorizontal: 30,
-      borderRadius: 10,
-      padding: 16,
-      elevation: 5,
-      shadowColor: '#0a0a0a',
-      shadowOffset: { width: 0, height: 0 },
-      shadowOpacity: 0.7,
-      shadowRadius: 50,
-    },
-    modalTitle: {
-      fontSize: 22,
-      fontWeight: 'bold',
-      marginBottom: 20,
-      textAlign: 'center',
-      color: scheme === 'dark' ? '#fff' : '#000',
-    },
-    paradaContainer: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      marginBottom: 10,
-    },
-    circle: {
-      width: 30,
-      height: 30,
-      borderRadius: 20,
-      backgroundColor: lineColor,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginRight: 10,
-    },
-    circleText: {
-      color: '#fff',
-      fontWeight: 'bold',
-      fontSize: 16,
-    },
-    paradaText: {
-      flex: 1,
-      backgroundColor: lineColor,
-      color: '#fff',
-      fontWeight: 'bold',
-      paddingVertical: 5,
-      paddingHorizontal: 10,
-      borderRadius: 5,
-      fontSize: 16,
-    },
-    heartButton: {
-      width: 30,
-      height: 30,
-      borderRadius: 15,
-      alignItems: 'center',
-      justifyContent: 'center',
-      marginLeft: 10,
-    },
-    heartText: {
-      color: '#fff',
-      fontSize: 18,
-    },
-    closeButton: {
-      backgroundColor: '#5cb32b',
-      padding: 10,
-      borderRadius: 50,
-      marginTop: 20,
-      alignItems: 'center',
-    },
-    closeButtonText: {
-      color: '#fff',
-      fontWeight: 'bold',
-      fontSize: 16,
-    },
-  });
+const getStyles = (lineColor: string) => StyleSheet.create({
+  container: {
+    flex: 1,
+    padding: 16,
+    backgroundColor: "#202020",
+    paddingTop: 180,
+  },
+  button: {
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+    alignItems: 'center',
+    backgroundColor: '#007722',
+  },
+  buttonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    fontSize: 16,
+  },
+  backButton: {
+    padding: 15,
+    backgroundColor: '#5cb32b',
+    borderRadius: 8,
+    marginTop: 16,
+  },
+  backText: {
+    color: '#202020',
+    textAlign: 'center',
+    fontWeight: 'bold',
+  },
+  modalContainer: {
+    backgroundColor: '#fff',
+    marginVertical: 110,
+    marginHorizontal: 30,
+    borderRadius: 10,
+    padding: 16,
+    elevation: 5,
+  },
+  modalTitle: {
+    fontSize: 22,
+    fontWeight: 'bold',
+    marginBottom: 20,
+    textAlign: 'center',
+  },
+  paradaContainer: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    marginBottom: 16,
+    backgroundColor: '#f5f5f5',
+    borderRadius: 8,
+    padding: 10,
+  },
+  paradaNumber: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#5cb32b',
+    marginRight: 10,
+  },
+  paradaDetails: {
+    flex: 1,
+  },
+  paradaName: {
+    fontSize: 16,
+    fontWeight: 'bold',
+  },
+  paradaSchedule: {
+    fontSize: 14,
+    color: '#666',
+  },
+  expandButton: {
+    marginTop: 8,
+  },
+  expandButtonText: {
+    color: '#007722',
+    fontWeight: 'bold',
+  },
+  closeButton: {
+    marginTop: 16,
+    backgroundColor: '#5cb32b',
+    padding: 10,
+    borderRadius: 8,
+    alignSelf: 'center',
+  },
+  closeButtonText: {
+    color: '#fff',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
+});
 
 export default LineasView;

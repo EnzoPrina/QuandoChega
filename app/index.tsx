@@ -154,8 +154,10 @@ function OnboardingScreen({ onFinish }) {
 
   return (
     <View style={styles.onboardingContainer}>
-      <Image source={slides[currentSlide].image} style={styles.onboardingImage} />
-      <Text style={styles.onboardingText}>{slides[currentSlide].message}</Text>
+      <View style={styles.onboardingContent}>
+        <Image source={slides[currentSlide].image} style={styles.onboardingImage} />
+        <Text style={styles.onboardingText}>{slides[currentSlide].message}</Text>
+      </View>
       <TouchableOpacity style={styles.onboardingButton} onPress={handleNext}>
         <Text style={styles.onboardingButtonText}>
           {currentSlide === slides.length - 1 ? 'Comenzar' : 'Siguiente'}
@@ -230,9 +232,15 @@ const styles = StyleSheet.create({
   },
   onboardingContainer: {
     flex: 1,
-    justifyContent: 'center',
+    justifyContent: 'space-between',
     alignItems: 'center',
     backgroundColor: '#202020',
+  },
+  onboardingContent: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+    width: '90%',
   },
   onboardingImage: {
     width: 300,
@@ -240,19 +248,18 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   onboardingText: {
-    width: '90%',
     color: 'white',
     fontSize: 17,
     textAlign: 'center',
     marginBottom: 20,
   },
   onboardingButton: {
-
     backgroundColor: '#5cb32b',
     width: '90%',
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 10,
+    marginBottom: 50,
   },
   onboardingButtonText: {
     color: '#202020',
