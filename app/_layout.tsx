@@ -2,8 +2,11 @@
 import React, { useContext, useEffect } from 'react';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import { Slot } from 'expo-router';
+// @ts-ignore
 import { AuthProvider, AuthContext } from '../src/context/AuthContext';
+// @ts-ignore
 import { FavoriteStopsProvider } from '../src/context/FavoriteStopsContext';
+// @ts-ignore
 import { FirebaseProvider } from '../src/context/FirebaseContext';
 import { useRouter } from 'expo-router';
 
@@ -29,7 +32,7 @@ const AuthWrapper = () => {
       if (user) {
         router.push('/dashboard'); // Navegar a la pantalla de inicio o la que corresponda
       } else {
-        router.push('/index'); // Navegar a la pantalla de login si no hay usuario
+        router.push('/'); // Navegar a la pantalla de login si no hay usuario
       }
     }
   }, [user, loading, router]);

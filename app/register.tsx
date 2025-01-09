@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import  { useState, useEffect } from 'react';
 import { View, TextInput, Text, StyleSheet, Image, TouchableOpacity, Keyboard, KeyboardAvoidingView, Platform, TouchableWithoutFeedback } from 'react-native';
 import { AuthViewModel } from '../src/viewmodels/AuthViewModel'; // Asegúrate de que la ruta sea correcta
 import { useRouter } from 'expo-router'; // Hook de navegación

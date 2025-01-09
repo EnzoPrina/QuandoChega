@@ -35,8 +35,11 @@ export default function MainLayout() {
           tabBarStyle: [
             styles.tabBar,
             {
+              borderColor: 
+              colorScheme === 'dark' ? DarkTheme.colors.card : DefaultTheme.colors.card,
               backgroundColor:
                 colorScheme === 'dark' ? DarkTheme.colors.card : DefaultTheme.colors.card,
+                
             },
           ],
           tabBarActiveTintColor: '#5cb32b',

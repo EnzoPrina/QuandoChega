@@ -1,6 +1,7 @@
 // src/context/AuthContext.tsx
-import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import  { createContext, useState, useEffect, ReactNode } from 'react';
 import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth';
+// @ts-ignore
 import { auth } from '../data/firebaseConfig';
 import { AuthViewModel } from '../viewmodels/AuthViewModel';
 import { User } from '../models/UserModel';

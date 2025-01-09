@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import  { useState, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -12,8 +12,10 @@ import {
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
+// @ts-ignore
 import { AuthContext } from '../src/context/AuthContext';
 import { useRouter } from 'expo-router';
+// @ts-ignore
 import { auth } from '../src/data/firebaseConfig';
 import { onAuthStateChanged } from 'firebase/auth';
 
