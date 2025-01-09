@@ -60,7 +60,7 @@ const getStyles = (scheme: 'light' | 'dark') =>
     },
     button: {
       padding: 10,
-      backgroundColor: '#007722',
+      backgroundColor: '#5cb32b',
       marginBottom: 10,
       borderRadius: 5,
       alignItems: 'center',

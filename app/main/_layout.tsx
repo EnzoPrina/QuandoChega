@@ -13,6 +13,7 @@ import { FontAwesome } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { AuthViewModel } from '../../src/viewmodels/AuthViewModel';
+import React from 'react';
 
 export default function MainLayout() {
   const colorScheme = useColorScheme();
@@ -35,11 +36,10 @@ export default function MainLayout() {
           tabBarStyle: [
             styles.tabBar,
             {
-              borderColor: 
-              colorScheme === 'dark' ? DarkTheme.colors.card : DefaultTheme.colors.card,
+              borderColor:
+                colorScheme === 'dark' ? DarkTheme.colors.card : DefaultTheme.colors.card,
               backgroundColor:
                 colorScheme === 'dark' ? DarkTheme.colors.card : DefaultTheme.colors.card,
-                
             },
           ],
           tabBarActiveTintColor: '#5cb32b',
@@ -78,7 +78,10 @@ export default function MainLayout() {
           ),
           headerTitleAlign: 'center',
           headerLeft: () => (
-            <TouchableOpacity style={styles.iconButton}>
+            <TouchableOpacity
+              style={styles.iconButton}
+              onPress={() => setModalVisible(true)}
+            >
               <FontAwesome name="info-circle" size={28} color={iconColor} />
               <View style={styles.circle}></View>
             </TouchableOpacity>
@@ -108,31 +111,25 @@ export default function MainLayout() {
         <View style={styles.modalOverlay}>
           <View style={styles.modalContent}>
             <Image
-              source={require('../../assets/images/CerrarSesion.png')}
+              source={require('../../assets/images/cartao.png')}
               style={styles.modalImage}
               resizeMode="contain"
             />
-
-            <Text style={styles.modalText}>¿Seguro que quieres cerrar sesión?</Text>
-            <Text style={styles.modalSubText}>¡Te extrañaremos!</Text>
-            <Text style={styles.modalSubText}>
-              Si cierras sesión, perderás tu progreso y tendrás que iniciar sesión nuevamente.
+            <Text style={styles.modalText}>
+              O "Cartão do Munícipe" de Bragança é um cartão exclusivo para os
+              residentes do município que facilita o acesso a diversos serviços e
+              benefícios. Para obtê-lo, deve dirigir-se ao Balcão Único da Câmara
+              Municipal com os documentos necessários, como identificação e
+              comprovativo de residência. O processo é simples e visa oferecer
+              vantagens em serviços culturais, sociais e educativos, promovendo a
+              ligação entre os cidadãos e a comunidade local.
             </Text>
-
-            <View style={styles.modalButtons}>
-              <TouchableOpacity
-                style={styles.modalButton}
-                onPress={() => setModalVisible(false)}
-              >
-                <Text style={styles.modalButtonText}>Regresar</Text>
-              </TouchableOpacity>
-              <TouchableOpacity
-                style={[styles.modalButton, { backgroundColor: '#d6130c' }]}
-                onPress={handleLogout}
-              >
-                <Text style={styles.modalButtonText}>Cerrar sesión</Text>
-              </TouchableOpacity>
-            </View>
+            <TouchableOpacity
+              style={styles.fullWidthButton}
+              onPress={() => setModalVisible(false)}
+            >
+              <Text style={styles.modalButtonText}>Fechar</Text>
+            </TouchableOpacity>
           </View>
         </View>
       </Modal>
@@ -190,42 +187,26 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   modalImage: {
-    width: 160,
-    height: 160,
+    width: 200,
+    height: 200,
     marginBottom: 20,
   },
   modalText: {
     color: 'white',
-    fontSize: 18,
-    marginBottom: 10,
+    fontSize: 16,
     textAlign: 'center',
-    fontWeight: 'bold',
+    marginBottom:50,
   },
-  modalSubText: {
-    color: 'white',
-    fontSize: 14,
-    marginBottom: 10,
-    textAlign: 'center',
-    fontStyle: 'italic',
-  },
-  modalButtons: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    width: '100%',
-  },
-  modalButton: {
-    marginTop: 20,
-    paddingVertical: 10,
-    paddingHorizontal: 20,
+  fullWidthButton: {
+    backgroundColor: '#5cb32b',
+    paddingVertical: 15,
     borderRadius: 5,
-    backgroundColor: '#202020',
-    marginHorizontal: 5,
-    flex: 1,
+    width: '100%',
     alignItems: 'center',
-    shadowColor: '#000',
   },
   modalButtonText: {
     color: '#fff',
     fontSize: 16,
+    fontWeight: 'bold',
   },
 });

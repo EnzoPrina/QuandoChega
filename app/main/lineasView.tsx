@@ -7,10 +7,12 @@ import {
   StyleSheet,
   Modal,
   Pressable,
+  useColorScheme,
 } from "react-native";
 // @ts-ignore
 import { db } from "../../src/data/firebaseConfig";
 import { collection, onSnapshot } from "firebase/firestore";
+import React from "react";
 
 export default function BusStopsApp() {
   const [cities, setCities] = useState([]);
@@ -18,6 +20,8 @@ export default function BusStopsApp() {
   const [selectedLine, setSelectedLine] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [expandedStops, setExpandedStops] = useState({});
+  const colorScheme = useColorScheme();
+  const backgroundColor = colorScheme === "dark" ? "#202020" : "#f5f5f5";
 
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "ciudades"), (snapshot) => {
@@ -57,7 +61,7 @@ export default function BusStopsApp() {
   };
 
   return (
-    <View style={styles.container}>
+    <View style={[styles.container, { backgroundColor }]}>
       {!selectedCity ? (
         <FlatList
           data={cities}
@@ -102,7 +106,7 @@ export default function BusStopsApp() {
       )}
 
       <Modal visible={showModal} animationType="slide">
-        <View style={styles.modalContainer}>
+        <View style={[styles.modalContainer, { backgroundColor }]}>
           <Text style={styles.modalTitle}>Línea {selectedLine?.number}</Text>
           <FlatList
             data={selectedLine?.stops || []}
@@ -161,7 +165,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 16,
-    backgroundColor: "#202020",
     paddingTop: 110,
   },
   cityButton: {
@@ -171,7 +174,7 @@ const styles = StyleSheet.create({
     borderRadius: 8,
   },
   cityText: {
-    color: "#202020",
+    color: "#f5f5f5",
     fontSize: 18,
     textAlign: "center",
     fontWeight: "bold",
@@ -191,13 +194,14 @@ const styles = StyleSheet.create({
     marginTop: 16,
     alignSelf: "center",
     backgroundColor: "#5cb32b",
-    padding: 10,
+    padding: 15,
     width: "90%",
     borderRadius: 10,
+    marginBottom: 110,
   },
   backText: {
     textAlign: "center",
-    color: "#202020",
+    color: "#f5f5f5",
     fontSize: 16,
     fontWeight: "bold",
   },
@@ -205,10 +209,9 @@ const styles = StyleSheet.create({
     paddingTop: 110,
     flex: 1,
     padding: 16,
-    backgroundColor: "#202020",
   },
   modalTitle: {
-    color: "#fff",
+    color: "#5cb32b",
     fontSize: 20,
     fontWeight: "bold",
     marginBottom: 16,
