@@ -1,52 +1,114 @@
-[
-  {
-    "number": "1 - U1",
-    "line": "U1",
-    "name": "Estaçao Rodoviária de Bragança",
-    "color": "#007722",
-    "coordinates": { 
-      "latitude": 41.80949668039707, 
-      "longitude": -6.760734587480952
+{
+  "cities": [
+    {
+      "name": "Bragança",
+      "lines": [
+        {
+          "line": "U1",
+          "color": "#007722",
+          "stops": [
+            {
+              "number": "1 - U1",
+              "name": "Estaçao Rodoviária de Bragança",
+              "coordinates": { 
+                "latitude": 41.80949668039707, 
+                "longitude": -6.760734587480952
+              }
+            },
+            {
+              "number": "2 - U1",
+              "name": "Esc. Sec. Abade Baçal",
+              "coordinates": {
+                "latitude": 41.808115045249195,
+                "longitude": -6.761600983699297
+              }
+            }
+          ]
+        },
+        {
+          "line": "U2",
+          "color": "#e8c100",
+          "stops": [
+            {
+              "number": "1 - U2",
+              "name": "Esc. Augusto Moreno",
+              "coordinates": {
+                "latitude": 41.80871360511745, 
+                "longitude": -6.764022709742262
+              }
+            }
+          ]
+        },
+        {
+          "line": "U3",
+          "color": "#e8c700",
+          "stops": [
+            {
+              "number": 1,
+              "name": "CMB - Balcão Único",
+              "coordinates": {
+                "latitude": 41.806120636643996, 
+                "longitude": -6.765120124427577
+              }
+            }
+          ]
+        },
+        {
+          "line": "R1",
+          "color": "#f6f6f6",
+          "stops": [
+            {
+              "number": 1,
+              "name": "Sarzeda",
+              "coordinates": {
+                "latitude": 41.806120636643996, 
+                "longitude": -6.765120124427577
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Mirandela",
+      "lines": [
+        {
+          "line": "M1",
+          "color": "#3498db",
+          "stops": [
+            {
+              "number": 1,
+              "name": "Praça do Município",
+              "coordinates": {
+                "latitude": 41.485601,
+                "longitude": -7.182775
+              }
+            },
+            {
+              "number": 2,
+              "name": "Estação Ferroviária",
+              "coordinates": {
+                "latitude": 41.486504,
+                "longitude": -7.186589
+              }
+            }
+          ]
+        },
+        {
+          "line": "M2",
+          "color": "#e74c3c",
+          "stops": [
+            {
+              "number": 1,
+              "name": "Parque Império",
+              "coordinates": {
+                "latitude": 41.483295,
+                "longitude": -7.181702
+              }
+            }
+          ]
+        }
+      ]
     }
-  },
-  {
-    "number": "2 - U1",
-    "line": "U1",
-    "name": "Esc. Sec. Abade Baçal",
-    "color": "#007722",
-    "coordinates": {
-      "latitude": 41.808115045249195,
-      "longitude":  -6.761600983699297
-    }
-  },
-
-  {
-    "number": "1 - U2",
-    "line": "U2",
-    "name": "Esc. Augusto Moreno",
-    "color": "#e8c100",
-    "coordinates": {
-      "latitude": 41.80871360511745, 
-      "longitude":  -6.764022709742262
-    }
-  },
-  {
-    "number": 1,
-    "line": "U3",
-    "name": "CMB - Balcão Único",
-    "coordinates": {
-      "latitude": 41.806120636643996, 
-      "longitude":  -6.765120124427577
-    }
-  },
-  {
-    "number": 1,
-    "line": "R1",
-    "name": "Sarzeda",
-    "coordinates": {
-      "latitude": 41.806120636643996, 
-      "longitude":  -6.765120124427577
-    }
-  }
-  
-]
+  ]
+}

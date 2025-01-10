@@ -1,40 +1,85 @@
-// app/MapView.tsx
-import React from 'react';
-import { View, StyleSheet, Text, useColorScheme } from 'react-native';
+import React, { useState } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
 import MapView, { Marker } from 'react-native-maps';
 import busStopsData from '../../src/data/busStops.json';
-// @ts-ignore
-import { BusStop } from '../../src/models/BusStopModel';
 
 const MapScreen = () => {
-  const scheme = useColorScheme();
+  const [selectedCity, setSelectedCity] = useState("Bragança"); // Ciudad seleccionada
+  const [selectedLine, setSelectedLine] = useState<string | null>(null);
+  const [menuVisible, setMenuVisible] = useState(false);
+
+  // Obtener las líneas y paradas de la ciudad seleccionada
+  const cityData = busStopsData.cities.find((city: any) => city.name === selectedCity);
+
+  const lines = cityData?.lines || [];
+  const allStops = lines.flatMap((line: any) =>
+    line.stops.map((stop: any) => ({
+      ...stop,
+      line: line.line,
+      color: line.color,
+    }))
+  );
+
+  // Filtrar las paradas según la línea seleccionada
+  const filteredStops = selectedLine
+    ? allStops.filter((stop) => stop.line === selectedLine)
+    : allStops;
 
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
         initialRegion={{
-          latitude: 41.805699, // Coordenadas iniciales para centrar el mapa en Bragança
+          latitude: 41.805699,
           longitude: -6.757322,
           latitudeDelta: 0.01,
           longitudeDelta: 0.01,
         }}
       >
-        {busStopsData.map((stop: BusStop, index: number) => (
+        {filteredStops.map((stop, index) => (
           <Marker
-            key={`${stop.line}-${stop.number}`}
+            key={`${stop.line}-${stop.number}-${index}`}
             coordinate={stop.coordinates}
-            title={`Parada ${stop.number}`}
+            title={`Parada ${stop.number} - ${stop.name}`}
             description={`Línea ${stop.line}`}
           >
             <View style={styles.markerContainer}>
-              <View style={styles.markerCircle(stop.line)}>
+              <View style={[styles.markerCircle, { backgroundColor: stop.color }]}>
                 <Text style={styles.markerText}>{stop.number}</Text>
               </View>
             </View>
           </Marker>
         ))}
       </MapView>
+
+      {/* Botón flotante */}
+      <TouchableOpacity
+        style={styles.fab}
+        onPress={() => setMenuVisible((prev) => !prev)}
+      >
+        <Text style={styles.fabIcon}>🚌</Text>
+      </TouchableOpacity>
+
+      {/* Menú desplegable */}
+      {menuVisible && (
+        <View style={styles.menu}>
+          <FlatList
+            data={lines}
+            keyExtractor={(item) => item.line}
+            renderItem={({ item }) => (
+              <TouchableOpacity
+                style={[styles.menuItem, { backgroundColor: item.color }]}
+                onPress={() => {
+                  setSelectedLine(item.line); // Seleccionar línea
+                  setMenuVisible(false); // Cerrar el menú automáticamente
+                }}
+              >
+                <Text style={styles.menuItemText}>{item.line}</Text>
+              </TouchableOpacity>
+            )}
+          />
+        </View>
+      )}
     </View>
   );
 };
@@ -50,33 +95,53 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
-  markerCircle: (line: string) => ({
-    width:  40,
+  markerCircle: {
+    width: 40,
     height: 30,
     borderRadius: 20,
-    backgroundColor: getColorByLine(line), // Color dinámico según la línea
     alignItems: 'center',
     justifyContent: 'center',
-  }),
+  },
   markerText: {
     color: 'white',
     fontSize: 10,
     fontWeight: 'bold',
   },
+  fab: {
+    position: 'absolute',
+    bottom: 200,
+    right: 20,
+    width: 60,
+    height: 60,
+    backgroundColor: '#007722',
+    borderRadius: 30,
+    alignItems: 'center',
+    justifyContent: 'center',
+    elevation: 5,
+  },
+  fabIcon: {
+    fontSize: 30,
+    color: 'white',
+  },
+  menu: {
+    position: 'absolute',
+    bottom: 90,
+    right: 20,
+    backgroundColor: 'white',
+    borderRadius: 10,
+    padding: 10,
+    elevation: 5,
+  },
+  menuItem: {
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 5,
+  },
+  menuItemText: {
+    color: 'white',
+    fontWeight: 'bold',
+    textAlign: 'center',
+  },
 });
-
-// Función para obtener el color según la línea
-const getColorByLine = (line: string): string => {
-  switch (line) {
-    case 'U1':
-      return '#007722'; // Verde para U1
-    case 'U2':
-      return '#ede600'; // Amarillo para U2
-    case 'U3':
-      return '#d6130c'; // Rojo para U3
-    default:
-      return 'gray'; // Color por defecto
-  }
-};
 
 export default MapScreen;

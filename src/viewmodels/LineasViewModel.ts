@@ -1,6 +1,6 @@
 // src/viewmodels/LineasViewModel.ts
 import { getFirestore, doc, setDoc, getDoc, updateDoc, arrayUnion, arrayRemove } from "firebase/firestore";
-import { BusStopModel } from "../models/BusStopModel";
+import { BusStopModel } from "../models/BusStop";
 
 export class LineasViewModel {
   private firestore = getFirestore();

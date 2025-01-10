@@ -1,4 +1,4 @@
-import  { useState, useContext, useEffect } from 'react';
+import { useState, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -12,12 +12,14 @@ import {
   Platform,
 } from 'react-native';
 import { Ionicons } from '@expo/vector-icons';
-// @ts-ignore
 import { AuthContext } from '../src/context/AuthContext';
 import { useRouter } from 'expo-router';
-// @ts-ignore
 import { auth } from '../src/data/firebaseConfig';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
+import * as WebBrowser from 'expo-web-browser';
+import * as Google from 'expo-auth-session/providers/google';
+
+WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
   const [showOnboarding, setShowOnboarding] = useState(true); // Controla si se muestra el onboarding
@@ -28,6 +30,12 @@ export default function App() {
   const [showPassword, setShowPassword] = useState(false);
 
   const router = useRouter();
+
+  const [request, response, promptAsync] = Google.useAuthRequest({
+    androidClientId: 'TU_ANDROID_CLIENT_ID',
+    iosClientId: 'TU_IOS_CLIENT_ID',
+    expoClientId: '886722290849-b8212ir309lfn3hjrmoeieoau4j88104.apps.googleusercontent.com',
+  });
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
@@ -43,6 +51,16 @@ export default function App() {
       router.replace('/main/dashboard');
     }
   }, [user, router]);
+
+  useEffect(() => {
+    if (response?.type === 'success') {
+      const { id_token } = response.authentication;
+      const credential = GoogleAuthProvider.credential(id_token);
+      signInWithCredential(auth, credential).catch(err =>
+        setError('Error iniciando sesión con Google.')
+      );
+    }
+  }, [response]);
 
   const handleLogin = async () => {
     if (!email || !password) {
@@ -68,10 +86,16 @@ export default function App() {
     router.push('/register');
   };
 
+  const handleGoogleLogin = async () => {
+    if (request) {
+      promptAsync();
+    } else {
+      Alert.alert('Error', 'No se pudo iniciar sesión con Google.');
+    }
+  };
+
   if (showOnboarding) {
-    return (
-      <OnboardingScreen onFinish={() => setShowOnboarding(false)} />
-    );
+    return <OnboardingScreen onFinish={() => setShowOnboarding(false)} />;
   }
 
   return (
@@ -116,11 +140,15 @@ export default function App() {
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
-            <Text style={styles.buttonText}>Iniciar Sesión</Text>
+            <Text style={styles.buttonText}>Iniciar Sessão</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.googleButton} onPress={handleGoogleLogin}>
+            <Ionicons name="logo-google" size={24} color="#202020" />
+            <Text style={styles.googleButtonText}>Iniciar Sessão com Google</Text>
           </TouchableOpacity>
           {error && <Text style={styles.error}>{error}</Text>}
           <Text style={styles.registerText} onPress={goToRegister}>
-            No tengo cuenta, registrarme
+            Não tenho conta, registar-me
           </Text>
         </View>
       </ScrollView>
@@ -156,10 +184,8 @@ function OnboardingScreen({ onFinish }) {
 
   return (
     <View style={styles.onboardingContainer}>
-      <View style={styles.onboardingContent}>
-        <Image source={slides[currentSlide].image} style={styles.onboardingImage} />
-        <Text style={styles.onboardingText}>{slides[currentSlide].message}</Text>
-      </View>
+      <Image source={slides[currentSlide].image} style={styles.onboardingImage} />
+      <Text style={styles.onboardingText}>{slides[currentSlide].message}</Text>
       <TouchableOpacity style={styles.onboardingButton} onPress={handleNext}>
         <Text style={styles.onboardingButtonText}>
           {currentSlide === slides.length - 1 ? 'Comenzar' : 'Siguiente'}
@@ -234,15 +260,9 @@ const styles = StyleSheet.create({
   },
   onboardingContainer: {
     flex: 1,
-    justifyContent: 'space-between',
-    alignItems: 'center',
-    backgroundColor: '#202020',
-  },
-  onboardingContent: {
-    flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
-    width: '90%',
+    backgroundColor: '#202020',
   },
   onboardingImage: {
     width: 300,
@@ -250,6 +270,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
   },
   onboardingText: {
+    width: '90%',
     color: 'white',
     fontSize: 17,
     textAlign: 'center',
@@ -261,12 +282,29 @@ const styles = StyleSheet.create({
     paddingVertical: 15,
     paddingHorizontal: 30,
     borderRadius: 10,
-    marginBottom: 50,
   },
   onboardingButtonText: {
     color: '#202020',
     textAlign: 'center',
     fontSize: 16,
     fontWeight: 'bold',
+  },
+  googleButton: {
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center',
+    backgroundColor: '#fff',
+    padding: 15,
+    marginTop: 10,
+    borderRadius: 10,
+    borderColor: '#5cb32b',
+    borderWidth: 1,
+    width: '100%',
+  },
+  googleButtonText: {
+    color: '#202020',
+    fontSize: 16,
+    fontWeight: 'bold',
+    marginLeft: 10,
   },
 });
