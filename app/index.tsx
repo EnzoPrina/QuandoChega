@@ -64,7 +64,7 @@ export default function App() {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      setError('Por favor, completa todos los campos.');
+      setError('Por favor preencha todos os campos.');
       return;
     }
 
@@ -121,7 +121,7 @@ export default function App() {
           <View style={styles.passwordContainer}>
             <TextInput
               style={styles.input}
-              placeholder="Contraseña"
+              placeholder="Senha"
               secureTextEntry={!showPassword}
               placeholderTextColor="white"
               onChangeText={setPassword}
@@ -160,15 +160,15 @@ function OnboardingScreen({ onFinish }) {
   const slides = [
     {
       image: require('../assets/images/Principales-09.png'),
-      message: '¡Todos mirando el teléfono... pero tú, al menos, sabes cuándo llega tu autobús. ¡Orgullo de usuario de QuandoChega! 😎!',
+      message: 'Todos a olhar para o telemóvel... mas tu, pelo menos, sabes quando chega o teu autocarro. Orgulho de utilizador do QuandoChega! 😎',
     },
     {
       image: require('../assets/images/Principales-10.png'),
-      message: "¿Esperar el autobús o cargar con el estrés? Mejor deja que QuandoChega lo haga por ti. ¡Tu espalda te lo agradecerá! 💪😂",
+      message: "Esperar pelo autocarro ou carregar o stress? Melhor deixa que o QuandoChega cuide disso por ti. As tuas costas vão agradecer! 💪😂",
     },
     {
-      image: require('../assets/images/Principales-11.png'),
-      message: "Ella tiene todo bajo control: perro listo, autobús cerca y QuandoChega en el bolsillo. ¡Tú también puedes ser así de pro! 🐶🚌",
+      image: require('../assets/images/cartao-17.png'),
+      message: "Ele tem tudo no bolso... literalmente! Cartão do Munícipe: mais do que um cartão, um companheiro. 💚🚞",
     },
   ];
 
@@ -188,7 +188,7 @@ function OnboardingScreen({ onFinish }) {
       <Text style={styles.onboardingText}>{slides[currentSlide].message}</Text>
       <TouchableOpacity style={styles.onboardingButton} onPress={handleNext}>
         <Text style={styles.onboardingButtonText}>
-          {currentSlide === slides.length - 1 ? 'Comenzar' : 'Siguiente'}
+          {currentSlide === slides.length - 1 ? 'Começar' : 'Seguinte'}
         </Text>
       </TouchableOpacity>
     </View>
@@ -272,9 +272,9 @@ const styles = StyleSheet.create({
   onboardingText: {
     width: '90%',
     color: 'white',
-    fontSize: 17,
+    fontSize: 16,
     textAlign: 'center',
-    marginBottom: 20,
+    marginBottom: 30,
   },
   onboardingButton: {
     backgroundColor: '#5cb32b',

@@ -373,32 +373,32 @@
               "number": "6 - U2",
               "name": "Luciano Cordeiro 1",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.808199954192816, 
+                "longitude": -6.772246967761838
               }
             },
             {
               "number": "7 - U2",
               "name": " Luciano Cordeiro 2",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80781289126531, 
+                "longitude": -6.774501739179102 
               }
             },
             {
               "number": "8 - U2",
               "name": "Rua Almirante Gago Coutinho 1",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80647098473973, 
+                "longitude": -6.775863684585649
               }
             },
             {
               "number": "9 - U2",
               "name": " Rua Almirante Gago Coutinho 2",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80613067892269, 
+                "longitude": -6.777512172680395
               }
             }
             ,
@@ -406,8 +406,8 @@
               "number": "10 - U2",
               "name": "Largo de São Tiago",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80459302281767, 
+                "longitude": -6.781167969894387
               }
             },
 
@@ -421,158 +421,150 @@
               "number": "11 - U2",
               "name": "Cruzamento Santiago",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80379509558258, 
+                "longitude": -6.781495611552896
               }
             },
+
             {
               "number": "12 - U2",
               "name": "Avenida Abade Baçal",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80400830621146, 
+                "longitude": -6.785414972248265
               }
             },
             {
               "number": "13 - U2",
               "name": "Rotunda do Pastor",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80612249501893, 
+                "longitude": -6.790263553247886
               }
             },
+
             {
               "number": "14 - U2",
               "name": "Avenida Abade Baçal 2",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.8042116660999,
+                "longitude":  -6.7871276800741915
               }
             },
+
+
             {
               "number": "15 - U2",
-              "name": "Cruzamento Santiago",
+              "name": "Escola Primária do Campo Redondo",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80336897732173, 
+                "longitude": -6.777220281621388
               }
             },
             {
               "number": "16 - U2",
-              "name": "Escola Primária do Campo Redondo",
+              "name": "Associação Amigos do Campo Redondo",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80149004964302, 
+                "longitude": -6.780698689038196
               }
             },
             {
               "number": "17 - U2",
-              "name": "Associação Amigos do Campo Redondo",
+              "name": "Rua da Cerâmica",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.8005630473904, 
+                "longitude": -6.782628919679077
               }
             },
             {
               "number": "18 - U2",
-              "name": "Rua da Cerâmica",
+              "name": "Rua Conde de Areães 2",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.800373702389514, 
+                "longitude": -6.781491468576835
               }
             },
             {
               "number": "19 - U2",
-              "name": "Rua Conde de Areães 2",
+              "name": "Rua Conde de Areães 1",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80201058012939, 
+                "longitude": -6.779105922104839
               }
             },
             {
               "number": "20 - U2",
-              "name": "Rua Conde de Areães 1",
-              "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
-              }
-            }
-
-
-
-
-            ,
-
-
-            {
-              "number": "21 - U2",
               "name": "Eixo Atlântico",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80322204700988, 
+                "longitude": -6.775897386953789
               }
-            }
-            ,
+            },
             {
-              "number": "22 - U2",
+              "number": "21 - U2",
               "name": "Estádio Municipal",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80260391168593, 
+                "longitude": -6.772434399498037
               }
-            }
-            ,
+            },
             {
-              "number": "23 - U2",
+              "number": "22 - U2",
               "name": "Hospital",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80175465655619, 
+                "longitude": -6.768145753745512
               }
-            }
-            ,
+            },
             {
-              "number": "24 - U2",
+              "number": "23 - U2",
               "name": "Rua Padre António Vieira",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.8002561655958, 
+                "longitude": -6.769244497703969 
+              }
+            }
+
+
+
+
+            ,
+
+
+            {
+              "number": "24 - U2",
+              "name": "Igreja Santos Mártires",
+              "coordinates": {
+                "latitude": 41.79669540528977, 
+                "longitude":-6.7713170876860795
               }
             }
             ,
             {
               "number": "25 - U2",
-              "name": "Igreja Santos Mártires",
+              "name": "Supinorte",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.79437386722967, 
+                "longitude": -6.770562650596971
               }
             }
             ,
             {
               "number": "26 - U2",
-              "name": "Supinorte",
-              "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
-              }
-            }
-            ,
-            {
-              "number": "20 - U2",
               "name": "Rotunda da Cantarinha",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.79258740058341, 
+                "longitude": -6.770286555759617 
               }
             }
             ,
             {
               "number": "27 - U2",
-              "name": "Escola Superior Educaçao",
+              "name": "Rotunda Superior Educaçao",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.79479953126791, 
+                "longitude": -6.7703017457602
               }
             }
             ,
@@ -580,8 +572,8 @@
               "number": "28 - U2",
               "name": "Cantina do IPB",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.79942473197905, 
+                "longitude": -6.768782218817498
               }
             }
             ,
@@ -589,8 +581,8 @@
               "number": "29 - U2",
               "name": "Viaduto 1",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.799448440092284,
+                "longitude":  -6.7647549992599325
               }
             }
             ,
@@ -598,26 +590,29 @@
               "number": "30 - U2",
               "name": "Viaduto 2",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.801828016241764, 
+                "longitude": -6.761720702321552
               }
-            },
+            }
+            ,
             {
               "number": "31 - U2",
               "name": "Avenida Sá Carneiro 8",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80479744970189, 
+                "longitude": -6.760092241218911
               }
-            },
+            }
+            ,
             {
               "number": "32 - U2",
               "name": " Avenida joão da cruz",
               "coordinates": {
-                "latitude": 41.80871360511745, 
-                "longitude": -6.764022709742262
+                "latitude": 41.80730817865663,
+                "longitude": -6.758400019287951
               }
             }
+            
 
 
 
@@ -630,30 +625,381 @@
         },
         {
           "line": "U3",
-          "color": "#e8c700",
+          "color": "#e30000",
           "stops": [
             {
-              "number": 1,
-              "name": "CMB - Balcão Único",
+              "number": "1 - U3",
+              "name": "Estaçao Rodoviária de Bragança",
               "coordinates": {
-                "latitude": 41.806120636643996, 
-                "longitude": -6.765120124427577
+                "latitude": 41.80941791320758, 
+                "longitude": -6.76081535770131
+              }
+            },
+            {
+              "number": "2 - U3",
+              "name": "Tribunal",
+              "coordinates": {
+                "latitude": 41.80753508128174, 
+                "longitude": -6.758981837441079
+              }
+            },
+            {
+              "number": "3 - U3",
+              "name": "Finanças",
+              "coordinates": {
+                "latitude": 41.80665781980304, 
+                "longitude": -6.756115729364453
+              }
+            },
+            {
+              "number": "4 - U3",
+              "name": "Jardim",
+              "coordinates": {
+                "latitude": 41.80724864418311, 
+                "longitude": -6.753990057596319
+              }
+            },
+            {
+              "number": "5 - U3",
+              "name": "Largo Coronel Albino Lopo",
+              "coordinates": {
+                "latitude": 41.80657078468515, 
+                "longitude": -6.752762049078572 
+              }
+            },
+            {
+              "number": "6 - U3",
+              "name": "Escola Secundária Miguel Torga",
+              "coordinates": {
+                "latitude": 41.80582046079933, 
+                "longitude": -6.7484831888200905
+              }
+            },
+            {
+              "number": "7 - U3",
+              "name": "Rua de São Sebastião - Escola Primária",
+              "coordinates": {
+                "latitude": 41.8045861512501, 
+                "longitude": -6.745999104790426
+              }
+            },
+            {
+              "number": "8 - U3",
+              "name": "Escola Santa Maria",
+              "coordinates": {
+                "latitude": 41.80770915509575, 
+                "longitude": -6.747660349644548 
+              }
+            },
+            {
+              "number": "9 - U3",
+              "name": "Rua da Lombada",
+              "coordinates": {
+                "latitude":41.81292265589897, 
+                "longitude": -6.7435830382248
+              }
+            },
+            {
+              "number": "10 - U3",
+              "name": "Avenida do Sabor 1",
+              "coordinates": {
+                "latitude": 41.81220737496892, 
+                "longitude": -6.7431961300642485
+              }
+            },
+            {
+              "number": "11 - U3",
+              "name": "Avenida do Sabor 2",
+              "coordinates": {
+                "latitude":41.81132527838524,
+                "longitude":  -6.746143459353473
+              }
+            },
+            {
+              "number": "12 - U3",
+              "name": "Av. Cidade de Zamora",
+              "coordinates": {
+                "latitude": 41.80911293939252, 
+                "longitude": -6.751099998334937 
+              }
+            },
+            {
+              "number": "13 - U3",
+              "name": "Seminário",
+              "coordinates": {
+                "latitude": 41.80814585506385, 
+                "longitude": -6.753955310860989 
+              }
+            },
+            {
+              "number": "14 - U3",
+              "name": "Sapato",
+              "coordinates": {
+                "latitude": 41.81082248511785, 
+                "longitude": -6.755941051670843 
+              }
+            },
+            {
+              "number": "15 - U3",
+              "name": "Av. das Forças Armadas 1",
+              "coordinates": {
+                "latitude": 41.81374632879126, 
+                "longitude": -6.7580535951066585
+              }
+            },
+            {
+              "number": "16 - U3",
+              "name": "Av. das Forças Armadas 2",
+              "coordinates": {
+                "latitude": 41.81613290752608, 
+                "longitude": -6.756471660066805
+              }
+            },
+            {
+              "number": "17 - U3",
+              "name": "Av. das Forças Armadas 3",
+              "coordinates": {
+                "latitude": 41.81897756179772, 
+                "longitude": -6.7542006113928235
+              }
+            },
+            {
+              "number": "18 - U3",
+              "name": "Av. da Dinastia de Bragança",
+              "coordinates": {
+                "latitude": 41.81817513049366, 
+                "longitude": -6.757880762724977 
+              }
+            },
+            {
+              "number": "19 - U3",
+              "name": "Colégio Sagrado Coraçao de Jesus",
+              "coordinates": {
+                "latitude": 41.81804103709909, 
+                "longitude": -6.761037829871785
+              }
+            },
+            {
+              "number": "20 - U3",
+              "name": "Rua Jaime Cortesao",
+              "coordinates": {
+                "latitude": 41.81756123652611, 
+                "longitude": -6.763806362984536 
+              }
+            },
+            {
+              "number": "21 - U3",
+              "name": "Avenida Fernando Pessoa",
+              "coordinates": {
+                "latitude": 41.816120831519456, 
+                "longitude": -6.766866083944121
+              }
+            },
+            {
+              "number": "22 - U3",
+              "name": "Rua Agostinho Lopes Coelho",
+              "coordinates": {
+                "latitude": 41.81514691371803, 
+                "longitude": -6.765411765156857 
+              }
+            },
+            {
+              "number": "23 - U3",
+              "name": "Avenida Pavillon Sou Bois",
+              "coordinates": {
+                "latitude": 41.814503599761565, 
+                "longitude": -6.764177264051726
+              }
+            },
+            {
+              "number": "24 - U3",
+              "name": "Rua da Nogueira",
+              "coordinates": {
+                "latitude": 41.812939010048275, 
+                "longitude": -6.7654952769375765
+              }
+            },
+            {
+              "number": "25 - U3",
+              "name": "Rua da Nogueira 2",
+              "coordinates": {
+                "latitude": 41.813583711284785,
+                "longitude":  -6.767793211854951
+              }
+            },
+            {
+              "number": "25 - U3",
+              "name": "Rua da Terra Fria",
+              "coordinates": {
+                "latitude": 41.81416968670543,  
+                "longitude": -6.7700143997587405
+              }
+            },
+            {
+              "number": "27 - U3",
+              "name": "Rua Martim Velho da Fonseca",
+              "coordinates": {
+                "latitude": 41.8134780861107,
+                "longitude":  -6.770879207249396
+              }
+            },
+            {
+              "number": "28 - U3",
+              "name": "Cemitério Santo Condestável",
+              "coordinates": {
+                "latitude": 41.812029272128186, 
+                "longitude": -6.771721396071199
+              }
+            },
+            {
+              "number": "29 - U3",
+              "name": "GNR",
+              "coordinates": {
+                "latitude":41.80878804442755, 
+                "longitude": -6.770771748076559 
+              }
+            },
+            {
+              "number": "30 - U3",
+              "name": "Escola Paulo Quintela",
+              "coordinates": {
+                "latitude": 41.80753473320889,  
+                "longitude": -6.768006748130685
+              }
+            },
+            {
+              "number": "31 - U3",
+              "name": "Segurança Social",
+              "coordinates": {
+                "latitude": 41.80871089743259, 
+                "longitude": -6.764573566829264
+              }
+            },
+            {
+              "number": "32 - U3",
+              "name": "Escola Secundária Abade de Baçal",
+              "coordinates": {
+                "latitude": 41.80794412098271, 
+                "longitude":-6.761601614375311
               }
             }
+
+
+
+
+
+
+
+            
           ]
         },
         {
           "line": "R1",
-          "color": "#f6f6f6",
+          "color": "#f5821f",
           "stops": [
             {
-              "number": 1,
-              "name": "Sarzeda",
+              "number": "1 - R1",
+              "name": "CMB - Balcão Único",
               "coordinates": {
-                "latitude": 41.806120636643996, 
-                "longitude": -6.765120124427577
+                "latitude": 41.80616278589759, 
+                "longitude": -6.765105799139135
               }
-            }
+            },
+            {
+              "number": "2 - R1",
+              "name": "Escola Superior de Saúde 1",
+              "coordinates": {
+                "latitude": 41.80331776540265, 
+                "longitude": -6.765312754274919
+              }
+            },
+            {
+              "number": "3 - R1",
+              "name": "Escola Superior de Saúde 2",
+              "coordinates": {
+                "latitude": 41.802890088707834,
+                "longitude":  -6.765952787993294
+              }
+            },
+            {
+              "number": "4 - R1",
+              "name": "IEFP",
+              "coordinates": {
+                "latitude": 41.80454490229738, 
+                "longitude": -6.769095554426156
+              }
+            },
+            {
+              "number": "5 - R1",
+              "name": "Escola Paulo Quintela",
+              "coordinates": {
+                "latitude": 41.80757412687698, 
+                "longitude": -6.767939171161262
+              }
+            },
+            {
+              "number": "6 - R1",
+              "name": "PSP",
+              "coordinates": {
+                "latitude": 41.807290626341235, 
+                "longitude": -6.7652576417072385
+              }
+            },
+            {
+              "number": "7 - R1",
+              "name": "Segurança Social",
+              "coordinates": {
+                "latitude": 41.80871832591346, 
+                "longitude": -6.7645769574182735
+              }
+            },
+            {
+              "number": "8 - R1",
+              "name": "Escola Secundária Abade de Baçal",
+              "coordinates": {
+                "latitude": 41.80793161257354, 
+                "longitude": -6.761570952361543
+              }
+            },
+            {
+              "number": "9 - R1",
+              "name": "Tribunal",
+              "coordinates": {
+                "latitude": 41.80754302190581, 
+                "longitude": -6.758986459660608
+              }
+            },
+            {
+              "number": "10 - R1",
+              "name": "Translande",
+              "coordinates": {
+                "latitude": 41.80509296507886, 
+                "longitude": -6.760286592355328
+              }
+            },
+            {
+              "number": "11 - R1",
+              "name": "Viaduto",
+              "coordinates": {
+                "latitude": 41.80178436033361, 
+                "longitude": -6.762359406980978
+              }
+            },
+            {
+              "number": "12 - R1",
+              "name": "Avenida Sá Carneiro ",
+              "coordinates": {
+                "latitude": 41.799708526956216, 
+                "longitude": -6.767646631018564
+              }
+            },
+
+
+
+
+
+
+
           ]
         }
       ]
