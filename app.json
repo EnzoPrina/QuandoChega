@@ -7,6 +7,7 @@
     "icon": "./assets/images/icon.png",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
+    "scheme": "QuandoChega",
     "ios": {
       "supportsTablet": true
     },

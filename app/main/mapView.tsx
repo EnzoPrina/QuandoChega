@@ -96,8 +96,8 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   markerCircle: {
-    width: 40,
-    height: 30,
+    width: 45,
+    height: 35,
     borderRadius: 20,
     alignItems: 'center',
     justifyContent: 'center',
