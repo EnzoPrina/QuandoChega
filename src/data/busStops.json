@@ -987,12 +987,244 @@
             },
             {
               "number": "12 - R1",
-              "name": "Avenida Sá Carneiro ",
+              "name": "Avenida Sá Carneiro 7",
               "coordinates": {
                 "latitude": 41.799708526956216, 
                 "longitude": -6.767646631018564
               }
             },
+            {
+              "number": "13 - R1",
+              "name": "Igreja Santos Mártires",
+              "coordinates": {
+                "latitude": 41.79677883605905, 
+                "longitude": -6.771275524771539
+              }
+            }
+            ,
+            {
+              "number": "14 - R1",
+              "name": "Supinorte",
+              "coordinates": {
+                "latitude": 41.7942919801427, 
+                "longitude": -6.770618891339748
+              }
+            }
+            ,
+            {
+              "number": "15 - R1",
+              "name": "Avenida das Cantarias 1",
+              "coordinates": {
+                "latitude": 41.79008172848713, 
+                "longitude": -6.771117932776628
+              }
+            }
+            ,
+            {
+              "number": "16 - R1",
+              "name": "Avenida das Cantarias 2",
+              "coordinates": {
+                "latitude": 41.78524449334029, 
+                "longitude": -6.775701234239046
+              }
+            }
+            ,
+            {
+              "number": "17 - R1",
+              "name": "Avenida das Cantarias 3",
+              "coordinates": {
+                "latitude": 41.78337542995655, 
+                "longitude": -6.777445048141302
+              }
+            }
+            ,
+            {
+              "number": "18 - R1",
+              "name": "Nerba",
+              "coordinates": {
+                "latitude": 41.78007522912559, 
+                "longitude": -6.779086631736792
+              }
+            }
+            ,
+            {
+              "number": "19 - R1",
+              "name": "S. Loureço",
+              "coordinates": {
+                "latitude": 41.77661929494338, 
+                "longitude": -6.784924198914933
+              }
+            }
+            ,
+            {
+              "number": "20 - R1",
+              "name": "Nogueira - Couto",
+              "coordinates": {
+                "latitude": 41.7722413792225, 
+                "longitude": -6.790505583234331
+              }
+            },
+            {
+              "number": "21 - R1",
+              "name": "Recta da Mosca 1",
+              "coordinates": {
+                "latitude": 41.76252466892811, 
+                "longitude":-6.801747147782793
+              }
+            },
+            {
+              "number": "22 - R1",
+              "name": "Nogueira 1",
+              "coordinates": {
+                "latitude": 41.7658382846201, 
+                "longitude":-6.80377075194787
+              }
+            },
+            {
+              "number": "23 - R1",
+              "name": "Nogueira 2",
+              "coordinates": {
+                "latitude": 41.767906678348254, 
+                "longitude":-6.807466983813358
+              }
+            },
+            {
+              "number": "24 - R1",
+              "name": "Nogueira Ponte",
+              "coordinates": {
+                "latitude": 41.76952309568576, 
+                "longitude":-6.8103949909829415
+              }
+            },
+            {
+              "number": "25- R1",
+              "name": "Nogueira Rua São Pelágio 1",
+              "coordinates": {
+                "latitude": 41.77136658407609, 
+                "longitude": -6.8129142862329966
+              }
+            },
+            {
+              "number": "26 - R1",
+              "name": "Nogueira Senhora da Cabeça",
+              "coordinates": {
+                "latitude": 41.77293823426819, 
+                "longitude":-6.815885153278485
+              }
+            },
+            {
+              "number": "27 - R1",
+              "name": "Nogueira Rua São Pelágio 2",
+              "coordinates": {
+                "latitude": 41.77141506076108, 
+                "longitude": -6.8130116495957065
+              }
+            },
+            {
+              "number": "28 - R1",
+              "name": "Nogueira 3",
+              "coordinates": {
+                "latitude": 41.76943084730102, 
+                "longitude":-6.810567295630952
+              }
+            },
+            {
+              "number": "29 - R1",
+              "name": "Nogueira 2",
+              "coordinates": {
+                "latitude": 41.76779365974194, 
+                "longitude":-6.807452828078194
+              }
+            },
+            {
+              "number": "30 - R1",
+              "name": "Nogueira 4",
+              "coordinates": {
+                "latitude": 41.765701778745886, 
+                "longitude":-6.803738813544555
+              }
+            }
+            ,
+            {
+              "number": "31 - R1",
+              "name": "Reta de Rebordão",
+              "coordinates": {
+                "latitude": 41.756228529714335,
+                "longitude": -6.805764072284831
+              }
+            },
+            {
+              "number": "32 - R1",
+              "name": "Reta de Rebordãos",
+              "coordinates": {
+                "latitude": 41.745920350244866,
+                "longitude": -6.811976298829998
+              }
+            },
+            {
+              "number": "33 - R1",
+              "name": "Cruzamento de Sarzeda",
+              "coordinates": {
+                "latitude": 41.74201148833721, 
+                "longitude":-6.814292803808798
+              }
+            },
+            {
+              "number": "34 - R1",
+              "name": "Rebordão",
+              "coordinates": {
+                "latitude": 41.73983447929341, 
+                "longitude":-6.820304077677352
+              }
+            },
+            {
+              "number": "35 - R1",
+              "name": "Rebordãos ",
+              "coordinates": {
+                "latitude": 41.73984386310439, 
+                "longitude":-6.824372217088288
+              }
+            },
+            {
+              "number": "36 - R1",
+              "name": "Rebordãos - Igreja",
+              "coordinates": {
+                "latitude": 41.74033282712428, 
+                "longitude":-6.828164543730329
+              }
+            },
+            {
+              "number": "37 - R1",
+              "name": "Rebordãos 2",
+              "coordinates": {
+                "latitude": 41.739713231866766, 
+                "longitude":-6.824232993058162
+              }
+            },
+            {
+              "number": "38 - R1",
+              "name": "Rebordãos 1",
+              "coordinates": {
+                "latitude": 41.73968753972632, 
+                "longitude":-6.820259504252343
+              }
+            },
+            {
+              "number": "39 - R1",
+              "name": "Sarzeda 2",
+              "coordinates": {
+                "latitude": 41.74409149809534, 
+                "longitude":-6.806775978951589
+              }
+            },
+            {
+              "number": "40 - R1",
+              "name": "Sarzeda - Lar",
+              "coordinates": {
+                "latitude": 41.74335953871887,
+                "longitude": -6.802991581592853
+              }
+            }
 
 
 
