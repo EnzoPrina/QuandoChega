@@ -1,0 +1,279 @@
+{
+    "line": "R3",
+    "color": "#e3bc00",
+    "stops": [
+      {
+        "number": "1 -R3",
+        "name": "CMB - Balcão Único",
+        "coordinates": {
+          "latitude": 41.80611299641637, 
+          "longitude": -6.765114851300209
+        }
+      },
+      {
+        "number": "2 -R3",
+        "name": "Escola Superior de Saúde 1",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "3 -R3",
+        "name": "Hospital",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "4 -R3",
+        "name": "Hospital Urgência",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "5 -R3",
+        "name": "IEFP",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "6 -R3",
+        "name": "Escola Paulo Quintela",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "7 -R3",
+        "name": "PSP",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "8 -R3",
+        "name": "Segurança Social",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "9 -R3",
+        "name": "Escola Secundária Abade de Baçal",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "10 -R3",
+        "name": "Tribunal",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "11 -R3",
+        "name": "Translande",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "12 -R3",
+        "name": "Viaduto",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "13 -R3",
+        "name": "Avenida Sá Carneiro 7",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "14 -R3",
+        "name": "Cantina do IPB",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "15 -R3",
+        "name": "Flor da Ponte",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "16 -R3",
+        "name": "Estrada do Turismo",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "17 -R3",
+        "name": "Escadaria S. Bartolomeu",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "18 -R3",
+        "name": "Santa Rita",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "19 -R3",
+        "name": "Reta de Cabeça Boa",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "20 -R3",
+        "name": "Cabeça Boa",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "21 -R3",
+        "name": "Betânia",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "22 -R3",
+        "name": "Reta do Seixo",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "23 -R3",
+        "name": "Malhada",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "24 -R3",
+        "name": "Nova Vida",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "25 -R3",
+        "name": "São Judas Tadeu - Samil",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "26 -R3",
+        "name": "Samil",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "27 -R3",
+        "name": "Cruzamento Samil",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "28 -R3",
+        "name": "São Pedro de Sarracenos - Serração",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "29 -R3",
+        "name": "São Pedro de Sarracenos - Estrada Nacional",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "30 -R3",
+        "name": "São Pedro de Sarracenos - Largo",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "31 -R3",
+        "name": "São Pedro de Sarracenos - Rua Principal",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "32 -R3",
+        "name": "Alfaião - Rua dos Banhos",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "33 -R3",
+        "name": "Alfaião 1",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      },
+      {
+        "number": "34 -R3",
+        "name": "Alfaião 2",
+        "coordinates": {
+          "latitude": "",
+          "longitude": ""
+        }
+      }
+    ]
+  }
+  

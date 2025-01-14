@@ -1225,17 +1225,880 @@
                 "longitude": -6.802991581592853
               }
             }
-
-
-
-
-
-
-
           ]
+        },
+        { 
+          "line": " R2 Cast",
+          "color": "#a54686",
+          "stops": [
+            {
+              "number": "1 -  R2 Cast",
+              "name": "CMB - Balcão Único",
+              "coordinates": { 
+                "latitude": 41.806152319886365, 
+                "longitude": -6.764936316364927
+              }
+          },
+          {
+            "number": "2 -  R2 Cast",
+            "name": "Escola Superior de Saúde 1",
+            "coordinates": { 
+              "latitude": 41.80331814315675, 
+              "longitude": -6.765314183697721
+            }
+        },
+        {
+          "number": "3 -  R2 Cast",
+          "name": "Escola Superior de Saúde 2",
+          "coordinates": { 
+            "latitude": 41.80288491112548, 
+            "longitude": -6.765942194443587
+          }
+      }, 
+      {
+        "number": "4 -  R2 Cast",
+        "name": "IEFP",
+        "coordinates": { 
+          "latitude": 41.80454558270549, 
+          "longitude": -6.769150960316392
         }
+    }, 
+    {
+      "number": "5 -  R2 Cast",
+      "name": "Escola Paulo Quintela",
+      "coordinates": { 
+        "latitude": 41.807546853739005, 
+        "longitude": -6.768005154017662
+      }
+    }, 
+    {
+      "number": "6 -  R2 Cast",
+      "name": "PSP",
+      "coordinates": { 
+        "latitude": 41.807275483956694, 
+        "longitude": -6.765288272384518
+      }
+    }, 
+    {
+      "number": "7 -  R2 Cast",
+      "name": "Segurança Social",
+      "coordinates": { 
+        "latitude": 41.80871301036566, 
+        "longitude": -6.764564970129289
+      }
+    }, 
+    {
+      "number": "8 -  R2 Cast",
+      "name": "Escola Secundária Abade de Baçal",
+      "coordinates": { 
+        "latitude": 41.80793636907826, 
+        "longitude": -6.761607235442062
+      }
+    }, 
+    {
+      "number": "9 -  R2 Cast",
+      "name": "Tribunal",
+      "coordinates": { 
+        "latitude": 41.80753760506897,
+        "longitude":  -6.758966898182864
+      }
+    }, 
+    {
+      "number": "10 -  R2 Cast",
+      "name": "Translande",
+      "coordinates": { 
+        "latitude": 41.805044437609354, 
+        "longitude": -6.760281108038302
+      }
+    }, 
+    
+    
+    
+    
+    
+    
+    {
+      "number": "11 -  R2 Cast",
+      "name": "Viaduto",
+      "coordinates": { 
+        "latitude": 41.801797892904524, 
+        "longitude": -6.762407647989864
+      }
+    }, 
+    {
+      "number": "12 -  R2 Cast",
+      "name": "Beatas",
+      "coordinates": { 
+        "latitude": 41.801228812269486, 
+        "longitude": -6.765469375652915
+      }
+    }, 
+    {
+      "number": "13 -  R2 Cast",
+      "name": "Hospital",
+      "coordinates": { 
+        "latitude": 41.801713631662565, 
+        "longitude": -6.767462766827959
+      }
+    }, 
+    {
+      "number": "14 -  R2 Cast",
+      "name": "Estádio Municipal",
+      "coordinates": { 
+        "latitude": 41.802735512744114, 
+        "longitude": -6.772263371867123
+      }
+    }, 
+    {
+      "number": "15 -  R2 Cast",
+      "name": "Eixo Atlântico",
+      "coordinates": { 
+        "latitude": 41.80336615658436, 
+        "longitude": -6.7748331016999535
+      }
+    }, 
+    {
+      "number": "16 -  R2 Cast",
+      "name": "Rua Conde de Areães 1",
+      "coordinates": { 
+        "latitude": 41.80198267352893, 
+        "longitude": -6.779073684509799
+      }
+    }, 
+    {
+      "number": "17 -  R2 Cast",
+      "name": "Rua Conde de Areães 2",
+      "coordinates": { 
+        "latitude": 41.80010625506258, 
+        "longitude": -6.782271799852331
+      }
+    }, 
+    {
+      "number": "18 -  R2 Cast",
+      "name": "Rua Conde de Areães 3",
+      "coordinates": { 
+        "latitude": 41.798455181833475, 
+        "longitude": -6.784022120635301
+      }
+    }, 
+    {
+      "number": "19 -  R2 Cast",
+      "name": "Fundo da Veiga",
+      "coordinates": { 
+        "latitude": 41.79539405738057, 
+        "longitude": -6.787375579383131
+      }
+    }, 
+    {
+      "number": "20 -  R2 Cast",
+      "name": "Devesa",
+      "coordinates": { 
+        "latitude": 41.795405744991285, 
+        "longitude": -6.793816387177897
+      }
+    }, 
+    
+    
+    
+    
+    {
+      "number": "21 -  R2 Cast",
+      "name": "Cruzamento de Castro de Avelãs",
+      "coordinates": { 
+        "latitude": 41.7950114074839, 
+        "longitude": -6.799832160998193
+      }
+    }, 
+    {
+      "number": "22 -  R2 Cast",
+      "name": "Castro de Avelãs",
+      "coordinates": { 
+        "latitude": 41.798268920028306, 
+        "longitude": -6.80521409804189
+      }
+    }, 
+    {
+      "number": "23 -  R2 Cast",
+      "name": "Gostei Curva da Paixão",
+      "coordinates": { 
+        "latitude": 41.78896070619653,
+        "longitude":  -6.801769153821884
+      }
+    }, 
+    {
+      "number": "24 -  R2 Cast",
+      "name": "EM518 - Gostei",
+      "coordinates": { 
+        "latitude": 41.790968511856136, 
+        "longitude": -6.80705032055352
+      }
+    }, 
+    {
+      "number": "25 -  R2 Cast",
+      "name": "Gostei Cruzamento de Castanheira",
+      "coordinates": { 
+        "latitude": 41.79057543367383, 
+        "longitude": -6.8155629500023265
+      }
+    }, 
+    {
+      "number": "26 -  R2 Cast",
+      "name": "Castanheira",
+      "coordinates": { 
+        "latitude": 41.78829497458172, 
+        "longitude": -6.824412178922631
+      }
+    }, 
+    {
+      "number": "27 -  R2 Cast",
+      "name": "Gostei Rua do Bairro Alto",
+      "coordinates": { 
+        "latitude": 41.791591515572286, 
+        "longitude": -6.817597480575498
+      }
+    }, 
+    {
+      "number": "28 -  R2 Cast",
+      "name": "Formil São Claúdio",
+      "coordinates": { 
+        "latitude": 41.79485139483589, 
+        "longitude": -6.829422552912928
+      }
+    }, 
+    {
+      "number": "29 -  R2 Cast",
+      "name": "Formil Rua do Outeiro",
+      "coordinates": { 
+        "latitude": 41.79378223477159,
+        "longitude":  -6.834859736673724
+      }
+    }, 
+    {
+      "number": "30 -  R2 Cast",
+      "name": "Alimonde",
+      "coordinates": { 
+        "latitude": 41.79935429182667, 
+        "longitude": -6.888068537852944
+      }
+    }, 
+    
+    
+    {
+      "number": "31 -  R2 Cast",
+      "name": "Conlelas",
+      "coordinates": { 
+        "latitude": 41.825156095058794, 
+        "longitude": -6.903558167889672
+      }
+    }, 
+    {
+      "number": "32 -  R2 Cast",
+      "name": "Castrelos",
+      "coordinates": { 
+        "latitude": 41.832367691327214, 
+        "longitude": -6.88744713444074
+      }
+    }, 
+    {
+      "number": "33 -  R2 Cast",
+      "name": "Castrelos",
+      "coordinates": { 
+        "latitude": 41.83283144581338, 
+        "longitude": -6.884298479765664
+      }
+    }
       ]
     },
+
+
+{ 
+    "line": " R2 Brag",
+    "color": "#982472",
+    "stops": [
+      {
+        "number": "1 -  R2 Brag",
+        "name": "Castrelos",
+        "coordinates": { 
+          "latitude": 41.83282166531525, 
+          "longitude":-6.884282801878404
+        }
+    },
+    {
+      "number": "2 -  R2 Brag",
+      "name": "Castrelos",
+      "coordinates": { 
+        "latitude": 41.832387231845985, 
+        "longitude":-6.887480054629476
+      }
+  },
+  {
+    "number": "3 -  R2 Brag",
+    "name": "Conlelas",
+    "coordinates": { 
+      "latitude": 41.825198799516855,
+      "longitude": -6.903608159174627
+    }
+}, 
+{
+  "number": "4 -  R2 Brag",
+  "name": "Alimonde",
+  "coordinates": { 
+    "latitude": 41.79920905692269, 
+    "longitude":-6.888229238554331
+  }
+}, 
+{
+"number": "5 -  R2 Brag",
+"name": "Formil Rua do Outeiro",
+"coordinates": {
+  "latitude": 41.79377189948506, 
+  "longitude":-6.834877323879183
+}
+}, 
+{
+"number": "6 -  R2 Brag",
+"name": "Formil São Claúdio",
+"coordinates": { 
+  "latitude":41.794829119705724, 
+  "longitude":-6.829458436437993
+}
+}, 
+{
+"number": "7 -  R2 Brag",
+"name": "Gostei Rua do Bairro Alto",
+"coordinates": { 
+  "latitude":41.79157768174136, 
+  "longitude":-6.817573214890081
+}
+}, 
+{
+"number": "8 -  R2 Brag",
+"name": "Castanheira",
+"coordinates": { 
+  "latitude": 41.78828571758276,
+  "longitude": -6.824388464282885
+}
+}, 
+{
+"number": "9 -  R2 Brag",
+"name": "Gostei Cruzamento de Castanheira",
+"coordinates": { 
+  "latitude":41.79050690675318, 
+  "longitude": -6.81558520436648
+}
+}, 
+{
+"number": "10 -  R2 Brag",
+"name": "EM518 - Gostei",
+"coordinates": { 
+  "latitude": 41.79102787592815, 
+  "longitude": -6.807038293982113
+}
+}, 
+
+
+
+
+
+
+{
+"number": "11 -  R2 Brag",
+"name": "Gostei Curva da Paixão",
+"coordinates": { 
+  "latitude": 41.78892132231334, 
+  "longitude":-6.801752171329587
+}
+}, 
+{
+"number": "12 -  R2 Brag",
+"name": "Castro de Avelãs",
+"coordinates": { 
+  "latitude": 41.79832994627815,
+  "longitude":  -6.805235605684218
+}
+}, 
+{
+"number": "13 -  R2 Brag",
+"name": "Cruzamento de Castro de Avelãs",
+"coordinates": { 
+  "latitude": 41.79501567963688, 
+  "longitude": -6.799888723566236
+}
+}, 
+{
+"number": "14 -  R2 Brag",
+"name": "Devesa",
+"coordinates": { 
+  "latitude": 41.795468664679376,
+  "longitude": -6.793843100683871
+}
+}, 
+{
+"number": "15 -  R2 Brag",
+"name": "Fundo da Veiga",
+"coordinates": { 
+  "latitude":41.79531767002652,
+  "longitude":  -6.787270891025364
+}
+}, 
+{
+"number": "16 -  R2 Brag",
+"name": "Rua Conde de Areães 3",
+"coordinates": { 
+  "latitude": 41.798398869412374, 
+  "longitude": -6.783961171170211
+}
+}, 
+{
+"number": "17 -  R2 Brag",
+"name": "Rua Conde de Areães 2",
+"coordinates": { 
+  "latitude": 41.800369143646115, 
+  "longitude": -6.781498796061241
+}
+}, 
+{
+"number": "18 -  R2 Brag",
+"name": "Rua Conde de Areães 1",
+"coordinates": { 
+  "latitude": 41.80196393414656,
+  "longitude":  -6.779118851453067
+}
+}, 
+{
+"number": "19 -  R2 Brag",
+"name": "Eixo Atlântico",
+"coordinates": { 
+  "latitude": 41.80320526716366, 
+  "longitude": -6.775902203856227
+}
+}, 
+{
+"number": "20 -  R2 Brag",
+"name": "Estádio Municipal",
+"coordinates": { 
+  "latitude": 41.80259405858015, 
+  "longitude": -6.772409577517387
+}
+}, 
+
+
+
+
+{
+"number": "21 -  R2 Brag",
+"name": "Hospital Urgência",
+"coordinates": { 
+  "latitude": 41.80245553769743, 
+  "longitude": -6.7691398486820535
+}
+}, 
+{
+"number": "22 -  R2 Brag",
+"name": "IEFP",
+"coordinates": { 
+  "latitude": 41.80455792293415, 
+  "longitude": -6.769092277427849
+}
+}, 
+{
+"number": "23 -  R2 Brag",
+"name": "Escola Paulo Quintela",
+"coordinates": { 
+  "latitude": 41.80752782476825, 
+  "longitude":  -6.768036078547603
+}
+}, 
+{
+"number": "24 -  R2 Brag",
+"name": "PSP",
+"coordinates": { 
+  "latitude": 41.80729589099129, 
+  "longitude": -6.765248806661393
+}
+}, 
+{
+"number": "25 -  R2 Brag",
+"name": "Segurança Social",
+"coordinates": { 
+  "latitude": 41.80871430171312, 
+  "longitude": -6.764579101305482
+}
+}, 
+{
+"number": "26 -  R2 Brag",
+"name": "Escola Secundária Abade de Baçal",
+"coordinates": { 
+  "latitude": 41.80793810503818,
+  "longitude":  -6.761580935727162
+}
+}, 
+{
+"number": "27 -  R2 Brag",
+"name": "Tribunal",
+"coordinates": { 
+  "latitude": 41.807530220077794, 
+  "longitude": -6.758976297140237
+}
+}, 
+{
+"number": "28 -  R2 Brag",
+"name": "Translande",
+"coordinates": { 
+  "latitude": 41.80508486378926, 
+  "longitude": -6.760252319782964
+}
+}, 
+{
+"number": "29 -  R2 Brag",
+"name": "Viaduto",
+"coordinates": { 
+  "latitude": 41.801788416248186, 
+  "longitude":  -6.7623733566682915
+}
+}, 
+{
+"number": "30 -  R2 Brag",
+"name": "Beatas",
+"coordinates": { 
+  "latitude": 41.80122005162131, 
+  "longitude": -6.76547141483979
+}
+}, 
+
+
+{
+"number": "31 -  R2 Brag",
+"name": "Centro de Saúde da Sé",
+"coordinates": { 
+  "latitude": 41.80334645946928, 
+  "longitude": -6.765139118283332
+}
+}, 
+{
+"number": "32 -  R2 Brag",
+"name": "CMB - Balcão Único",
+"coordinates": { 
+  "latitude": 41.806059269914805, 
+  "longitude": -6.765109470763846
+}
+}
+
+]
+},
+
+{
+  "line": "R3 Alfaião",
+  "color": "#e3bc00",
+  "stops": [
+    {
+      "number": "1 - R3 Alf",
+      "name": "CMB - Balcão Único",
+      "coordinates": {
+        "latitude": 41.80611299641637, 
+        "longitude": -6.765114851300209
+      }
+    },
+    {
+      "number": "2 - R3 Alf",
+      "name": "Escola Superior de Saúde 1",
+      "coordinates": {
+        "latitude": 41.80332053648001, 
+        "longitude": -6.7653074082328395
+      }
+    },
+    {
+      "number": "3 - R3 Alf",
+      "name": "Hospital",
+      "coordinates": {
+        "latitude": 41.80170927964201, 
+        "longitude": -6.767515122377506
+      }
+    },
+    {
+      "number": "4 - R3 Alf",
+      "name": "Hospital Urgência",
+      "coordinates": {
+        "latitude": 41.80247288176589, 
+        "longitude": -6.769159989294039
+      }
+    },
+    {
+      "number": "5 - R3 Alf",
+      "name": "IEFP",
+      "coordinates": {
+        "latitude": 41.804570293371405, 
+        "longitude": -6.769087759628077
+      }
+    },
+    {
+      "number": "6 - R3 Alf",
+      "name": "Escola Paulo Quintela",
+      "coordinates": {
+        "latitude": 41.80754176608857, 
+        "longitude": -6.768000965757371
+      }
+    },
+    {
+      "number": "7 - R3 Alf",
+      "name": "PSP",
+      "coordinates": {
+        "latitude": 41.807305819580144, 
+        "longitude": -6.76525393634171
+      }
+    },
+    {
+      "number": "8 - R3 Alf",
+      "name": "Segurança Social",
+      "coordinates": {
+        "latitude": 41.80871785683938, 
+        "longitude": -6.764583841583883
+      }
+    },
+    {
+      "number": "9 - R3 Alf",
+      "name": "Escola Secundária Abade de Baçal",
+      "coordinates": {
+        "latitude": 41.80793684765497, 
+        "longitude": -6.761561223636612
+      }
+    },
+    {
+      "number": "10 - R3 Alf",
+      "name": "Tribunal",
+      "coordinates": {
+        "latitude": 41.80755052224955, 
+        "longitude": -6.758982955764709
+      }
+    },
+    {
+      "number": "11 - R3 Alf",
+      "name": "Translande",
+      "coordinates": {
+        "latitude": 41.80510798953806, 
+        "longitude": -6.7602735380629735
+      }
+    },
+    {
+      "number": "12 - R3 Alf",
+      "name": "Viaduto",
+      "coordinates": {
+        "latitude": 41.801782435492456,
+        "longitude":  -6.7623651572925985
+      }
+    },
+    {
+      "number": "13 - R3 Alf",
+      "name": "Avenida Sá Carneiro 7",
+      "coordinates": {
+        "latitude": 41.7996638519009, 
+        "longitude": -6.767665497850641
+      }
+    },
+    {
+      "number": "14 - R3 Alf",
+      "name": "Cantina do IPB",
+      "coordinates": {
+        "latitude": 41.79940360128753,
+        "longitude":  -6.768829178147393
+      }
+    },
+    {
+      "number": "15 - R3 Alf",
+      "name": "Flor da Ponte",
+      "coordinates": {
+        "latitude": 41.800100552829775, 
+        "longitude": -6.760562497286626
+      }
+    },
+    {
+      "number": "16 - R3 Alf",
+      "name": "Estrada do Turismo",
+      "coordinates": {
+        "latitude":41.80026738970834, 
+        "longitude": -6.759762128567288
+      }
+    },
+    {
+      "number": "17 - R3 Alf",
+      "name": "Escadaria S. Bartolomeu",
+      "coordinates": {
+        "latitude": 41.797634067048264, 
+        "longitude": -6.746268871134381
+      }
+    },
+    {
+      "number": "18 - R3 Alf",
+      "name": "Santa Rita",
+      "coordinates": {
+        "latitude":41.79393570446537, 
+        "longitude": -6.743917195260763
+      }
+    },
+    {
+      "number": "19 - R3 Alf",
+      "name": "Reta de Cabeça Boa",
+      "coordinates": {
+        "latitude": 41.789916392841704, 
+        "longitude": -6.7494740500887636
+      }
+    },
+    {
+      "number": "20 - R3 Alf",
+      "name": "Cabeça Boa",
+      "coordinates": {
+        "latitude": 41.78724699161349, 
+        "longitude": -6.753241411341703
+      }
+    },
+    {
+      "number": "21 - R3 Alf",
+      "name": "Betânia",
+      "coordinates": {
+        "latitude": 41.78583677536831, 
+        "longitude": -6.757816918100556
+      }
+    },
+    {
+      "number": "22 - R3 Alf",
+      "name": "Reta do Seixo",
+      "coordinates": {
+        "latitude":41.785209722929906, 
+        "longitude": -6.760608379112844
+      }
+    },
+    {
+      "number": "23 - R3 Alf",
+      "name": "Malhada",
+      "coordinates": {
+        "latitude": 41.78405623145556, 
+        "longitude": -6.765127951779127
+      }
+    },
+    {
+      "number": "24 - R3 Alf",
+      "name": "Nova Vida",
+      "coordinates": {
+        "latitude": 41.78296759356588, 
+        "longitude": -6.765638349382498
+      }
+    },
+    {
+      "number": "25 - R3 Alf",
+      "name": "São Judas Tadeu - Samil",
+      "coordinates": {
+        "latitude": 41.77867732284447, 
+        "longitude": -6.762885604407588
+      }
+    },
+    {
+      "number": "26 - R3 Alf",
+      "name": "Samil",
+      "coordinates": {
+        "latitude": 41.77552947672055, 
+        "longitude": -6.7595930868667145
+      }
+    },
+    {
+      "number": "27 - R3 Alf",
+      "name": "Cruzamento Samil",
+      "coordinates": {
+        "latitude":41.772316528076466, 
+        "longitude": -6.76065726562084
+      }
+    },
+    {
+      "number": "28 - R3 Alf",
+      "name": "São Pedro de Sarracenos - Serração",
+      "coordinates": {
+        "latitude": 41.76828675073397, 
+        "longitude": -6.758733070506785
+      }
+    },
+    {
+      "number": "29 - R3 Alf",
+      "name": "São Pedro de Sarracenos - Estrada Nacional",
+      "coordinates": {
+        "latitude": 41.76825893739825,
+        "longitude":  -6.7587281347238815
+      }
+    },
+    {
+      "number": "30 - R3 Alf",
+      "name": "São Pedro de Sarracenos - Largo",
+      "coordinates": {
+        "latitude": 41.76463937468709, 
+        "longitude": -6.754376463005716
+      }
+    },
+    {
+      "number": "31 - R3 Alf",
+      "name": "São Pedro de Sarracenos - Rua Principal",
+      "coordinates": {
+        "latitude": 41.762668060006696, 
+        "longitude": -6.7523204873874345
+      }
+    },
+    {
+      "number": "32 - R3 Alf",
+      "name": "Alfaião - Rua dos Banhos",
+      "coordinates": {
+        "latitude": 41.762140408836785, 
+        "longitude": -6.7270729057177245
+      }
+    },
+    {
+      "number": "33 - R3 Alf",
+      "name": "Alfaião 1",
+      "coordinates": {
+        "latitude": 41.763925673096225, 
+        "longitude": -6.726054048398989
+      }
+    },
+    {
+      "number": "34 - R3 Alf",
+      "name": "Alfaião 2",
+      "coordinates": {
+        "latitude": 41.7660614209386, 
+        "longitude": -6.724157523006356
+      }
+    }
+  ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
+
+
+   
+
+]
+},
+
+
+
+
+
+
+
+
+
+
+
     {
       "name": "Mirandela",
       "lines": [

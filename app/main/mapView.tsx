@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    bottom: 500,
+    bottom: 600,
     right: 20,
     width: 60,
     height: 60,
@@ -125,7 +125,7 @@ const styles = StyleSheet.create({
   },
   menu: {
     position: 'absolute',
-    bottom: 300,
+    bottom: 280,
     right: 20,
     backgroundColor: 'white',
     borderRadius: 10,
