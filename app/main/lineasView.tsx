@@ -241,7 +241,7 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     borderRadius: 8,
     fontSize: 14,
-    color: "#333",
+    color: "#333",                                                                                    
   },
   closeButton: {
     marginTop: 16,

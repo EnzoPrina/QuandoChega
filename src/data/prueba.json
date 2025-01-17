@@ -1,279 +1,314 @@
 {
-    "line": "R3",
-    "color": "#e3bc00",
-    "stops": [
+    "cities": [
       {
-        "number": "1 -R3",
-        "name": "CMB - Balcão Único",
-        "coordinates": {
-          "latitude": 41.80611299641637, 
-          "longitude": -6.765114851300209
-        }
-      },
-      {
-        "number": "2 -R3",
-        "name": "Escola Superior de Saúde 1",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "3 -R3",
-        "name": "Hospital",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "4 -R3",
-        "name": "Hospital Urgência",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "5 -R3",
-        "name": "IEFP",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "6 -R3",
-        "name": "Escola Paulo Quintela",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "7 -R3",
-        "name": "PSP",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "8 -R3",
-        "name": "Segurança Social",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "9 -R3",
-        "name": "Escola Secundária Abade de Baçal",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "10 -R3",
-        "name": "Tribunal",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "11 -R3",
-        "name": "Translande",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "12 -R3",
-        "name": "Viaduto",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "13 -R3",
-        "name": "Avenida Sá Carneiro 7",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "14 -R3",
-        "name": "Cantina do IPB",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "15 -R3",
-        "name": "Flor da Ponte",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "16 -R3",
-        "name": "Estrada do Turismo",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "17 -R3",
-        "name": "Escadaria S. Bartolomeu",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "18 -R3",
-        "name": "Santa Rita",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "19 -R3",
-        "name": "Reta de Cabeça Boa",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "20 -R3",
-        "name": "Cabeça Boa",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "21 -R3",
-        "name": "Betânia",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "22 -R3",
-        "name": "Reta do Seixo",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "23 -R3",
-        "name": "Malhada",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "24 -R3",
-        "name": "Nova Vida",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "25 -R3",
-        "name": "São Judas Tadeu - Samil",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "26 -R3",
-        "name": "Samil",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "27 -R3",
-        "name": "Cruzamento Samil",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "28 -R3",
-        "name": "São Pedro de Sarracenos - Serração",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "29 -R3",
-        "name": "São Pedro de Sarracenos - Estrada Nacional",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "30 -R3",
-        "name": "São Pedro de Sarracenos - Largo",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "31 -R3",
-        "name": "São Pedro de Sarracenos - Rua Principal",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "32 -R3",
-        "name": "Alfaião - Rua dos Banhos",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "33 -R3",
-        "name": "Alfaião 1",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      },
-      {
-        "number": "34 -R3",
-        "name": "Alfaião 2",
-        "coordinates": {
-          "latitude": "",
-          "longitude": ""
-        }
-      }
-    ]
-  }
-  
+        "name": "Bragança",
+        "lines": [
+          { 
+            "line": "U1",
+            "color": "#007722",
+            "stops": [
+              {
+                "number": "1 - U1",
+                "name": "Estaçao Rodoviária de Bragança",
+                "coordinates": { 
+                  "latitude": 41.80949416006829,
+                  "longitude": -6.76073244676226
+                },
+                "horarios": ["01:00", "00:45" ]
+              },
+              {
+                "number": "2 - U1",
+                "name": "Tribunal",
+                "coordinates": {
+                  "latitude": 41.80752743842772, 
+                  "longitude": -6.758981468957998
+                },
+                "horarios": ["00:00", "00:45" ]
+              }
+              ,
+              {
+                "number": "3 - U1",
+                "name": "Rua 5 de Outubro",
+                "coordinates": { 
+                  "latitude": 41.806827993809115,
+                  "longitude": -6.7584204314955345
+                }
+              }
+              ,
+              {
+                "number": "4 - U1",
+                "name": "Rua Alexandre Herculano 1",
+                "coordinates": {
+                  "latitude": 41.80527489439842, 
+                  "longitude": -6.758696383314765
+                }
+              }
+              ,
+              {
+                "number": "5 - U1",
+                "name": "Rua Alexandre Herculano 2",
+                "coordinates": {
+                  "latitude": 41.80335204685137, 
+                  "longitude": -6.759312339100382
+                }
+              }
+              ,
+              {
+                "number": "6 - U1",
+                "name": "Flor da Ponte",
+                "coordinates": {
+                  "latitude": 41.80034346457391,
+                  "longitude":  -6.761180984985493
+                }
+              }
+              ,
+              {
+                "number": "7 - U1",
+                "name": "Escola Superior Agraria",
+                "coordinates": {
+                  "latitude": 41.79678532823312, 
+                  "longitude": -6.7648374168306455
+                }
+              }
+              ,
+              {
+                "number": "8 - U1",
+                "name": "Escola Superior de Tecnologia",
+                "coordinates": {
+                  "latitude": 41.795184381540956,
+                  "longitude":  -6.767352311024453
+                }
+              }
+              ,
+              {
+                "number": "9 - U1",
+                "name": "Plantório",
+                "coordinates": {
+                  "latitude": 41.79257471896721, 
+                  "longitude": -6.76954346502724
+                }
+              }
+              ,
+              {
+                "number": "10 - U1",
+                "name": "Av. das Cantarias 1",
+                "coordinates": {
+                  "latitude": 41.79005387154809, 
+                  "longitude": -6.771163240512114
+                }
+              }
+              ,
+              {
+                "number": "11 - U1",
+                "name": "Av. das Cantarias 2",
+                "coordinates": {
+                  "latitude":41.787574095493504, 
+                  "longitude": -6.7734927764879265
+                }
+              }
+              ,
+              {
+                "number": "12 - U1",
+                "name": "Rua Arquitecto Viana de Lima 1",
+                "coordinates": {
+                  "latitude": 41.788470657373274,
+                  "longitude":  -6.775781129958198
+                }
+              }
+              ,
+              {
+                "number": "13 - U1",
+                "name": "Rua Arquitecto Viana de Lima 2",
+                "coordinates": {
+                  "latitude": 41.7905963178077, 
+                  "longitude": -6.7793358081077395
+                }
+              }
+              ,
+              {
+                "number": "14 - U1",
+                "name": "Rua Coronel Teófilo de Morais 1",
+                "coordinates": {
+                  "latitude": 41.79116924456339, 
+                  "longitude": -6.78412305206098
+                }
+              }
+              ,
+              {
+                "number": "15 - U1",
+                "name": "Rua Coronel Teófilo de Morais 2",
+                "coordinates": {
+                  "latitude": 41.788307655616, 
+                  "longitude": -6.780667688186688
+                }
+              }
+              ,
+              {
+                "number": "16 - U1",
+                "name": "Rua Coronel Teófilo de Morais 3",
+                "coordinates": {
+                  "latitude": 41.78736109904048, 
+                  "longitude": -6.778553740685171
+                }
+              }
+              ,
+              {
+                "number": "17 - U1",
+                "name": "Av. das Cantarias 3",
+                "coordinates": {
+                  "latitude": 41.78525336629421, 
+                  "longitude": -6.775684031613737
+                }
+              }
+              ,
+              {
+                "number": "18 - U1",
+                "name": "Av. das Cantarias 3",
+                "coordinates": {
+                  "latitude": 41.783369708486305, 
+                  "longitude": -6.77745491128847
+                }
+              }
+              ,
+              {
+                "number": "19 - U1",
+                "name": "Nerba",
+                "coordinates": {
+                  "latitude": 41.78017290184344, 
+                  "longitude": -6.778979136103006 
+                }
+              }
+              ,
+              {
+                "number": "20 - U1",
+                "name": "Av. das Cantarias 4",
+                "coordinates": {
+                  "latitude": 41.780298096711334,  
+                  "longitude": -6.778822961448714
+                }
+              }            ,
+              {
+                "number": "21 - U1",
+                "name": "Av. das Cantarias 5",
+                "coordinates": {
+                  "latitude": 41.78280136473675, 
+                  "longitude": -6.777678434182985
+                }
+              }            ,
+              {
+                "number": "22 - U1",
+                "name": "Av. das Cantarias 6",
+                "coordinates": {
+                  "latitude": 41.78484512954955, 
+                  "longitude": -6.775714538039689 
+                }
+              }            ,
+              {
+                "number": "23 - U1",
+                "name": "Polidesportivo IPB",
+                "coordinates": {
+                  "latitude": 41.78750083812288, 
+                  "longitude": -6.773073381128804
+                }
+              }            ,
+              {
+                "number": "24 - U1",
+                "name": "Av. das Cantarias 7",
+                "coordinates": {
+                  "latitude": 41.7896278451036, 
+                  "longitude": -6.771185158292186
+                }
+              }            ,
+              {
+                "number": "25 - U1",
+                "name": "Plantório 2",
+                "coordinates": {
+                  "latitude": 41.79229090146158, 
+                  "longitude": -6.769586974638872
+                }
+              }            ,
+              {
+                "number": "26 - U1",
+                "name": "Escola Superior de Tecnologia 2",
+                "coordinates": {
+                  "latitude": 41.79505490228392, 
+                  "longitude": -6.767210394176128
+                }
+              }            ,
+              {
+                "number": "27 - U1",
+                "name": "Rua Artur Mirandela 1",
+                "coordinates": {
+                  "latitude": 41.79401513599168, 
+                  "longitude": -6.765639043195915
+                }
+              },
+              {
+                "number": "28 - U1",
+                "name": "Rua Artur Mirandela 2",
+                "coordinates": {
+                  "latitude": 41.79414781369042, 
+                  "longitude": -6.763848001795773
+                }
+              },
+              {
+                "number": "29 - U1",
+                "name": "Rua do Vale Churido",
+                "coordinates": {
+                  "latitude": 41.7938353568036, 
+                  "longitude": -6.76169026443243
+                }
+              },
+              {
+                "number": "30 - U1",
+                "name": "Rua do Vale Churido 2",
+                "coordinates": {
+                  "latitude": 41.794956178118696, 
+                  "longitude": -6.760324762044431 
+                }
+              },
+              {
+                "number": "31 - U1",
+                "name": "Rua São João de Brito",
+                "coordinates": {
+                  "latitude": 41.7982377744258, 
+                  "longitude": -6.759645013438145
+                }
+              },
+              {
+                "number": "32 - U1",
+                "name": "Flor da Ponte 2",
+                "coordinates": {
+                  "latitude": 41.800115297636985, 
+                  "longitude": -6.760534511525725 
+                }
+              },
+              {
+                "number": "33 - U1",
+                "name": "Rua da República",
+                "coordinates": {
+                  "latitude": 41.80555711769424, 
+                  "longitude": -6.757395464371556 
+                }
+              },
+              {
+                "number": "34 - U1",
+                "name": "Av João da Cruz",
+                "coordinates": {
+                  "latitude": 41.807335231642284, 
+                  "longitude": -6.758408716027713 
+                }
+              },
+              {
+                "number": "35 - U1",
+                "name": "Av. das Cantarias 3",
+                "coordinates": {
+                  "latitude": 41.783369708486305, 
+                  "longitude": -6.77745491128847
+                }
+              }
+            ]
+          }
+        ] 
+    }
+] }

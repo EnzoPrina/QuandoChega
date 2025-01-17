@@ -9,11 +9,13 @@ import {
   Text,
 } from 'react-native';
 import { DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { FontAwesome } from '@expo/vector-icons';
 import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { AuthViewModel } from '../../src/viewmodels/AuthViewModel';
 import React from 'react';
+import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 
 export default function MainLayout() {
   const colorScheme = useColorScheme();
@@ -33,72 +35,107 @@ export default function MainLayout() {
   return (
     <>
       <Tabs
-        screenOptions={({ route }) => ({
-          tabBarStyle: [
-            styles.tabBar,
-            {
-              borderColor:
-                colorScheme === 'dark' ? DarkTheme.colors.card : DefaultTheme.colors.card,
-              backgroundColor:
-                colorScheme === 'dark' ? DarkTheme.colors.card : DefaultTheme.colors.card,
-            },
-          ],
-          tabBarActiveTintColor: '#5cb32b',
-          tabBarInactiveTintColor: colorScheme === 'dark' ? '#888' : '#555',
-          tabBarIcon: ({ color, size }) => {
-            let iconName: string;
+        screenOptions={({ route }) => {
+          const isMapView = route.name === 'mapView';
+          return {
+            tabBarStyle: [
+              styles.tabBar,
+              {
+                borderColor:
+                  colorScheme === 'dark'
+                    ? DarkTheme.colors.card
+                    : DefaultTheme.colors.card,
+                backgroundColor:
+                  colorScheme === 'dark'
+                    ? DarkTheme.colors.card
+                    : DefaultTheme.colors.card,
+              },
+            ],
+            tabBarShowLabel: false,
+            tabBarActiveTintColor: '#5cb32b',
+            tabBarInactiveTintColor: colorScheme === 'dark' ? '#888' : '#555',
+            tabBarIcon: ({ color, size, focused }) => {
+              let icon;
 
-            switch (route.name) {
-              case 'dashboard':
-                iconName = 'home';
-                break;
-              case 'lineasView':
-                iconName = 'bus';
-                break;
-              case 'mapView':
-                iconName = 'map-marker';
-                break;
-              default:
-                iconName = 'question-circle';
-                break;
-            }
-
-            return <FontAwesome name={iconName} size={size} color={color} />;
-          },
-          headerTransparent: true,
-          headerTitle: () => (
-            <Image
-              source={
-                colorScheme === 'dark'
-                  ? require('../../assets/images/Logo.png')
-                  : require('../../assets/images/LogoVerde.png')
+              switch (route.name) {
+                case 'dashboard':
+                  icon = <AntDesign name="home" size={28} color={color} />;
+                  break;
+                case 'lineasView':
+                  icon = (
+                    <FontAwesome6 name="timeline" size={28} color={color} />
+                    
+                  );
+                  break;
+                case 'mapView':
+                  icon = (
+                    <MaterialCommunityIcons
+                      name="bus-clock"
+                      size={32}
+                      color="#fff" // Icono blanco siempre
+                    />
+                  );
+                  break;
+                default:
+                  icon = (
+                    <MaterialCommunityIcons
+                      name="help-circle"
+                      size={32}
+                      color={color}
+                    />
+                  );
+                  break;
               }
-              style={styles.logo}
-              resizeMode="contain"
-            />
-          ),
-          headerTitleAlign: 'center',
-          headerLeft: () => (
-            <TouchableOpacity
-              style={styles.iconButton}
-              onPress={() => setInfoModalVisible(true)}
-            >
-              <FontAwesome name="info-circle" size={28} color={iconColor} />
-            </TouchableOpacity>
-          ),
-          headerRight: () => (
-            <TouchableOpacity
-              style={styles.iconButton}
-              onPress={() => setLogoutModalVisible(true)}
-            >
-              <FontAwesome name="power-off" size={28} color={iconColor} />
-            </TouchableOpacity>
-          ),
-        })}
+
+              return (
+                <View style={isMapView ? styles.mapIconWrapper : styles.iconWrapper}>
+                  {icon}
+                </View>
+              );
+            },
+            headerTransparent: true,
+            headerTitle: () => (
+              <Image
+                source={
+                  colorScheme === 'dark'
+                    ? require('../../assets/images/Logo.png')
+                    : require('../../assets/images/LogoVerde.png')
+                }
+                style={styles.logo}
+                resizeMode="contain"
+              />
+            ),
+            headerTitleAlign: 'center',
+            headerLeft: () => (
+              <TouchableOpacity
+                style={styles.iconButton}
+                onPress={() => setInfoModalVisible(true)}
+              >
+                <MaterialCommunityIcons
+                  name="information"
+                  size={28}
+                  color={iconColor}
+                />
+              </TouchableOpacity>
+            ),
+            headerRight: () => (
+              <TouchableOpacity
+                style={styles.iconButton}
+                onPress={() => setLogoutModalVisible(true)}
+              >
+                <MaterialCommunityIcons
+                  name="logout"
+                  size={28}
+                  color={iconColor}
+                />
+              </TouchableOpacity>
+            ),
+          };
+        }}
       >
-        <Tabs.Screen name="dashboard" options={{ title: 'Inicio' }} />
-        <Tabs.Screen name="lineasView" options={{ title: 'Líneas' }} />
-        <Tabs.Screen name="mapView" options={{ title: 'Mapa' }} />
+        <Tabs.Screen name="dashboard" options={{ title: '' }} />
+        <Tabs.Screen name="mapView" options={{ title: '' }} />
+        <Tabs.Screen name="lineasView" options={{ title: '' }} />
       </Tabs>
 
       {/* Modal de Información */}
@@ -185,10 +222,29 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     position: 'absolute',
+    paddingTop: 8,
     left: 10,
     right: 10,
     bottom: 30,
     height: 65,
+  },
+  iconWrapper: {
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  mapIconWrapper: {
+    width: 70,
+    height: 70,
+    borderRadius: 35,
+    backgroundColor: '#5cb32b',
+    justifyContent: 'center',
+    alignItems: 'center',
+    position: 'absolute',
+    bottom: -15,
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 4 },
+    shadowOpacity: 0.3,
+    shadowRadius: 5,
   },
   logo: {
     width: 180,
