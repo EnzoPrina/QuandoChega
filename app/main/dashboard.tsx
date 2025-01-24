@@ -80,6 +80,9 @@ export default function Index() {
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('mapView')}>
         <Text style={styles.buttonText}>Ver Mapas</Text>
       </TouchableOpacity>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('game')}>
+        <Text style={styles.buttonText}>Game</Text>
+      </TouchableOpacity>
 
       <View style={styles.adsContainer}>
         <Text style={styles.adsTitle}>Publicidades Locales</Text>
