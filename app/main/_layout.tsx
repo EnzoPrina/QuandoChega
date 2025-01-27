@@ -64,7 +64,6 @@ export default function MainLayout() {
                 case 'lineasView':
                   icon = (
                     <FontAwesome6 name="timeline" size={28} color={color} />
-                    
                   );
                   break;
                 case 'mapView':

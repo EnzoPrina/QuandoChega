@@ -84,6 +84,8 @@ export default function Index() {
         <Text style={styles.buttonText}>Game</Text>
       </TouchableOpacity>
 
+      
+
       <View style={styles.adsContainer}>
         <Text style={styles.adsTitle}>Publicidades Locales</Text>
         {loading ? (
