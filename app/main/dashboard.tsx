@@ -11,7 +11,6 @@ import {
   Linking,
 } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
-import { useFavoriteStops } from '../../src/context/FavoriteStopsContext';
 import { collection, onSnapshot } from 'firebase/firestore';
 import { db } from '../../src/data/firebaseConfig';
 
@@ -19,11 +18,10 @@ interface Ad {
   id: string;
   type: 'square' | 'vertical';
   imageUrl: string;
-  linkUrl?: string; // Nuevo campo para el enlace
+  linkUrl?: string;
 }
 
 export default function Index() {
-  const { favoritos, removeFavorito } = useFavoriteStops();
   const navigation = useNavigation();
   const scheme = useColorScheme();
   const styles = getStyles(scheme);
@@ -31,17 +29,16 @@ export default function Index() {
   const [ads, setAds] = useState<Ad[]>([]);
   const [loading, setLoading] = useState(true);
 
-  // Escucha cambios en las publicidades en Firebase Firestore
   useEffect(() => {
     const adsCollection = collection(db, 'ads');
-  
+
     const unsubscribe = onSnapshot(
       adsCollection,
       (snapshot) => {
         const adsList: Ad[] = snapshot.docs.map((doc) => ({
           id: doc.id,
           ...(doc.data() as Omit<Ad, 'id'>),
-          linkUrl: doc.data().link, // Mapear el campo 'link' a 'linkUrl'
+          linkUrl: doc.data().link,
         }));
         setAds(adsList);
         setLoading(false);
@@ -51,41 +48,42 @@ export default function Index() {
         setLoading(false);
       }
     );
-  
-    return () => unsubscribe(); // Limpia el listener al desmontar el componente
-  }, []);
 
-  const handleRemoveFavorite = (stopNumber: number) => {
-    removeFavorito(stopNumber);
-  };
+    return () => unsubscribe();
+  }, []);
 
   const handleAdPress = (linkUrl?: string) => {
     if (linkUrl) {
-      console.log('Intentando abrir enlace:', linkUrl);
       Linking.openURL(linkUrl).catch((err) =>
         console.error('Error al abrir el enlace:', err)
       );
-    } else {
-      console.log('El enlace está vacío o no existe.');
     }
   };
-  
 
   return (
     <View style={styles.container}>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('lineasView')}>
-        <Text style={styles.buttonText}>Ver Líneas</Text>
-      </TouchableOpacity>
+            {/* Botones con imágenes de DynoBus y BusBird */}
+            <Text style={styles.adsTitle}>Aproveite os nossos jogos!</Text>
+            <View style={styles.gamesContainer}>
+        <TouchableOpacity style={styles.gameButton} onPress={() => navigation.navigate('game')}>
+          <Image source={require('../../assets/images/2d/port2.png')} style={styles.gameImage} resizeMode="cover" />
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.gameButton} onPress={() => navigation.navigate('flappy')}>
+          <Image source={require('../../assets/images/2d/port1.png')} style={styles.gameImage} resizeMode="cover" />
+        </TouchableOpacity>
+      </View>
+      {/* Botones de Ver Líneas y Ver Mapas */}
+      <View style={styles.rowContainer}>
+        <TouchableOpacity style={styles.halfButton} onPress={() => navigation.navigate('lineasView')}>
+          <Text style={styles.buttonText}>Ver Líneas</Text>
+        </TouchableOpacity>
+        <TouchableOpacity style={styles.halfButton} onPress={() => navigation.navigate('mapView')}>
+          <Text style={styles.buttonText}>Ver Mapas</Text>
+        </TouchableOpacity>
+      </View>
 
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('mapView')}>
-        <Text style={styles.buttonText}>Ver Mapas</Text>
-      </TouchableOpacity>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('game')}>
-        <Text style={styles.buttonText}>Game</Text>
-      </TouchableOpacity>
 
-      
-
+      {/* Publicidades Locales */}
       <View style={styles.adsContainer}>
         <Text style={styles.adsTitle}>Publicidades Locales</Text>
         {loading ? (
@@ -95,42 +93,18 @@ export default function Index() {
             data={ads}
             keyExtractor={(item) => item.id}
             numColumns={2}
+            columnWrapperStyle={{ justifyContent: 'space-between' }}
             renderItem={({ item }) => (
               <TouchableOpacity
-                onPress={() => handleAdPress(item.linkUrl)} // Maneja el clic en la publicidad
-                style={[styles.adItem, item.type === 'vertical' ? styles.adVertical : styles.adSquare]}
+                onPress={() => handleAdPress(item.linkUrl)}
+                style={styles.adItem}
               >
-                <Image source={{ uri: item.imageUrl }} style={styles.adImage} resizeMode="cover" />
+                <Image source={{ uri: item.imageUrl }} style={styles.adImage} resizeMode="contain" />
               </TouchableOpacity>
             )}
           />
         ) : (
           <Text style={styles.noAdsText}>No hay publicidades disponibles.</Text>
-        )}
-      </View>
-
-      <View style={styles.favoritesContainer}>
-        <Text style={styles.favoritesTitle}>Paradas Favoritas</Text>
-        {favoritos.length > 0 ? (
-          <FlatList
-            data={favoritos}
-            keyExtractor={(item, index) =>
-              item.number ? item.number.toString() : `key-${index}-${Math.random()}`
-            }
-            renderItem={({ item }) => (
-              <View style={[styles.favoriteItem, { backgroundColor: item.color || '#ccc' }]}>
-                <Text style={styles.favoriteText}>
-                  {item.number ? `Parada ${item.number}` : 'Parada desconocida'} -{' '}
-                  {item.name || 'Sin nombre'} ({item.line || 'Sin línea'})
-                </Text>
-                <TouchableOpacity onPress={() => handleRemoveFavorite(item.number)}>
-                  <Text style={styles.removeButton}>🗑️</Text>
-                </TouchableOpacity>
-              </View>
-            )}
-          />
-        ) : (
-          <Text style={styles.noFavoritesText}>No hay paradas favoritas aún.</Text>
         )}
       </View>
     </View>
@@ -145,10 +119,15 @@ const getStyles = (scheme: 'light' | 'dark') =>
       backgroundColor: scheme === 'dark' ? '#333' : '#f5f5f5',
       paddingTop: 180,
     },
-    button: {
-      padding: 10,
+    rowContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 20,
+    },
+    halfButton: {
+      flex: 0.48,
+      padding: 15,
       backgroundColor: '#5cb32b',
-      marginBottom: 10,
       borderRadius: 5,
       alignItems: 'center',
     },
@@ -156,6 +135,21 @@ const getStyles = (scheme: 'light' | 'dark') =>
       color: '#fff',
       fontWeight: 'bold',
       fontSize: 18,
+    },
+    gamesContainer: {
+      flexDirection: 'row',
+      justifyContent: 'space-between',
+      marginBottom: 20,
+    },
+    gameButton: {
+      flex: 0.48,
+      aspectRatio: 1,
+      borderRadius: 10,
+      overflow: 'hidden',
+    },
+    gameImage: {
+      width: '100%',
+      height: '100%',
     },
     adsContainer: {
       marginVertical: 20,
@@ -172,50 +166,14 @@ const getStyles = (scheme: 'light' | 'dark') =>
       borderRadius: 10,
       overflow: 'hidden',
     },
-    adVertical: {
-      height: 200,
-    },
-    adSquare: {
-      height: 100,
-    },
     adImage: {
       width: '100%',
       height: '100%',
+      aspectRatio: 1,
     },
     noAdsText: {
       fontSize: 16,
       color: scheme === 'dark' ? '#fff' : '#000',
-      textAlign: 'center',
-    },
-    favoritesContainer: {
-      alignItems: 'center',
-      marginTop: 20,
-    },
-    favoritesTitle: {
-      fontSize: 22,
-      fontWeight: 'bold',
-      color: scheme === 'dark' ? '#fff' : '#000',
-      marginBottom: 10,
-    },
-    favoriteItem: {
-      flexDirection: 'row',
-      alignItems: 'center',
-      padding: 10,
-      marginBottom: 10,
-      borderRadius: 5,
-      justifyContent: 'space-between',
-    },
-    favoriteText: {
-      color: '#fff',
-      fontWeight: 'bold',
-    },
-    removeButton: {
-      fontSize: 20,
-      color: '#fff',
-    },
-    noFavoritesText: {
-      color: scheme === 'dark' ? '#232323' : '#000',
-      fontSize: 18,
       textAlign: 'center',
     },
   });

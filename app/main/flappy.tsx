@@ -14,8 +14,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import background from '../../assets/images/2d/background3.png';
 import autocarro from '../../assets/images/2d/autocarro.png';
-import pipeTop from '../../assets/images/2d/pipe_bottom.png';
-import pipeBottom from '../../assets/images/2d/pipe_top.png';
+import pipeTop from '../../assets/images/2d/pipe3.png';
+import pipeBottom from '../../assets/images/2d/pipe2.png';
 import gameover from '../../assets/images/2d/gameover-14.png';
 
 const { width, height } = Dimensions.get('window');
@@ -23,6 +23,8 @@ const BUS_SIZE = 40;
 const JUMP_HEIGHT = 8; // Altura de ascenso continuo
 const PIPE_WIDTH = 80;
 const PIPE_GAP = 190; // Espacio entre las dos tuberías
+const PIPE_MIN_Y = 120; // Altura mínima del hueco (distancia desde la parte superior)
+const PIPE_MAX_Y = height - PIPE_GAP - 120; // Altura máxima del hueco (distancia desde la parte inferior)
 const GRAVITY = 4; // Velocidad de caída por frame
 
 const FlappyGame = () => {
@@ -35,10 +37,8 @@ const FlappyGame = () => {
 
   const busPosition = useRef(new Animated.Value(height / 2)).current;
   const gravityInterval = useRef(null);
-  const jumpInterval = useRef(null);
+  const jumpInterval = useRef(null);   
 
-
-  
   useEffect(() => {
     const fetchHighScore = async () => {
       const storedHighScore = await AsyncStorage.getItem('highScore');
@@ -59,7 +59,7 @@ const FlappyGame = () => {
 
       // Generar nuevos tubos
       if (pipes.length === 0 || pipes[pipes.length - 1].x < width - 350) {
-        const gapStart = Math.random() * (height - PIPE_GAP - 200) + 100; // Posición del hueco
+        const gapStart = Math.random() * (PIPE_MAX_Y - PIPE_MIN_Y) + PIPE_MIN_Y; // Posición del hueco
         setPipes((prev) => [
           ...prev,
           { x: width, gapStart, id: Date.now() },
@@ -154,6 +154,7 @@ const FlappyGame = () => {
                   ...styles.pipe,
                   left: pipe.x,
                   bottom: height - pipe.gapStart,
+                  height: height - pipe.gapStart, // Ajusta para evitar partes flotantes
                 }}
               />
               <Image
@@ -162,6 +163,7 @@ const FlappyGame = () => {
                   ...styles.pipe,
                   left: pipe.x,
                   top: pipe.gapStart + PIPE_GAP,
+                  height: pipe.gapStart + PIPE_GAP, // Ajusta para evitar partes flotantes
                 }}
               />
             </React.Fragment>
@@ -216,8 +218,8 @@ const styles = StyleSheet.create({
     width: PIPE_WIDTH,
     resizeMode: 'stretch',
   },
-  score: { position: 'absolute', top: 40, left: 20, fontSize: 24, color: 'white' },
-  highScore: { position: 'absolute', top: 80, left: 20, fontSize: 20, color: 'yellow' },
+  score: { position: 'absolute', top: 120, left: 20, fontSize: 24, color: 'white' },
+  highScore: { position: 'absolute', top: 150, left: 20, fontSize: 20, color: 'yellow',fontWeight: '700' },
   gameOverContainer: {
     position: 'absolute',
     top: '20%',

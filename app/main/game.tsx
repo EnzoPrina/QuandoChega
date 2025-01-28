@@ -222,10 +222,10 @@ const GameScreen = () => {
 const styles = StyleSheet.create({
   container: { flex: 1, backgroundColor: '#87CEEB' },
   background: { position: 'absolute', height, width, resizeMode: 'stretch' },
-  bus: { position: 'absolute', width: BUS_WIDTH, height: BUS_HEIGHT, resizeMode: 'contain', left: 20 },
+  bus: { position: 'absolute', width: BUS_WIDTH, height: BUS_HEIGHT, resizeMode: 'contain', left: 20, },
   obstacle: { position: 'absolute', resizeMode: 'contain' },
-  score: { position: 'absolute', top: 40, left: 20, fontSize: 24, color: 'white' },
-  highScore: { position: 'absolute', top: 80, left: 20, fontSize: 20, color: 'yellow' },
+  score: { position: 'absolute', top: 120, left: 20, fontSize: 24, color: 'white' },
+  highScore: { position: 'absolute', top: 150, left: 20, fontSize: 20, color: 'yellow',fontWeight: '700'  },
   gameOverContainer: { position: 'absolute', top: '20%', left: '20%', right: '20%', alignItems: 'center' },
   gameOverImage: { width: 200, height: 200, resizeMode: 'contain' },
   finalScore: { fontSize: 20, color: 'white', marginTop: 20 },

@@ -14,8 +14,12 @@ import { useRouter } from 'expo-router';
 import { AuthViewModel } from '../../src/viewmodels/AuthViewModel';
 import React from 'react';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
+import Entypo from '@expo/vector-icons/Entypo';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
+import EvilIcons from '@expo/vector-icons/EvilIcons';
+import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 
 export default function MainLayout() {
   const colorScheme = useColorScheme();
@@ -63,7 +67,7 @@ export default function MainLayout() {
                   break;
                 case 'lineasView':
                   icon = (
-                    <FontAwesome6 name="timeline" size={28} color={color} />
+                    <EvilIcons name="location"  size={35} color={color}/>
                   );
                   break;
                 case 'mapView':
@@ -75,6 +79,18 @@ export default function MainLayout() {
                     />
                   );
                   break;
+
+                  case 'game':
+                    icon = (
+<FontAwesome name="gamepad" size={28} color={color} />
+                    );
+                    break;
+
+                    case 'flappy':
+                      icon = (
+                        <SimpleLineIcons name="game-controller" size={28} color={color}  />
+                      );
+                      break;
                 default:
                   icon = (
                     <MaterialCommunityIcons
@@ -132,9 +148,12 @@ export default function MainLayout() {
           };
         }}
       >
+                <Tabs.Screen name="mapView" options={{ title: '' }} />
         <Tabs.Screen name="dashboard" options={{ title: '' }} />
-        <Tabs.Screen name="mapView" options={{ title: '' }} />
+
         <Tabs.Screen name="lineasView" options={{ title: '' }} />
+        <Tabs.Screen name="flappy" options={{ title: '' }} />
+        <Tabs.Screen name="game" options={{ title: '' }} />
       </Tabs>
 
       {/* Modal de Información */}
@@ -221,7 +240,7 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowRadius: 5,
     position: 'absolute',
-    paddingTop: 8,
+    paddingTop: 12,
     left: 10,
     right: 10,
     bottom: 30,
@@ -232,9 +251,9 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   mapIconWrapper: {
-    width: 70,
-    height: 70,
-    borderRadius: 35,
+    width: 55,
+    height: 55,
+    borderRadius: 40,
     backgroundColor: '#5cb32b',
     justifyContent: 'center',
     alignItems: 'center',
