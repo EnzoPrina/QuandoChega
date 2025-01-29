@@ -1,17 +1,55 @@
-import React, { useState } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, FlatList } from 'react-native';
-import MapView, { Marker } from 'react-native-maps';
+import React, { useState, useEffect } from 'react';
+import { View, StyleSheet, Text, TouchableOpacity, FlatList, Alert } from 'react-native';
+import MapView, { Marker, Region } from 'react-native-maps';
+import * as Location from 'expo-location';
 import busStopsData from '../../src/data/busStops.json';
 
 const MapScreen = () => {
-  const [selectedCity, setSelectedCity] = useState("Bragança"); // Ciudad seleccionada
+  const [selectedCity, setSelectedCity] = useState("Bragança");
   const [selectedLine, setSelectedLine] = useState<string | null>(null);
   const [menuVisible, setMenuVisible] = useState(false);
+  const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
+  const [locationPermission, setLocationPermission] = useState<boolean | null>(null);
+  const [region, setRegion] = useState<Region>({
+    latitude: 41.805699,
+    longitude: -6.757322,
+    latitudeDelta: 0.05,
+    longitudeDelta: 0.05,
+  });
 
-  // Obtener las líneas y paradas de la ciudad seleccionada
+  useEffect(() => {
+    const getLocationPermission = async () => {
+      const { status } = await Location.requestForegroundPermissionsAsync();
+      if (status !== 'granted') {
+        setLocationPermission(false);
+        Alert.alert(
+          "Permiso Denegado",
+          "Para ver tu ubicación, ve a la configuración y activa los permisos de ubicación.",
+          [{ text: "OK" }]
+        );
+        return;
+      }
+      setLocationPermission(true);
+      const location = await Location.getCurrentPositionAsync({});
+      setUserLocation({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+      });
+      setRegion({
+        latitude: location.coords.latitude,
+        longitude: location.coords.longitude,
+        latitudeDelta: 0.02,
+        longitudeDelta: 0.02,
+      });
+    };
+    getLocationPermission();
+  }, []);
+
+  // Obtener datos de la ciudad seleccionada
   const cityData = busStopsData.cities.find((city: any) => city.name === selectedCity);
-
   const lines = cityData?.lines || [];
+
+  // Obtener todas las paradas de todas las líneas
   const allStops = lines.flatMap((line: any) =>
     line.stops.map((stop: any) => ({
       ...stop,
@@ -20,21 +58,24 @@ const MapScreen = () => {
     }))
   );
 
-  // Filtrar las paradas según la línea seleccionada
+  // Filtrar paradas visibles dentro del zoom del mapa
   const filteredStops = selectedLine
     ? allStops.filter((stop) => stop.line === selectedLine)
-    : allStops;
+    : allStops.filter(
+        (stop) =>
+          stop.coordinates.latitude >= region.latitude - region.latitudeDelta &&
+          stop.coordinates.latitude <= region.latitude + region.latitudeDelta &&
+          stop.coordinates.longitude >= region.longitude - region.longitudeDelta &&
+          stop.coordinates.longitude <= region.longitude + region.longitudeDelta
+      );
 
   return (
     <View style={styles.container}>
       <MapView
         style={styles.map}
-        initialRegion={{
-          latitude: 41.805699,
-          longitude: -6.757322,
-          latitudeDelta: 0.01,
-          longitudeDelta: 0.01,
-        }}
+        region={region}
+        onRegionChangeComplete={setRegion}
+        showsUserLocation={locationPermission === true}
       >
         {filteredStops.map((stop, index) => (
           <Marker
@@ -57,7 +98,7 @@ const MapScreen = () => {
         style={styles.fab}
         onPress={() => setMenuVisible((prev) => !prev)}
       >
-        <Text style={styles.fabIcon}>🚌</Text>
+        <Text style={styles.fabIcon}>{selectedLine ? selectedLine : "🚌"}</Text>
       </TouchableOpacity>
 
       {/* Menú desplegable */}
@@ -70,8 +111,8 @@ const MapScreen = () => {
               <TouchableOpacity
                 style={[styles.menuItem, { backgroundColor: item.color }]}
                 onPress={() => {
-                  setSelectedLine(item.line); // Seleccionar línea
-                  setMenuVisible(false); // Cerrar el menú automáticamente
+                  setSelectedLine(item.line);
+                  setMenuVisible(false);
                 }}
               >
                 <Text style={styles.menuItemText}>{item.line}</Text>
@@ -120,8 +161,9 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   fabIcon: {
-    fontSize: 30,
+    fontSize: 20,
     color: 'white',
+    fontWeight: 'bold',
   },
   menu: {
     position: 'absolute',

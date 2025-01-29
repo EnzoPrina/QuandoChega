@@ -161,7 +161,7 @@ function OnboardingScreen({ onFinish }) {
     {
       image: require('../assets/images/Principales-09.png'),
       message: 'Todos a olhar para o telemóvel... mas tu, pelo menos, sabes quando chega o teu autocarro. Orgulho de utilizador do QuandoChega! 😎',
-    },
+    }, 
     {
       image: require('../assets/images/Principales-10.png'),
       message: "Esperar pelo autocarro ou carregar o stress? Melhor deixa que o QuandoChega cuide disso por ti. As tuas costas vão agradecer! 💪😂",
@@ -277,6 +277,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   onboardingButton: {
+    marginTop:40,
     backgroundColor: '#5cb32b',
     width: '90%',
     paddingVertical: 15,

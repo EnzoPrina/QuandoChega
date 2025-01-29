@@ -44,7 +44,7 @@ export default function Index() {
         setLoading(false);
       },
       (error) => {
-        console.error('Error al escuchar cambios en las publicidades:', error);
+        console.error('Erro ao ouvir mudanças nos anúncios:', error);
         setLoading(false);
       }
     );
@@ -55,56 +55,62 @@ export default function Index() {
   const handleAdPress = (linkUrl?: string) => {
     if (linkUrl) {
       Linking.openURL(linkUrl).catch((err) =>
-        console.error('Error al abrir el enlace:', err)
+        console.error('Erro ao abrir o link:', err)
       );
     }
   };
 
   return (
     <View style={styles.container}>
-            {/* Botones con imágenes de DynoBus y BusBird */}
-            <Text style={styles.adsTitle}>Aproveite os nossos jogos!</Text>
-            <View style={styles.gamesContainer}>
-        <TouchableOpacity style={styles.gameButton} onPress={() => navigation.navigate('game')}>
-          <Image source={require('../../assets/images/2d/port2.png')} style={styles.gameImage} resizeMode="cover" />
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.gameButton} onPress={() => navigation.navigate('flappy')}>
-          <Image source={require('../../assets/images/2d/port1.png')} style={styles.gameImage} resizeMode="cover" />
-        </TouchableOpacity>
-      </View>
-      {/* Botones de Ver Líneas y Ver Mapas */}
-      <View style={styles.rowContainer}>
-        <TouchableOpacity style={styles.halfButton} onPress={() => navigation.navigate('lineasView')}>
-          <Text style={styles.buttonText}>Ver Líneas</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.halfButton} onPress={() => navigation.navigate('mapView')}>
-          <Text style={styles.buttonText}>Ver Mapas</Text>
-        </TouchableOpacity>
+      {/* Seção de Jogos */}
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Jogos Disponíveis</Text>
+        <View style={styles.gamesContainer}>
+          <TouchableOpacity style={styles.gameButton} onPress={() => navigation.navigate('game')}>
+            <Image source={require('../../assets/images/2d/port3.png')} style={styles.gameImage} resizeMode="cover" />
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.gameButton} onPress={() => navigation.navigate('flappy')}>
+            <Image source={require('../../assets/images/2d/port1.png')} style={styles.gameImage} resizeMode="cover" />
+          </TouchableOpacity>
+        </View>
       </View>
 
+      {/* Botões de Navegação */}
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Explorar</Text>
+        <View style={styles.rowContainer}>
+          <TouchableOpacity style={styles.halfButton} onPress={() => navigation.navigate('lineasView')}>
+            <Text style={styles.buttonText}>Ver Linhas</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.halfButton} onPress={() => navigation.navigate('mapView')}>
+            <Text style={styles.buttonText}>Ver Mapas</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
 
-      {/* Publicidades Locales */}
-      <View style={styles.adsContainer}>
-        <Text style={styles.adsTitle}>Publicidades Locales</Text>
+      {/* Separador */}
+      <View style={styles.divider} />
+
+      {/* Anúncios Locais */}
+      <View style={styles.sectionContainer}>
+        <Text style={styles.sectionTitle}>Anúncios Locais</Text>
         {loading ? (
           <ActivityIndicator size="large" color="#5cb32b" />
         ) : ads.length > 0 ? (
           <FlatList
             data={ads}
             keyExtractor={(item) => item.id}
-            numColumns={2}
-            columnWrapperStyle={{ justifyContent: 'space-between' }}
+            numColumns={2} // Organiza os anúncios em um grid de 2 colunas
+            columnWrapperStyle={styles.gridContainer}
+            showsVerticalScrollIndicator={false}
             renderItem={({ item }) => (
-              <TouchableOpacity
-                onPress={() => handleAdPress(item.linkUrl)}
-                style={styles.adItem}
-              >
-                <Image source={{ uri: item.imageUrl }} style={styles.adImage} resizeMode="contain" />
+              <TouchableOpacity onPress={() => handleAdPress(item.linkUrl)} style={styles.adItem}>
+                <Image source={{ uri: item.imageUrl }} style={styles.adImage} resizeMode="cover" />
               </TouchableOpacity>
             )}
           />
         ) : (
-          <Text style={styles.noAdsText}>No hay publicidades disponibles.</Text>
+          <Text style={styles.noAdsText}>Nenhum anúncio disponível.</Text>
         )}
       </View>
     </View>
@@ -117,12 +123,29 @@ const getStyles = (scheme: 'light' | 'dark') =>
       flex: 1,
       padding: 20,
       backgroundColor: scheme === 'dark' ? '#333' : '#f5f5f5',
-      paddingTop: 180,
+      paddingTop: 120,
+    },
+    sectionContainer: {
+      marginBottom: 25,
+      padding: 15,
+      borderRadius: 10,
+      backgroundColor: scheme === 'dark' ? '#444' : '#fff',
+      shadowColor: '#000',
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.1,
+      shadowRadius: 5,
+      elevation: 3,
+    },
+    sectionTitle: {
+      fontSize: 20,
+      fontWeight: 'bold',
+      color: scheme === 'dark' ? '#fff' : '#000',
+      marginBottom: 10,
+      textAlign: 'center',
     },
     rowContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 20,
     },
     halfButton: {
       flex: 0.48,
@@ -139,7 +162,6 @@ const getStyles = (scheme: 'light' | 'dark') =>
     gamesContainer: {
       flexDirection: 'row',
       justifyContent: 'space-between',
-      marginBottom: 20,
     },
     gameButton: {
       flex: 0.48,
@@ -151,29 +173,30 @@ const getStyles = (scheme: 'light' | 'dark') =>
       width: '100%',
       height: '100%',
     },
-    adsContainer: {
-      marginVertical: 20,
-    },
-    adsTitle: {
-      fontSize: 22,
-      fontWeight: 'bold',
-      color: scheme === 'dark' ? '#fff' : '#000',
-      marginBottom: 10,
+    gridContainer: {
+      justifyContent: 'space-between',
     },
     adItem: {
       flex: 1,
       margin: 5,
-      borderRadius: 10,
+      aspectRatio: 1,
+      borderRadius: 8, // Bordas arredondadas mínimas
       overflow: 'hidden',
+      backgroundColor: '#ddd',
     },
     adImage: {
       width: '100%',
       height: '100%',
-      aspectRatio: 1,
+      borderRadius: 8, // Bordas arredondadas mínimas
     },
     noAdsText: {
       fontSize: 16,
       color: scheme === 'dark' ? '#fff' : '#000',
       textAlign: 'center',
+    },
+    divider: {
+      height: 2,
+      backgroundColor: '#ccc',
+      marginVertical: 10,
     },
   });

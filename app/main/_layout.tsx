@@ -15,7 +15,7 @@ import { AuthViewModel } from '../../src/viewmodels/AuthViewModel';
 import React from 'react';
 import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
 import Entypo from '@expo/vector-icons/Entypo';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
+import FontAwesome from '@expo/vector-icons/FontAwesome';import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import EvilIcons from '@expo/vector-icons/EvilIcons';
@@ -67,7 +67,8 @@ export default function MainLayout() {
                   break;
                 case 'lineasView':
                   icon = (
-                    <EvilIcons name="location"  size={35} color={color}/>
+                    <MaterialIcons name="schedule" size={31} color={color}/>
+              
                   );
                   break;
                 case 'mapView':
