@@ -5,7 +5,7 @@ import {
   TouchableOpacity,
   StyleSheet,
   useColorScheme,
-  FlatList,
+  ScrollView,
   Image,
   ActivityIndicator,
   Linking,
@@ -65,24 +65,47 @@ export default function Index() {
       {/* Seção de Jogos */}
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitle}>Jogos Disponíveis</Text>
-        <View style={styles.gamesContainer}>
-          <TouchableOpacity style={styles.gameButton} onPress={() => navigation.navigate('game')}>
-            <Image source={require('../../assets/images/2d/port3.png')} style={styles.gameImage} resizeMode="cover" />
-          </TouchableOpacity>
-          <TouchableOpacity style={styles.gameButton} onPress={() => navigation.navigate('flappy')}>
-            <Image source={require('../../assets/images/2d/port1.png')} style={styles.gameImage} resizeMode="cover" />
-          </TouchableOpacity>
-        </View>
+        <ScrollView horizontal showsHorizontalScrollIndicator={false}>
+          <View style={styles.gamesContainer}>
+            <TouchableOpacity
+              style={styles.gameButton}
+              onPress={() => navigation.navigate('game')}
+            >
+              <Image
+                source={require('../../assets/images/2d/port3.png')}
+                style={styles.gameImage}
+                resizeMode="cover"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={styles.gameButton}
+              onPress={() => navigation.navigate('flappy')}
+            >
+              <Image
+                source={require('../../assets/images/2d/port1.png')}
+                style={styles.gameImage}
+                resizeMode="cover"
+              />
+            </TouchableOpacity>
+            {/* Agrega más juegos aquí en el futuro */}
+          </View>
+        </ScrollView>
       </View>
 
       {/* Botões de Navegação */}
       <View style={styles.sectionContainer}>
         <Text style={styles.sectionTitle}>Explorar</Text>
         <View style={styles.rowContainer}>
-          <TouchableOpacity style={styles.halfButton} onPress={() => navigation.navigate('lineasView')}>
+          <TouchableOpacity
+            style={styles.halfButton}
+            onPress={() => navigation.navigate('lineasView')}
+          >
             <Text style={styles.buttonText}>Ver Linhas</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.halfButton} onPress={() => navigation.navigate('mapView')}>
+          <TouchableOpacity
+            style={styles.halfButton}
+            onPress={() => navigation.navigate('mapView')}
+          >
             <Text style={styles.buttonText}>Ver Mapas</Text>
           </TouchableOpacity>
         </View>
@@ -97,18 +120,23 @@ export default function Index() {
         {loading ? (
           <ActivityIndicator size="large" color="#5cb32b" />
         ) : ads.length > 0 ? (
-          <FlatList
-            data={ads}
-            keyExtractor={(item) => item.id}
-            numColumns={2} // Organiza os anúncios em um grid de 2 colunas
-            columnWrapperStyle={styles.gridContainer}
-            showsVerticalScrollIndicator={false}
-            renderItem={({ item }) => (
-              <TouchableOpacity onPress={() => handleAdPress(item.linkUrl)} style={styles.adItem}>
-                <Image source={{ uri: item.imageUrl }} style={styles.adImage} resizeMode="cover" />
-              </TouchableOpacity>
-            )}
-          />
+          <ScrollView>
+            <View style={styles.gridContainer}>
+              {ads.map((item) => (
+                <TouchableOpacity
+                  key={item.id}
+                  onPress={() => handleAdPress(item.linkUrl)}
+                  style={styles.adItem}
+                >
+                  <Image
+                    source={{ uri: item.imageUrl }}
+                    style={styles.adImage}
+                    resizeMode="cover"
+                  />
+                </TouchableOpacity>
+              ))}
+            </View>
+          </ScrollView>
         ) : (
           <Text style={styles.noAdsText}>Nenhum anúncio disponível.</Text>
         )}
@@ -161,33 +189,34 @@ const getStyles = (scheme: 'light' | 'dark') =>
     },
     gamesContainer: {
       flexDirection: 'row',
-      justifyContent: 'space-between',
     },
     gameButton: {
-      flex: 0.48,
-      aspectRatio: 1,
+      width: 150,
+      height: 70,
       borderRadius: 10,
       overflow: 'hidden',
+      marginRight: 10,
     },
     gameImage: {
       width: '100%',
       height: '100%',
     },
     gridContainer: {
+      flexDirection: 'row',
+      flexWrap: 'wrap',
       justifyContent: 'space-between',
     },
     adItem: {
-      flex: 1,
-      margin: 5,
+      width: '48%',
       aspectRatio: 1,
-      borderRadius: 8, // Bordas arredondadas mínimas
+      borderRadius: 8,
       overflow: 'hidden',
       backgroundColor: '#ddd',
+      marginBottom: 10,
     },
     adImage: {
       width: '100%',
       height: '100%',
-      borderRadius: 8, // Bordas arredondadas mínimas
     },
     noAdsText: {
       fontSize: 16,
@@ -195,7 +224,7 @@ const getStyles = (scheme: 'light' | 'dark') =>
       textAlign: 'center',
     },
     divider: {
-      height: 2,
+      height: 1,
       backgroundColor: '#ccc',
       marginVertical: 10,
     },

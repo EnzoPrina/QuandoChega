@@ -9,6 +9,7 @@ import { FavoriteStopsProvider } from '../src/context/FavoriteStopsContext';
 // @ts-ignore
 import { FirebaseProvider } from '../src/context/FirebaseContext';
 import { useRouter } from 'expo-router';
+import admob from 'react-native-google-mobile-ads';
 
 export default function Layout() {
   return (
@@ -45,6 +46,7 @@ const AuthWrapper = () => {
     );
   }
 
+  console.log(admob);
   // Si no se está cargando y no hay usuario, sigue mostrando el Slot de navegación
   return <Slot />;
 };
