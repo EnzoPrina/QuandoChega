@@ -15,14 +15,14 @@ import { Ionicons } from '@expo/vector-icons';
 import { AuthContext } from '../src/context/AuthContext';
 import { useRouter } from 'expo-router';
 import { auth } from '../src/data/firebaseConfig';
-import { onAuthStateChanged, signInWithCredential, GoogleAuthProvider } from 'firebase/auth';
+import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 
 WebBrowser.maybeCompleteAuthSession();
 
 export default function App() {
-  const [showOnboarding, setShowOnboarding] = useState(true); // Controla si se muestra el onboarding
+  const [showOnboarding, setShowOnboarding] = useState(true);
   const { user, login } = useContext(AuthContext);
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
@@ -40,7 +40,7 @@ export default function App() {
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, user => {
       if (user) {
-        router.push('/dashboard');
+        router.push('/mapview');
       }
     });
     return () => unsubscribe();
@@ -48,7 +48,7 @@ export default function App() {
 
   useEffect(() => {
     if (user) {
-      router.replace('/main/dashboard');
+      router.replace('main/mapview');
     }
   }, [user, router]);
 
@@ -64,21 +64,25 @@ export default function App() {
 
   const handleLogin = async () => {
     if (!email || !password) {
-      setError('Por favor preencha todos os campos.');
+      setError('Por favor ingresa todos los campos.');
       return;
     }
 
-    const userResult = await login(email, password);
-    if (userResult) {
-      Alert.alert(
-        'Olá!',
-        `Bem-vindo ${userResult.email} a QuandoChega`,
-        [{ text: 'OK' }],
-        { cancelable: false }
-      );
-      router.push('/main/dashboard');
-    } else {
-      setError('Credenciales inválidas.');
+    try {
+      const userResult = await login(email, password);  // Llama al login del contexto
+      if (userResult) {
+        Alert.alert(
+          '¡Bienvenido!',
+          `Bienvenido ${userResult.email} a CuandoChega`,
+          [{ text: 'OK' }],
+          { cancelable: false }
+        );
+        router.push('/mapview');
+      } else {
+        setError('Credenciales inválidas.');
+      }
+    } catch (err) {
+      setError('Hubo un problema con el inicio de sesión. Intenta nuevamente.');
     }
   };
 
@@ -121,7 +125,7 @@ export default function App() {
           <View style={styles.passwordContainer}>
             <TextInput
               style={styles.input}
-              placeholder="Senha"
+              placeholder="Contraseña"
               secureTextEntry={!showPassword}
               placeholderTextColor="white"
               onChangeText={setPassword}
@@ -140,15 +144,15 @@ export default function App() {
             </TouchableOpacity>
           </View>
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
-            <Text style={styles.buttonText}>Iniciar Sessão</Text>
+            <Text style={styles.buttonText}>Iniciar sesión</Text>
           </TouchableOpacity>
           <TouchableOpacity style={styles.googleButton} onPress={handleGoogleLogin}>
             <Ionicons name="logo-google" size={24} color="#202020" />
-            <Text style={styles.googleButtonText}>Iniciar Sessão com Google</Text>
+            <Text style={styles.googleButtonText}>Iniciar sesión con Google</Text>
           </TouchableOpacity>
           {error && <Text style={styles.error}>{error}</Text>}
           <Text style={styles.registerText} onPress={goToRegister}>
-            Não tenho conta, registar-me
+            No tengo cuenta, regístrame
           </Text>
         </View>
       </ScrollView>
@@ -160,15 +164,15 @@ function OnboardingScreen({ onFinish }) {
   const slides = [
     {
       image: require('../assets/images/Principales-09.png'),
-      message: 'Todos a olhar para o telemóvel... mas tu, pelo menos, sabes quando chega o teu autocarro. Orgulho de utilizador do QuandoChega! 😎',
+      message: 'Todos a mirar el teléfono... pero tú sabes cuándo llega tu bus. Orgulloso de ser usuario de CuandoChega! 😎',
     }, 
     {
       image: require('../assets/images/Principales-10.png'),
-      message: "Esperar pelo autocarro ou carregar o stress? Melhor deixa que o QuandoChega cuide disso por ti. As tuas costas vão agradecer! 💪😂",
+      message: "Esperando el bus o cargando estrés? Deja que CuandoChega te ayude. ¡Tu espalda te lo agradecerá! 💪😂",
     },
     {
       image: require('../assets/images/cartao-17.png'),
-      message: "Ele tem tudo no bolso... literalmente! Cartão do Munícipe: mais do que um cartão, um companheiro. 💚🚞",
+      message: "Todo en tu bolsillo... literalmente. El Cartão do Munícipe: más que una tarjeta, ¡un compañero! 💚🚞",
     },
   ];
 
@@ -188,7 +192,7 @@ function OnboardingScreen({ onFinish }) {
       <Text style={styles.onboardingText}>{slides[currentSlide].message}</Text>
       <TouchableOpacity style={styles.onboardingButton} onPress={handleNext}>
         <Text style={styles.onboardingButtonText}>
-          {currentSlide === slides.length - 1 ? 'Começar' : 'Seguinte'}
+          {currentSlide === slides.length - 1 ? 'Comenzar' : 'Siguiente'}
         </Text>
       </TouchableOpacity>
     </View>
@@ -277,7 +281,7 @@ const styles = StyleSheet.create({
     marginBottom: 30,
   },
   onboardingButton: {
-    marginTop:40,
+    marginTop: 40,
     backgroundColor: '#5cb32b',
     width: '90%',
     paddingVertical: 15,
@@ -309,3 +313,4 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
+

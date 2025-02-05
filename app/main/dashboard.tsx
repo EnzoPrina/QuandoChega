@@ -104,7 +104,7 @@ export default function Index() {
           </TouchableOpacity>
           <TouchableOpacity
             style={styles.halfButton}
-            onPress={() => navigation.navigate('mapView')}
+            onPress={() => navigation.navigate('mapview')}
           >
             <Text style={styles.buttonText}>Ver Mapas</Text>
           </TouchableOpacity>

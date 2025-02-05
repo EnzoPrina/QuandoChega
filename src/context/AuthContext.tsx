@@ -1,9 +1,7 @@
 // src/context/AuthContext.tsx
-import  { createContext, useState, useEffect, ReactNode } from 'react';
-import { onAuthStateChanged, signOut as firebaseSignOut } from 'firebase/auth';
-// @ts-ignore
-import { auth } from '../data/firebaseConfig';
-import { AuthViewModel } from '../viewmodels/AuthViewModel';
+import React, { createContext, useState, useEffect, ReactNode } from 'react';
+import { onAuthStateChanged, signInWithEmailAndPassword, createUserWithEmailAndPassword, signOut as firebaseSignOut } from 'firebase/auth';
+import { auth } from '../data/firebaseConfig';  // Importa tu configuración de Firebase
 import { User } from '../models/UserModel';
 
 interface AuthContextProps {
@@ -42,8 +40,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const login = async (email: string, password: string): Promise<User | null> => {
     try {
-      const user = await AuthViewModel.login(email, password);
-      return user;
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const { email: userEmail, uid } = userCredential.user;
+      setUser({ email: userEmail ?? '', uid });
+      return { email: userEmail ?? '', uid };
     } catch (error) {
       console.error('Login error:', error);
       return null;
@@ -52,8 +52,10 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
 
   const register = async (email: string, password: string): Promise<User | null> => {
     try {
-      const user = await AuthViewModel.register(email, password);
-      return user;
+      const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+      const { email: userEmail, uid } = userCredential.user;
+      setUser({ email: userEmail ?? '', uid });
+      return { email: userEmail ?? '', uid };
     } catch (error) {
       console.error('Register error:', error);
       return null;
@@ -63,6 +65,7 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
   const logout = async (): Promise<void> => {
     try {
       await firebaseSignOut(auth);
+      setUser(null);
     } catch (error) {
       console.error('Logout error:', error);
     }

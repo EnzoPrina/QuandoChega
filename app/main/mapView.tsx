@@ -1,10 +1,17 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity, FlatList, Alert } from 'react-native';
+import { 
+  View, 
+  StyleSheet, 
+  Text, 
+  TouchableOpacity, 
+  FlatList, 
+  Alert 
+} from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
 import * as Location from 'expo-location';
 import busStopsData from '../../src/data/busStops.json';
 
-const MapScreen = () => {
+const MapViewScreen = () => {
   const [selectedCity, setSelectedCity] = useState("Bragança");
   const [selectedLine, setSelectedLine] = useState<string | null>(null);
   const [menuVisible, setMenuVisible] = useState(false);
@@ -60,13 +67,12 @@ const MapScreen = () => {
 
   // Filtrar paradas visibles dentro del zoom del mapa
   const filteredStops = selectedLine
-    ? allStops.filter((stop) => stop.line === selectedLine)
-    : allStops.filter(
-        (stop) =>
-          stop.coordinates.latitude >= region.latitude - region.latitudeDelta &&
-          stop.coordinates.latitude <= region.latitude + region.latitudeDelta &&
-          stop.coordinates.longitude >= region.longitude - region.longitudeDelta &&
-          stop.coordinates.longitude <= region.longitude + region.longitudeDelta
+    ? allStops.filter((stop: any) => stop.line === selectedLine)
+    : allStops.filter((stop: any) =>
+        stop.coordinates.latitude >= region.latitude - region.latitudeDelta &&
+        stop.coordinates.latitude <= region.latitude + region.latitudeDelta &&
+        stop.coordinates.longitude >= region.longitude - region.longitudeDelta &&
+        stop.coordinates.longitude <= region.longitude + region.longitudeDelta
       );
 
   return (
@@ -77,7 +83,7 @@ const MapScreen = () => {
         onRegionChangeComplete={setRegion}
         showsUserLocation={locationPermission === true}
       >
-        {filteredStops.map((stop, index) => (
+        {filteredStops.map((stop: any, index: number) => (
           <Marker
             key={`${stop.line}-${stop.number}-${index}`}
             coordinate={stop.coordinates}
@@ -96,7 +102,7 @@ const MapScreen = () => {
       {/* Botón flotante */}
       <TouchableOpacity
         style={styles.fab}
-        onPress={() => setMenuVisible((prev) => !prev)}
+        onPress={() => setMenuVisible(prev => !prev)}
       >
         <Text style={styles.fabIcon}>{selectedLine ? selectedLine : "🚌"}</Text>
       </TouchableOpacity>
@@ -106,8 +112,8 @@ const MapScreen = () => {
         <View style={styles.menu}>
           <FlatList
             data={lines}
-            keyExtractor={(item) => item.line}
-            renderItem={({ item }) => (
+            keyExtractor={(item: any) => item.line}
+            renderItem={({ item }: { item: any }) => (
               <TouchableOpacity
                 style={[styles.menuItem, { backgroundColor: item.color }]}
                 onPress={() => {
@@ -150,7 +156,7 @@ const styles = StyleSheet.create({
   },
   fab: {
     position: 'absolute',
-    bottom: 600,
+    bottom: 500,
     right: 20,
     width: 60,
     height: 60,
@@ -167,7 +173,7 @@ const styles = StyleSheet.create({
   },
   menu: {
     position: 'absolute',
-    bottom: 280,
+    bottom: 180,
     right: 20,
     backgroundColor: 'white',
     borderRadius: 10,
@@ -186,4 +192,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default MapScreen;
+export default MapViewScreen;

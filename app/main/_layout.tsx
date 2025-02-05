@@ -13,13 +13,11 @@ import { useState } from 'react';
 import { useRouter } from 'expo-router';
 import { AuthViewModel } from '../../src/viewmodels/AuthViewModel';
 import React from 'react';
-import FontAwesome6 from '@expo/vector-icons/FontAwesome6';
-import Entypo from '@expo/vector-icons/Entypo';
-import FontAwesome from '@expo/vector-icons/FontAwesome';import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import AntDesign from '@expo/vector-icons/AntDesign';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
-import EvilIcons from '@expo/vector-icons/EvilIcons';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
 
 export default function MainLayout() {
   const colorScheme = useColorScheme();
@@ -40,7 +38,7 @@ export default function MainLayout() {
     <>
       <Tabs
         screenOptions={({ route }) => {
-          const isMapView = route.name === 'mapView';
+          const isMapView = route.name === 'mapview';
           return {
             tabBarStyle: [
               styles.tabBar,
@@ -58,40 +56,32 @@ export default function MainLayout() {
             tabBarShowLabel: false,
             tabBarActiveTintColor: '#5cb32b',
             tabBarInactiveTintColor: colorScheme === 'dark' ? '#888' : '#555',
-            tabBarIcon: ({ color, size, focused }) => {
+            tabBarIcon: ({ color, size }) => {
               let icon;
-
               switch (route.name) {
                 case 'dashboard':
                   icon = <AntDesign name="home" size={28} color={color} />;
                   break;
                 case 'lineasView':
-                  icon = (
-                    <MaterialIcons name="schedule" size={31} color={color}/>
-              
-                  );
+                  icon = <MaterialIcons name="schedule" size={31} color={color} />;
                   break;
-                case 'mapView':
+                case 'mapview':
                   icon = (
                     <MaterialCommunityIcons
                       name="bus-clock"
                       size={32}
-                      color="#fff" // Icono blanco siempre
+                      color="#fff"
                     />
                   );
                   break;
-
-                  case 'game':
-                    icon = (
-<FontAwesome name="gamepad" size={28} color={color} />
-                    );
-                    break;
-
-                    case 'flappy':
-                      icon = (
-                        <SimpleLineIcons name="game-controller" size={28} color={color}  />
-                      );
-                      break;
+                case 'game':
+                  icon = <FontAwesome name="gamepad" size={28} color={color} />;
+                  break;
+                case 'flappy':
+                  icon = (
+                    <SimpleLineIcons name="game-controller" size={28} color={color} />
+                  );
+                  break;
                 default:
                   icon = (
                     <MaterialCommunityIcons
@@ -102,7 +92,6 @@ export default function MainLayout() {
                   );
                   break;
               }
-
               return (
                 <View style={isMapView ? styles.mapIconWrapper : styles.iconWrapper}>
                   {icon}
@@ -127,11 +116,7 @@ export default function MainLayout() {
                 style={styles.iconButton}
                 onPress={() => setInfoModalVisible(true)}
               >
-                <MaterialCommunityIcons
-                  name="information"
-                  size={28}
-                  color={iconColor}
-                />
+                <MaterialCommunityIcons name="information" size={28} color={iconColor} />
               </TouchableOpacity>
             ),
             headerRight: () => (
@@ -139,25 +124,24 @@ export default function MainLayout() {
                 style={styles.iconButton}
                 onPress={() => setLogoutModalVisible(true)}
               >
-                <MaterialCommunityIcons
-                  name="logout"
-                  size={28}
-                  color={iconColor}
-                />
+                <MaterialCommunityIcons name="logout" size={28} color={iconColor} />
               </TouchableOpacity>
             ),
           };
         }}
       >
-                <Tabs.Screen name="mapView" options={{ title: '' }} />
-        <Tabs.Screen name="dashboard" options={{ title: '' }} />
+        {/* Lista solo los screens que desees, sin duplicar si ya se auto-registran */}
+        {/* Si "mapview" ya existe como archivo en app/main, puedes omitir esta línea. */}
 
+        <Tabs.Screen name="mapview" options={{ title: '' }} />
+        <Tabs.Screen name="dashboard" options={{ title: '' }} />
         <Tabs.Screen name="lineasView" options={{ title: '' }} />
         <Tabs.Screen name="flappy" options={{ title: '' }} />
         <Tabs.Screen name="game" options={{ title: '' }} />
+
       </Tabs>
 
-      {/* Modal de Información */}
+      {/* Aquí se definen los modales */}
       <Modal
         visible={infoModalVisible}
         transparent={true}
@@ -172,13 +156,7 @@ export default function MainLayout() {
               resizeMode="contain"
             />
             <Text style={styles.modalText}>
-              O "Cartão do Munícipe" de Bragança é um cartão exclusivo para os
-              residentes do município que facilita o acesso a diversos serviços e
-              benefícios. Para obtê-lo, deve dirigir-se ao Balcão Único da Câmara
-              Municipal com os documentos necessários, como identificação e
-              comprovativo de residência. O processo é simples e visa oferecer
-              vantagens em serviços culturais, sociais e educativos, promovendo a
-              ligação entre os cidadãos e a comunidade local.
+              O "Cartão do Munícipe" de Bragança é um cartão exclusivo para os residentes do município que facilita o acesso a diversos serviços e benefícios.
             </Text>
             <TouchableOpacity
               style={styles.fullWidthButton}
@@ -190,7 +168,6 @@ export default function MainLayout() {
         </View>
       </Modal>
 
-      {/* Modal de Cierre de Sesión */}
       <Modal
         visible={logoutModalVisible}
         transparent={true}
@@ -206,9 +183,6 @@ export default function MainLayout() {
             />
             <Text style={styles.modalText}>¿Seguro que quieres cerrar sesión?</Text>
             <Text style={styles.modalSubText}>¡Te extrañaremos!</Text>
-            <Text style={styles.modalSubText}>
-              Si cierras sesión, perderás tu progreso y tendrás que iniciar sesión nuevamente.
-            </Text>
             <View style={styles.modalButtons}>
               <TouchableOpacity
                 style={styles.modalButton}
@@ -333,3 +307,5 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
 });
+
+export default MainLayout;

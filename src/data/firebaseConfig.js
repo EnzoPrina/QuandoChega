@@ -1,8 +1,10 @@
 // src/data/firebaseConfig.ts
 import { initializeApp } from "firebase/app";
 import { getAuth } from "firebase/auth";  // Importa 'getAuth' de Firebase
-import { getAnalytics } from "firebase/analytics";  // Importa 'getAnalytics' si usas Analytics
+import { getAnalytics, isSupported } from "firebase/analytics";  // Importa 'getAnalytics' si usas Analytics
 import { getFirestore } from "firebase/firestore";
+
+
 // Configuración de Firebase (asegúrate de que sea la correcta)
 const firebaseConfig = {
   apiKey: "AIzaSyBKLyw75tkmSaBSyizcNUFsgtP37R4G1Xw",
@@ -14,6 +16,14 @@ const firebaseConfig = {
   measurementId: "G-YPXN3PMFBB",
 };
 
+
+let analytics;
+isSupported().then((supported) => {
+  if (supported) {
+    analytics = getAnalytics(app);
+  }
+});
+
 // Inicializar Firebase
 const app = initializeApp(firebaseConfig);
 
@@ -21,7 +31,6 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
 // Inicializar Analytics si es necesario
-const analytics = getAnalytics(app);
 const db = getFirestore(app);
 export { db };
 
