@@ -4,76 +4,113 @@ import {
   StyleSheet, 
   Text, 
   TouchableOpacity, 
-  FlatList, 
-  Alert 
+  FlatList 
 } from 'react-native';
 import MapView, { Marker, Region } from 'react-native-maps';
-import * as Location from 'expo-location';
 import busStopsData from '../../src/data/busStops.json';
 
 const MapViewScreen = () => {
   const [selectedCity, setSelectedCity] = useState("Bragança");
-  const [selectedLine, setSelectedLine] = useState<string | null>(null);
+  const [selectedLine, setSelectedLine] = useState("U1");
   const [menuVisible, setMenuVisible] = useState(false);
-  const [userLocation, setUserLocation] = useState<{ latitude: number; longitude: number } | null>(null);
-  const [locationPermission, setLocationPermission] = useState<boolean | null>(null);
-  const [region, setRegion] = useState<Region>({
+  const [busPosition, setBusPosition] = useState(null);
+  const [region, setRegion] = useState({
     latitude: 41.805699,
     longitude: -6.757322,
     latitudeDelta: 0.05,
     longitudeDelta: 0.05,
   });
 
+  // Función auxiliar para convertir "HH:MM" a minutos después de la medianoche (incluyendo segundos en formato fraccional)
+  const parseTime = (timeStr) => {
+    const [hours, minutes] = timeStr.split(':').map(Number);
+    return hours * 60 + minutes;
+  };
+
   useEffect(() => {
-    const getLocationPermission = async () => {
-      const { status } = await Location.requestForegroundPermissionsAsync();
-      if (status !== 'granted') {
-        setLocationPermission(false);
-        Alert.alert(
-          "Permiso Denegado",
-          "Para ver tu ubicación, ve a la configuración y activa los permisos de ubicación.",
-          [{ text: "OK" }]
-        );
+    const timer = setInterval(() => {
+      const now = new Date();
+      // Convertir la hora actual a minutos (incluyendo segundos como fracción)
+      const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
+      
+      // Obtener la línea de la ciudad seleccionada
+      const cityData = busStopsData?.cities?.find(city => city.name === selectedCity);
+      const lineData = cityData?.lines?.find(line => line.line === selectedLine);
+      if (!lineData) return;
+      
+      const stops = lineData.stops;
+      if (!stops || stops.length === 0) return;
+      
+      // Suponemos que todas las paradas tienen el mismo número de horarios
+      const departuresCount = stops[0].schedules.length;
+      
+      // Buscar el índice del recorrido activo comparando el horario de la primera y última parada
+      let activeDepartureIndex = null;
+      for (let i = 0; i < departuresCount; i++) {
+        const startTime = parseTime(stops[0].schedules[i]);
+        const endTime = parseTime(stops[stops.length - 1].schedules[i]);
+        if (currentTimeInMinutes >= startTime && currentTimeInMinutes <= endTime) {
+          activeDepartureIndex = i;
+          break;
+        }
+      }
+      
+      // Si no se encontró recorrido activo, colocar el autobús en la primera o última parada según corresponda
+      if (activeDepartureIndex === null) {
+        if (currentTimeInMinutes < parseTime(stops[0].schedules[0])) {
+          setBusPosition(stops[0].coordinates);
+        } else {
+          setBusPosition(stops[stops.length - 1].coordinates);
+        }
         return;
       }
-      setLocationPermission(true);
-      const location = await Location.getCurrentPositionAsync({});
-      setUserLocation({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-      });
-      setRegion({
-        latitude: location.coords.latitude,
-        longitude: location.coords.longitude,
-        latitudeDelta: 0.02,
-        longitudeDelta: 0.02,
-      });
-    };
-    getLocationPermission();
-  }, []);
+      
+      // Encontrar entre qué dos paradas se encuentra el autobús
+      let segmentIndex = null;
+      for (let j = 0; j < stops.length - 1; j++) {
+        const timeA = parseTime(stops[j].schedules[activeDepartureIndex]);
+        const timeB = parseTime(stops[j + 1].schedules[activeDepartureIndex]);
+        if (currentTimeInMinutes >= timeA && currentTimeInMinutes <= timeB) {
+          segmentIndex = j;
+          break;
+        }
+      }
+      
+      // Si el autobús ya pasó la última parada del recorrido activo, mostrarlo en la última parada
+      if (segmentIndex === null) {
+        setBusPosition(stops[stops.length - 1].coordinates);
+        return;
+      }
+      
+      // Interpolar la posición entre la parada segmentIndex y segmentIndex+1
+      const timeA = parseTime(stops[segmentIndex].schedules[activeDepartureIndex]);
+      const timeB = parseTime(stops[segmentIndex + 1].schedules[activeDepartureIndex]);
+      const fraction = (currentTimeInMinutes - timeA) / (timeB - timeA);
+      
+      const coordA = stops[segmentIndex].coordinates;
+      const coordB = stops[segmentIndex + 1].coordinates;
+      
+      const interpolatedPosition = {
+        latitude: coordA.latitude + fraction * (coordB.latitude - coordA.latitude),
+        longitude: coordA.longitude + fraction * (coordB.longitude - coordA.longitude),
+      };
+      
+      setBusPosition(interpolatedPosition);
+    }, 1000); // Actualiza cada segundo
+    
+    return () => clearInterval(timer);
+  }, [selectedCity, selectedLine]);
 
-  // Obtener datos de la ciudad seleccionada
-  const cityData = busStopsData.cities.find((city: any) => city.name === selectedCity);
+  const cityData = busStopsData?.cities?.find(city => city.name === selectedCity);
   const lines = cityData?.lines || [];
-
-  // Obtener todas las paradas de todas las líneas
-  const allStops = lines.flatMap((line: any) =>
-    line.stops.map((stop: any) => ({
+  const allStops = lines.flatMap(line =>
+    line.stops.map(stop => ({
       ...stop,
       line: line.line,
       color: line.color,
     }))
   );
-
-  // Filtrar paradas visibles dentro del zoom del mapa
-  const filteredStops = selectedLine
-    ? allStops.filter((stop: any) => stop.line === selectedLine)
-    : allStops.filter((stop: any) =>
-        stop.coordinates.latitude >= region.latitude - region.latitudeDelta &&
-        stop.coordinates.latitude <= region.latitude + region.latitudeDelta &&
-        stop.coordinates.longitude >= region.longitude - region.longitudeDelta &&
-        stop.coordinates.longitude <= region.longitude + region.longitudeDelta
-      );
+  const filteredStops = allStops.filter(stop => stop.line === selectedLine);
 
   return (
     <View style={styles.container}>
@@ -81,9 +118,9 @@ const MapViewScreen = () => {
         style={styles.map}
         region={region}
         onRegionChangeComplete={setRegion}
-        showsUserLocation={locationPermission === true}
+        showsUserLocation={true}
       >
-        {filteredStops.map((stop: any, index: number) => (
+        {filteredStops.map((stop, index) => (
           <Marker
             key={`${stop.line}-${stop.number}-${index}`}
             coordinate={stop.coordinates}
@@ -97,23 +134,21 @@ const MapViewScreen = () => {
             </View>
           </Marker>
         ))}
+        {busPosition && (
+          <Marker coordinate={busPosition} title="Autobús en ruta">
+            <Text style={styles.busIcon}>🚌</Text>
+          </Marker>
+        )}
       </MapView>
-
-      {/* Botón flotante */}
-      <TouchableOpacity
-        style={styles.fab}
-        onPress={() => setMenuVisible(prev => !prev)}
-      >
+      <TouchableOpacity style={styles.fab} onPress={() => setMenuVisible(prev => !prev)}>
         <Text style={styles.fabIcon}>{selectedLine ? selectedLine : "🚌"}</Text>
       </TouchableOpacity>
-
-      {/* Menú desplegable */}
       {menuVisible && (
         <View style={styles.menu}>
           <FlatList
             data={lines}
-            keyExtractor={(item: any) => item.line}
-            renderItem={({ item }: { item: any }) => (
+            keyExtractor={(item) => item.line}
+            renderItem={({ item }) => (
               <TouchableOpacity
                 style={[styles.menuItem, { backgroundColor: item.color }]}
                 onPress={() => {
@@ -154,9 +189,12 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: 'bold',
   },
+  busIcon: {
+    fontSize: 30,
+  },
   fab: {
     position: 'absolute',
-    bottom: 500,
+    bottom: 420,
     right: 20,
     width: 60,
     height: 60,
@@ -173,7 +211,7 @@ const styles = StyleSheet.create({
   },
   menu: {
     position: 'absolute',
-    bottom: 180,
+    bottom: 150,
     right: 20,
     backgroundColor: 'white',
     borderRadius: 10,
