@@ -1,9 +1,12 @@
 // src/data/firebaseConfig.ts
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";  // Importa 'getAuth' de Firebase
-import { getAnalytics, isSupported } from "firebase/analytics";  // Importa 'getAnalytics' si usas Analytics
+import { 
+  initializeAuth, 
+  getReactNativePersistence 
+} from "firebase/auth";
+import ReactNativeAsyncStorage from "@react-native-async-storage/async-storage";
+import { getAnalytics, isSupported } from "firebase/analytics";
 import { getFirestore } from "firebase/firestore";
-
 
 // Configuración de Firebase (asegúrate de que sea la correcta)
 const firebaseConfig = {
@@ -16,7 +19,15 @@ const firebaseConfig = {
   measurementId: "G-YPXN3PMFBB",
 };
 
+// Inicializar Firebase
+const app = initializeApp(firebaseConfig);
 
+// Inicializar Auth con persistencia en React Native
+const auth = initializeAuth(app, {
+  persistence: getReactNativePersistence(ReactNativeAsyncStorage),
+});
+
+// Inicializar Analytics (si es compatible)
 let analytics;
 isSupported().then((supported) => {
   if (supported) {
@@ -24,21 +35,7 @@ isSupported().then((supported) => {
   }
 });
 
-// Inicializar Firebase
-const app = initializeApp(firebaseConfig);
-
-// Inicializar Auth
-const auth = getAuth(app);
-
-// Inicializar Analytics si es necesario
+// Inicializar Firestore
 const db = getFirestore(app);
-export { db };
 
-export { auth };  // Exporta 'auth' para usarlo en otros lugares
-
-
-
-
-
-
-
+export { db, auth };

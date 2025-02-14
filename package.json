@@ -54,7 +54,10 @@
     "react-native-web": "~0.19.13",
     "react-native-webview": "13.12.5",
     "undefined": "expo-auth-session/providers/google"
-  },
+  },"expo": {
+  "bridgeless": false
+}
+,
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@types/jest": "^29.5.12",

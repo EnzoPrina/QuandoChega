@@ -1,8 +1,7 @@
 // app/_layout.tsx
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { ActivityIndicator, View, StyleSheet } from 'react-native';
 import { Slot, useRouter } from 'expo-router';
-// Importa tus providers sin AdMob si ya lo desinstalaste
 import { AuthProvider, AuthContext } from '../src/context/AuthContext';
 import { FavoriteStopsProvider } from '../src/context/FavoriteStopsContext';
 import { FirebaseProvider } from '../src/context/FirebaseContext';
@@ -22,16 +21,24 @@ export default function Layout() {
 const AuthWrapper = () => {
   const { user, loading } = useContext(AuthContext);
   const router = useRouter();
+  const [mounted, setMounted] = useState(false);
+
+  // Esperamos a que el componente se monte
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   useEffect(() => {
-    if (!loading) {
+    if (mounted && !loading) {
+      // Si hay usuario, redirigimos al dashboard (archivo ubicado en app/main/dashboard.tsx)
       if (user) {
-        router.push('/mapview');
+        router.replace('/main/dashboard');
       } else {
-        router.push('/');
+        // Si no hay usuario, nos quedamos en la pantalla de login (ruta raíz '/')
+        router.replace('/');
       }
     }
-  }, [user, loading, router]);
+  }, [mounted, user, loading, router]);
 
   if (loading) {
     return (

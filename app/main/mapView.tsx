@@ -4,9 +4,10 @@ import {
   StyleSheet, 
   Text, 
   TouchableOpacity, 
-  FlatList 
+  FlatList,
+  Image
 } from 'react-native';
-import MapView, { Marker, Region } from 'react-native-maps';
+import MapView, { Marker } from 'react-native-maps';
 import busStopsData from '../../src/data/busStops.json';
 
 const MapViewScreen = () => {
@@ -21,19 +22,53 @@ const MapViewScreen = () => {
     longitudeDelta: 0.05,
   });
 
-  // Función auxiliar para convertir "HH:MM" a minutos después de la medianoche (incluyendo segundos en formato fraccional)
+  // Función auxiliar para convertir "HH:MM" a minutos después de la medianoche
   const parseTime = (timeStr) => {
     const [hours, minutes] = timeStr.split(':').map(Number);
     return hours * 60 + minutes;
   };
 
+  // Función para simular una ruta curvada (tipo Bézier) entre dos coordenadas,
+  // de forma que el autobús simule seguir las calles en vez de ir en línea recta.
+  const getCurvedPosition = (coordA, coordB, t) => {
+    // Punto medio entre A y B
+    const midPoint = {
+      latitude: (coordA.latitude + coordB.latitude) / 2,
+      longitude: (coordA.longitude + coordB.longitude) / 2,
+    };
+    // Vector de A a B
+    const dx = coordB.latitude - coordA.latitude;
+    const dy = coordB.longitude - coordA.longitude;
+    const distance = Math.sqrt(dx * dx + dy * dy);
+    // Calcular vector perpendicular (-dy, dx)
+    let perp = { latitude: -dy, longitude: dx };
+    const length = Math.sqrt(perp.latitude * perp.latitude + perp.longitude * perp.longitude);
+    if (length !== 0) {
+      perp = { latitude: perp.latitude / length, longitude: perp.longitude / length };
+    }
+    // Offset proporcional a la distancia (ajusta 0.1 para modificar la curvatura)
+    const offsetMagnitude = 0.1 * distance;
+    const controlPoint = {
+      latitude: midPoint.latitude + offsetMagnitude * perp.latitude,
+      longitude: midPoint.longitude + offsetMagnitude * perp.longitude,
+    };
+
+    // Interpolación cuadrática Bézier
+    const oneMinusT = 1 - t;
+    const latitude = oneMinusT * oneMinusT * coordA.latitude +
+                     2 * oneMinusT * t * controlPoint.latitude +
+                     t * t * coordB.latitude;
+    const longitude = oneMinusT * oneMinusT * coordA.longitude +
+                      2 * oneMinusT * t * controlPoint.longitude +
+                      t * t * coordB.longitude;
+    return { latitude, longitude };
+  };
+
   useEffect(() => {
     const timer = setInterval(() => {
       const now = new Date();
-      // Convertir la hora actual a minutos (incluyendo segundos como fracción)
       const currentTimeInMinutes = now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
       
-      // Obtener la línea de la ciudad seleccionada
       const cityData = busStopsData?.cities?.find(city => city.name === selectedCity);
       const lineData = cityData?.lines?.find(line => line.line === selectedLine);
       if (!lineData) return;
@@ -41,10 +76,8 @@ const MapViewScreen = () => {
       const stops = lineData.stops;
       if (!stops || stops.length === 0) return;
       
-      // Suponemos que todas las paradas tienen el mismo número de horarios
       const departuresCount = stops[0].schedules.length;
       
-      // Buscar el índice del recorrido activo comparando el horario de la primera y última parada
       let activeDepartureIndex = null;
       for (let i = 0; i < departuresCount; i++) {
         const startTime = parseTime(stops[0].schedules[i]);
@@ -55,7 +88,6 @@ const MapViewScreen = () => {
         }
       }
       
-      // Si no se encontró recorrido activo, colocar el autobús en la primera o última parada según corresponda
       if (activeDepartureIndex === null) {
         if (currentTimeInMinutes < parseTime(stops[0].schedules[0])) {
           setBusPosition(stops[0].coordinates);
@@ -65,7 +97,6 @@ const MapViewScreen = () => {
         return;
       }
       
-      // Encontrar entre qué dos paradas se encuentra el autobús
       let segmentIndex = null;
       for (let j = 0; j < stops.length - 1; j++) {
         const timeA = parseTime(stops[j].schedules[activeDepartureIndex]);
@@ -76,27 +107,23 @@ const MapViewScreen = () => {
         }
       }
       
-      // Si el autobús ya pasó la última parada del recorrido activo, mostrarlo en la última parada
       if (segmentIndex === null) {
         setBusPosition(stops[stops.length - 1].coordinates);
         return;
       }
       
-      // Interpolar la posición entre la parada segmentIndex y segmentIndex+1
       const timeA = parseTime(stops[segmentIndex].schedules[activeDepartureIndex]);
       const timeB = parseTime(stops[segmentIndex + 1].schedules[activeDepartureIndex]);
-      const fraction = (currentTimeInMinutes - timeA) / (timeB - timeA);
+      const t = (currentTimeInMinutes - timeA) / (timeB - timeA);
       
       const coordA = stops[segmentIndex].coordinates;
       const coordB = stops[segmentIndex + 1].coordinates;
       
-      const interpolatedPosition = {
-        latitude: coordA.latitude + fraction * (coordB.latitude - coordA.latitude),
-        longitude: coordA.longitude + fraction * (coordB.longitude - coordA.longitude),
-      };
+      // Obtener posición curvada para simular que el autobús sigue las calles
+      const interpolatedPosition = getCurvedPosition(coordA, coordB, t);
       
       setBusPosition(interpolatedPosition);
-    }, 1000); // Actualiza cada segundo
+    }, 1000);
     
     return () => clearInterval(timer);
   }, [selectedCity, selectedLine]);
@@ -135,8 +162,8 @@ const MapViewScreen = () => {
           </Marker>
         ))}
         {busPosition && (
-          <Marker coordinate={busPosition} title="Autobús en ruta">
-            <Text style={styles.busIcon}>🚌</Text>
+          <Marker coordinate={busPosition} title="Autobús en ruta" zIndex={1000}>
+            <Image source={require('../../assets/images/parada.png')} style={styles.busImage} />
           </Marker>
         )}
       </MapView>
@@ -189,8 +216,10 @@ const styles = StyleSheet.create({
     fontSize: 10,
     fontWeight: 'bold',
   },
-  busIcon: {
-    fontSize: 30,
+  busImage: {
+    width: 50,
+    height: 50,
+    resizeMode: 'contain',
   },
   fab: {
     position: 'absolute',

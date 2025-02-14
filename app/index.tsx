@@ -1,4 +1,5 @@
-import { useState, useContext, useEffect } from 'react';
+// app/index.tsx
+import React, { useState, useContext, useEffect } from 'react';
 import {
   View,
   Text,
@@ -15,7 +16,11 @@ import { Ionicons } from '@expo/vector-icons';
 import { AuthContext } from '../src/context/AuthContext';
 import { useRouter } from 'expo-router';
 import { auth } from '../src/data/firebaseConfig';
-import { onAuthStateChanged, signInWithEmailAndPassword } from 'firebase/auth';
+import {
+  signInWithEmailAndPassword,
+  GoogleAuthProvider,
+  signInWithCredential,
+} from 'firebase/auth';
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
 
@@ -28,35 +33,22 @@ export default function App() {
   const [password, setPassword] = useState('');
   const [error, setError] = useState('');
   const [showPassword, setShowPassword] = useState(false);
-
   const router = useRouter();
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId: 'TU_ANDROID_CLIENT_ID',
     iosClientId: 'TU_IOS_CLIENT_ID',
-    expoClientId: '886722290849-b8212ir309lfn3hjrmoeieoau4j88104.apps.googleusercontent.com',
+    expoClientId:
+      '886722290849-b8212ir309lfn3hjrmoeieoau4j88104.apps.googleusercontent.com',
   });
 
-  useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, user => {
-      if (user) {
-        router.push('/mapview');
-      }
-    });
-    return () => unsubscribe();
-  }, []);
-
-  useEffect(() => {
-    if (user) {
-      router.replace('main/mapview');
-    }
-  }, [user, router]);
+  // Se elimina el efecto onAuthStateChanged ya que la redirección se maneja en _layout.tsx
 
   useEffect(() => {
     if (response?.type === 'success') {
       const { id_token } = response.authentication;
       const credential = GoogleAuthProvider.credential(id_token);
-      signInWithCredential(auth, credential).catch(err =>
+      signInWithCredential(auth, credential).catch((err) =>
         setError('Error iniciando sesión con Google.')
       );
     }
@@ -69,7 +61,7 @@ export default function App() {
     }
 
     try {
-      const userResult = await login(email, password);  // Llama al login del contexto
+      const userResult = await login(email, password); // Llama al login definido en el contexto
       if (userResult) {
         Alert.alert(
           '¡Bienvenido!',
@@ -77,7 +69,8 @@ export default function App() {
           [{ text: 'OK' }],
           { cancelable: false }
         );
-        router.push('/mapview');
+        // Redirigimos a dashboard (ruta correcta: /main/dashboard)
+        router.replace('/main/dashboard');
       } else {
         setError('Credenciales inválidas.');
       }
@@ -146,9 +139,14 @@ export default function App() {
           <TouchableOpacity style={styles.button} onPress={handleLogin}>
             <Text style={styles.buttonText}>Iniciar sesión</Text>
           </TouchableOpacity>
-          <TouchableOpacity style={styles.googleButton} onPress={handleGoogleLogin}>
+          <TouchableOpacity
+            style={styles.googleButton}
+            onPress={handleGoogleLogin}
+          >
             <Ionicons name="logo-google" size={24} color="#202020" />
-            <Text style={styles.googleButtonText}>Iniciar sesión con Google</Text>
+            <Text style={styles.googleButtonText}>
+              Iniciar sesión con Google
+            </Text>
           </TouchableOpacity>
           {error && <Text style={styles.error}>{error}</Text>}
           <Text style={styles.registerText} onPress={goToRegister}>
@@ -160,19 +158,22 @@ export default function App() {
   );
 }
 
-function OnboardingScreen({ onFinish }) {
+function OnboardingScreen({ onFinish }: { onFinish: () => void }) {
   const slides = [
     {
       image: require('../assets/images/Principales-09.png'),
-      message: 'Todos a mirar el teléfono... pero tú sabes cuándo llega tu bus. Orgulloso de ser usuario de CuandoChega! 😎',
-    }, 
+      message:
+        'Todos a mirar el teléfono... pero tú sabes cuándo llega tu bus. Orgulloso de ser usuario de CuandoChega! 😎',
+    },
     {
       image: require('../assets/images/Principales-10.png'),
-      message: "Esperando el bus o cargando estrés? Deja que CuandoChega te ayude. ¡Tu espalda te lo agradecerá! 💪😂",
+      message:
+        "Esperando el bus o cargando estrés? Deja que CuandoChega te ayude. ¡Tu espalda te lo agradecerá! 💪😂",
     },
     {
       image: require('../assets/images/cartao-17.png'),
-      message: "Todo en tu bolsillo... literalmente. El Cartão do Munícipe: más que una tarjeta, ¡un compañero! 💚🚞",
+      message:
+        "Todo en tu bolsillo... literalmente. El Cartão do Munícipe: más que una tarjeta, ¡un compañero! 💚🚞",
     },
   ];
 
@@ -313,4 +314,3 @@ const styles = StyleSheet.create({
     marginLeft: 10,
   },
 });
-
