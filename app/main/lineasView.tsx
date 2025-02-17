@@ -8,6 +8,7 @@ import {
   Modal,
   Pressable,
   useColorScheme,
+  Image,
 } from "react-native";
 // @ts-ignore
 import { db } from "../../src/data/firebaseConfig";
@@ -20,9 +21,12 @@ export default function BusStopsApp() {
   const [selectedLine, setSelectedLine] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [expandedStops, setExpandedStops] = useState({});
+  // Estado para la simulación: índice de la parada en la que se encuentra el autobús
+  const [activeStopIndex, setActiveStopIndex] = useState(-1);
   const colorScheme = useColorScheme();
   const backgroundColor = colorScheme === "dark" ? "#202020" : "#f5f5f5";
 
+  // Obtención de datos desde Firebase (sin cambios)
   useEffect(() => {
     const unsubscribe = onSnapshot(collection(db, "ciudades"), (snapshot) => {
       const cityMap = {};
@@ -36,7 +40,6 @@ export default function BusStopsApp() {
         }
         cityMap[cityData.city].lines.push(cityData.line);
       });
-
       const groupedCities = Object.values(cityMap);
       setCities(groupedCities);
     });
@@ -59,6 +62,69 @@ export default function BusStopsApp() {
       [stopIndex]: !prev[stopIndex],
     }));
   };
+
+  // Función auxiliar: convierte "HH:MM" a minutos desde medianoche
+  const parseTime = (timeStr) => {
+    if (!timeStr || typeof timeStr !== "string") {
+      console.warn("parseTime recibió un valor inválido:", timeStr);
+      return 0;
+    }
+    const [hours, minutes] = timeStr.split(":").map(Number);
+    return hours * 60 + minutes;
+  };
+
+  // Devuelve la hora actual en minutos (incluyendo segundos fraccionales)
+  const getCurrentTimeInMinutes = () => {
+    const now = new Date();
+    return now.getHours() * 60 + now.getMinutes() + now.getSeconds() / 60;
+  };
+
+  // Efecto para simular en tiempo real el avance del autobús en la línea seleccionada
+  useEffect(() => {
+    let timer;
+    if (selectedLine && selectedLine.stops && selectedLine.stops.length > 0) {
+      timer = setInterval(() => {
+        const currentTime = getCurrentTimeInMinutes();
+
+        // Utilizamos los horarios de la primera parada para determinar qué salida (viaje) está activa
+        const firstStopSchedules = selectedLine.stops[0].schedules;
+        if (!firstStopSchedules || firstStopSchedules.length === 0) {
+          setActiveStopIndex(-1);
+          return;
+        }
+        let activeDeparture = null;
+        for (let i = 0; i < firstStopSchedules.length; i++) {
+          const t = parseTime(firstStopSchedules[i]);
+          if (
+            currentTime >= t &&
+            (i === firstStopSchedules.length - 1 ||
+              currentTime < parseTime(firstStopSchedules[i + 1]))
+          ) {
+            activeDeparture = i;
+            break;
+          }
+        }
+        if (activeDeparture === null) {
+          setActiveStopIndex(-1);
+        } else {
+          let index = -1;
+          selectedLine.stops.forEach((stop, i) => {
+            const scheduleValue = stop.schedules && stop.schedules[activeDeparture];
+            if (scheduleValue) {
+              const t = parseTime(scheduleValue);
+              if (currentTime >= t) {
+                index = i;
+              }
+            }
+          });
+          setActiveStopIndex(index);
+        }
+      }, 1000);
+    }
+    return () => {
+      if (timer) clearInterval(timer);
+    };
+  }, [selectedLine]);
 
   return (
     <View style={[styles.container, { backgroundColor }]}>
@@ -83,7 +149,6 @@ export default function BusStopsApp() {
             const lineColor = item.color.startsWith("#")
               ? item.color
               : `#${item.color}`;
-
             return (
               <TouchableOpacity
                 style={[styles.lineButton, { backgroundColor: lineColor }]}
@@ -116,30 +181,40 @@ export default function BusStopsApp() {
               const lineColor = selectedLine?.color.startsWith("#")
                 ? selectedLine.color
                 : `#${selectedLine.color}`;
-
               return (
-                <View>
+                <View key={index}>
                   <TouchableOpacity
-                    style={[
-                      styles.stopContainer,
-                      { backgroundColor: lineColor },
-                    ]}
+                    style={[styles.stopContainer, { backgroundColor: lineColor }]}
                     onPress={() =>
-                      item.schedules.length > 1 && toggleDropdown(index)
+                      // Solo permitimos expandir horarios en la primera parada
+                      index === 0 && item.schedules.length > 1 && toggleDropdown(index)
                     }
                   >
-                    <Text style={styles.stopText}>
-                      {item.stopNumber} {item.stopName}
-                    </Text>
-                    <Text style={styles.scheduleText}>
-                      {item.schedules.length > 1
-                        ? isExpanded
-                          ? "Ver horarios ↑"
-                          : "Horarios ↓"
-                        : item.schedules[0]}
-                    </Text>
+                    <View style={styles.stopInfo}>
+                      {activeStopIndex === index && (
+                        <Image
+                          source={require("../../assets/images/autobus.png")}
+                          style={styles.busImage}
+                        />
+                      )}
+                      <Text style={styles.stopText}>
+                        {item.stopNumber} {item.stopName}
+                      </Text>
+                    </View>
+                    {/* Solo se muestran los horarios en la primera parada */}
+                    {index === 0 && (
+                      <Text style={styles.scheduleText}>
+                        {item.schedules.length > 1
+                          ? isExpanded
+                            ? "Ver horarios ↑"
+                            : "Horarios ↓"
+                          : item.schedules[0]}
+                      </Text>
+                    )}
                   </TouchableOpacity>
-                  {isExpanded &&
+                  {/* Solo se muestran los horarios expandibles en la primera parada */}
+                  {index === 0 &&
+                    isExpanded &&
                     item.schedules.map((schedule, i) => (
                       <Text key={i} style={styles.expandedScheduleText}>
                         {schedule}
@@ -225,6 +300,10 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
   },
+  stopInfo: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
   stopText: {
     color: "#fff",
     fontSize: 16,
@@ -241,7 +320,13 @@ const styles = StyleSheet.create({
     marginVertical: 4,
     borderRadius: 8,
     fontSize: 14,
-    color: "#333",                                                                                    
+    color: "#333",
+  },
+  busImage: {
+    width: 24,
+    height: 24,
+    marginRight: 8,
+    resizeMode: "contain",
   },
   closeButton: {
     marginTop: 16,
