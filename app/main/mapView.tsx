@@ -76,6 +76,22 @@ const MapViewScreen = () => {
       const stops = lineData.stops;
       if (!stops || stops.length === 0) return;
       
+      // Si la primera parada no tiene schedules, usamos una simulación por defecto
+      if (!stops[0].schedules) {
+        // Suponemos que el autobús recorre la ruta en un periodo fijo (por ejemplo, 30 minutos)
+        const defaultDuration = 30; // en minutos
+        const fraction = (currentTimeInMinutes % defaultDuration) / defaultDuration;
+        const numSegments = stops.length - 1;
+        const segmentIndex = Math.floor(fraction * numSegments);
+        const segmentFraction = (fraction * numSegments) - segmentIndex;
+        const coordA = stops[segmentIndex].coordinates;
+        const coordB = stops[segmentIndex + 1].coordinates;
+        const interpolatedPosition = getCurvedPosition(coordA, coordB, segmentFraction);
+        setBusPosition(interpolatedPosition);
+        return;
+      }
+      
+      // Si existen schedules, se utiliza la simulación basada en ellos
       const departuresCount = stops[0].schedules.length;
       
       let activeDepartureIndex = null;
@@ -119,7 +135,6 @@ const MapViewScreen = () => {
       const coordA = stops[segmentIndex].coordinates;
       const coordB = stops[segmentIndex + 1].coordinates;
       
-      // Obtener posición curvada para simular que el autobús sigue las calles
       const interpolatedPosition = getCurvedPosition(coordA, coordB, t);
       
       setBusPosition(interpolatedPosition);

@@ -7,9 +7,10 @@ import {
   View,
   Modal,
   Text,
+  Switch,
 } from 'react-native';
 import { DefaultTheme, DarkTheme } from '@react-navigation/native';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { useRouter } from 'expo-router';
 import { AuthViewModel } from '../../src/viewmodels/AuthViewModel';
 import React from 'react';
@@ -18,15 +19,55 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
+import * as Notifications from 'expo-notifications';
+import * as Device from 'expo-device';
+
+async function registerForPushNotificationsAsync() {
+  let token;
+  if (Device.isDevice) {
+    const { status: existingStatus } = await Notifications.getPermissionsAsync();
+    let finalStatus = existingStatus;
+    if (existingStatus !== 'granted') {
+      const { status } = await Notifications.requestPermissionsAsync();
+      finalStatus = status;
+    }
+    if (finalStatus !== 'granted') {
+      alert('Falha ao obter permissões para notificações push!');
+      return;
+    }
+    token = (await Notifications.getExpoPushTokenAsync()).data;
+    console.log('Expo push token:', token);
+  } else {
+    alert('Deve usar um dispositivo físico para notificações push');
+  }
+  return token;
+}
+
+// Configura o comportamento das notificações quando a app está em primeiro plano
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: false,
+    shouldSetBadge: false,
+  }),
+});
 
 export default function MainLayout() {
   const colorScheme = useColorScheme();
   const [infoModalVisible, setInfoModalVisible] = useState(false);
   const [logoutModalVisible, setLogoutModalVisible] = useState(false);
+  const [settingsModalVisible, setSettingsModalVisible] = useState(false);
+  // Estados para alternar localização e notificações push
+  const [locationEnabled, setLocationEnabled] = useState(true);
+  const [pushEnabled, setPushEnabled] = useState(true);
   const router = useRouter();
 
+  useEffect(() => {
+    registerForPushNotificationsAsync();
+  }, []);
+
   const handleLogout = async () => {
-    console.log('Cerrando sesión...');
+    console.log('Encerrando sessão...');
     await AuthViewModel.logout();
     setLogoutModalVisible(false);
     router.push('/');
@@ -122,26 +163,22 @@ export default function MainLayout() {
             headerRight: () => (
               <TouchableOpacity
                 style={styles.iconButton}
-                onPress={() => setLogoutModalVisible(true)}
+                onPress={() => setSettingsModalVisible(true)}
               >
-                <MaterialCommunityIcons name="logout" size={28} color={iconColor} />
+                <MaterialCommunityIcons name="cog" size={28} color={iconColor} />
               </TouchableOpacity>
             ),
           };
         }}
       >
-        {/* Lista solo los screens que desees, sin duplicar si ya se auto-registran */}
-        {/* Si "mapview" ya existe como archivo en app/main, puedes omitir esta línea. */}
-
         <Tabs.Screen name="mapview" options={{ title: '' }} />
         <Tabs.Screen name="dashboard" options={{ title: '' }} />
         <Tabs.Screen name="lineasView" options={{ title: '' }} />
         <Tabs.Screen name="flappy" options={{ title: '' }} />
         <Tabs.Screen name="game" options={{ title: '' }} />
-
       </Tabs>
 
-      {/* Aquí se definen los modales */}
+      {/* Modal de Informação */}
       <Modal
         visible={infoModalVisible}
         transparent={true}
@@ -168,6 +205,54 @@ export default function MainLayout() {
         </View>
       </Modal>
 
+      {/* Modal de Configuração com UI melhorada */}
+      <Modal
+        visible={settingsModalVisible}
+        transparent={true}
+        animationType="fade"
+        onRequestClose={() => setSettingsModalVisible(false)}
+      >
+        <View style={styles.modalOverlay}>
+          <View style={styles.settingsModalContent}>
+            <Text style={styles.settingsTitle}>Configurações</Text>
+            <View style={styles.switchContainer}>
+              <Text style={styles.settingsText}>Ativar localização</Text>
+              <Switch
+                value={locationEnabled}
+                onValueChange={setLocationEnabled}
+                thumbColor={locationEnabled ? '#5cb32b' : '#f4f3f4'}
+                trackColor={{ false: '#767577', true: '#81b0ff' }}
+              />
+            </View>
+            <View style={styles.switchContainer}>
+              <Text style={styles.settingsText}>Ativar notificações push</Text>
+              <Switch
+                value={pushEnabled}
+                onValueChange={setPushEnabled}
+                thumbColor={pushEnabled ? '#5cb32b' : '#f4f3f4'}
+                trackColor={{ false: '#767577', true: '#81b0ff' }}
+              />
+            </View>
+            <TouchableOpacity
+              style={[styles.fullWidthButton, styles.logoutButton]}
+              onPress={() => {
+                setSettingsModalVisible(false);
+                setLogoutModalVisible(true);
+              }}
+            >
+              <Text style={styles.modalButtonText}>Encerrar sessão</Text>
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={[styles.fullWidthButton, { backgroundColor: '#5cb32b', marginTop: 10 }]}
+              onPress={() => setSettingsModalVisible(false)}
+            >
+              <Text style={styles.modalButtonText}>Fechar</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
+      </Modal>
+
+      {/* Modal de Logout */}
       <Modal
         visible={logoutModalVisible}
         transparent={true}
@@ -181,20 +266,22 @@ export default function MainLayout() {
               style={styles.modalImage}
               resizeMode="contain"
             />
-            <Text style={styles.modalText}>¿Seguro que quieres cerrar sesión?</Text>
-            <Text style={styles.modalSubText}>¡Te extrañaremos!</Text>
+            <Text style={styles.modalText}>
+              Tem a certeza de que deseja encerrar sessão?
+            </Text>
+            <Text style={styles.modalSubText}>Vamos sentir a sua falta!</Text>
             <View style={styles.modalButtons}>
               <TouchableOpacity
                 style={styles.modalButton}
                 onPress={() => setLogoutModalVisible(false)}
               >
-                <Text style={styles.modalButtonText}>Regresar</Text>
+                <Text style={styles.modalButtonText}>Regressar</Text>
               </TouchableOpacity>
               <TouchableOpacity
                 style={[styles.modalButton, { backgroundColor: '#d6130c' }]}
                 onPress={handleLogout}
               >
-                <Text style={styles.modalButtonText}>Cerrar sesión</Text>
+                <Text style={styles.modalButtonText}>Encerrar sessão</Text>
               </TouchableOpacity>
             </View>
           </View>
@@ -258,9 +345,39 @@ const styles = StyleSheet.create({
   modalContent: {
     backgroundColor: '#202020',
     padding: 20,
-    borderRadius: 10,
+    borderRadius: 15,
     width: '80%',
     alignItems: 'center',
+  },
+  settingsModalContent: {
+    backgroundColor: '#2c2c2c',
+    padding: 25,
+    borderRadius: 20,
+    width: '85%',
+    alignItems: 'center',
+    shadowColor: '#000',
+    shadowOffset: { width: 0, height: 6 },
+    shadowOpacity: 0.4,
+    shadowRadius: 10,
+  },
+  settingsTitle: {
+    color: 'white',
+    fontSize: 20,
+    fontWeight: 'bold',
+    marginBottom: 20,
+  },
+  switchContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    width: '100%',
+    alignItems: 'center',
+    borderBottomWidth: 1,
+    borderBottomColor: '#444',
+    paddingVertical: 10,
+  },
+  settingsText: {
+    color: 'white',
+    fontSize: 16,
   },
   modalImage: {
     width: 200,
@@ -280,11 +397,14 @@ const styles = StyleSheet.create({
     fontStyle: 'italic',
   },
   fullWidthButton: {
-    backgroundColor: '#5cb32b',
     paddingVertical: 15,
     borderRadius: 5,
     width: '100%',
     alignItems: 'center',
+  },
+  logoutButton: {
+    backgroundColor: 'red',
+    marginTop: 20,
   },
   modalButtonText: {
     color: '#fff',
